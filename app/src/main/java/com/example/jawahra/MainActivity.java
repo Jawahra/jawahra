@@ -1,4 +1,4 @@
-package com.example.tourismapp;
+package com.example.jawahra;
 
 import androidx.appcompat.app.AppCompatActivity;
 

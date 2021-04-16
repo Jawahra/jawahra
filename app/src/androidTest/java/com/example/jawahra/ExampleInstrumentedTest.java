@@ -1,4 +1,4 @@
-package com.example.tourismapp;
+package com.example.jawahra;
 
 import android.content.Context;
 
