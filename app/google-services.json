@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1009472547360",
+    "project_id": "jawahra-11652",
+    "storage_bucket": "jawahra-11652.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1009472547360:android:21ecfe277a5c2718f02a45",
+        "android_client_info": {
+          "package_name": "com.example.jawahra"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1009472547360-8qnb4puje4buvtcand53nullpkpdh8u0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1-G6U22c_6ZXqFh54ecsZ0-H3z47vjoc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1009472547360-8qnb4puje4buvtcand53nullpkpdh8u0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
