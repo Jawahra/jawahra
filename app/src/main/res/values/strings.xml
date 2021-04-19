@@ -2,10 +2,12 @@
     <string name="app_name">Jawahra</string>
     <string name="title_activity_main2">MainActivity</string>
 
-<!--    NAVIGATION TITLES   -->
+    <!--    NAVIGATION TITLES   -->
     <string name="title_home">Home</string>
     <string name="title_visit">Visit</string>
     <string name="title_events">Events</string>
     <string name="title_profile">Profile</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
