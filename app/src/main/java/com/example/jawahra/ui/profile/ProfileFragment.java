@@ -21,6 +21,9 @@ import com.example.jawahra.AuthActivity;
 import com.example.jawahra.LoginActivity;
 import com.example.jawahra.R;
 import com.example.jawahra.User;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -36,6 +39,7 @@ public class ProfileFragment extends Fragment {
     private FirebaseUser user;
     private DatabaseReference reference;
     private String userID;
+    private GoogleSignInClient gsi;
 
     private Button btn_logout;
 
@@ -44,11 +48,22 @@ public class ProfileFragment extends Fragment {
                              @Nullable Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
+        // Configure Google Sign In
+        GoogleSignInOptions gso = new GoogleSignInOptions
+                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        // Initialize sign in client
+        gsi = GoogleSignIn.getClient(getActivity(), gso);
+
         btn_logout = view.findViewById(R.id.btn_logout);
         btn_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
+                gsi.signOut();
                 startActivity(new Intent(getActivity(), LoginActivity.class));
             }
         });
