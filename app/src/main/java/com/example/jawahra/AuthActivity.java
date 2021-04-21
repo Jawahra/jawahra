@@ -124,9 +124,6 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
                                         // Go to homepage
                                         startActivity(new Intent(AuthActivity.this, MainActivity.class));
 
-                                    } else {
-                                        // Display text
-                                        Toast.makeText(AuthActivity.this, "Registration unsuccessful.", Toast.LENGTH_LONG).show();
                                     }
                                 }
                             });
