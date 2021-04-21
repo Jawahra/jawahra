@@ -1,44 +1,16 @@
 {
   "project_info": {
     "project_number": "208066597529",
+    "firebase_url": "https://jawahra-ec2e2-default-rtdb.firebaseio.com",
     "project_id": "jawahra-ec2e2",
     "storage_bucket": "jawahra-ec2e2.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:208066597529:android:86ddfed9a832bb5cddde08",
+        "mobilesdk_app_id": "1:208066597529:android:6dbc2193d5510c31ddde08",
         "android_client_info": {
           "package_name": "com.example.jawahra"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "208066597529-9dlrbdvdb0ca3i20lc198erif18vcvhs.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCb_wBJOibfRw950jlR6EKJ2XwZyIkTgNM"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "208066597529-9dlrbdvdb0ca3i20lc198erif18vcvhs.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:208066597529:android:73619e1c06aab9adddde08",
-        "android_client_info": {
-          "package_name": "con.example.jawahra"
         }
       },
       "oauth_client": [
