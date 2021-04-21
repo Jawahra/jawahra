@@ -21,8 +21,8 @@ import com.google.firebase.database.FirebaseDatabase;
 public class AuthActivity extends AppCompatActivity implements View.OnClickListener {
 
     private FirebaseAuth mAuth;
-    EditText input_username, input_email, input_password, input_confirm_password;
-    Button btn_sign_up, btn_existing_user;
+    EditText inputUsername, inputEmail, inputPassword, inputConfirmPassword;
+    Button btnSignUp, btnExistingUser;
 
 
     @Override
@@ -34,17 +34,17 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
         mAuth = FirebaseAuth.getInstance();
 
         // User input
-        input_username=findViewById(R.id.input_username);
-        input_email=findViewById(R.id.input_email);
-        input_password=findViewById(R.id.input_password);
-        input_confirm_password=findViewById(R.id.input_confirm_password);
+        inputUsername=findViewById(R.id.input_username);
+        inputEmail=findViewById(R.id.input_email);
+        inputPassword=findViewById(R.id.input_password);
+        inputConfirmPassword=findViewById(R.id.input_confirm_password);
 
         // Buttons
-        btn_existing_user=findViewById(R.id.btn_existing_user);
-        btn_existing_user.setOnClickListener(this);
+        btnExistingUser=findViewById(R.id.btn_existing_user);
+        btnExistingUser.setOnClickListener(this);
         
-        btn_sign_up=findViewById(R.id.btn_signup);
-        btn_sign_up.setOnClickListener(this);
+        btnSignUp=findViewById(R.id.btn_signup);
+        btnSignUp.setOnClickListener(this);
     }
 
     @Override
@@ -60,48 +60,48 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void registerUser() {
-        String username = input_username.getText().toString().trim();
-        String email = input_email.getText().toString().trim();
-        String password = input_password.getText().toString().trim();
-        String confirmPassword = input_confirm_password.getText().toString().trim();
+        String username = inputUsername.getText().toString().trim();
+        String email = inputEmail.getText().toString().trim();
+        String password = inputPassword.getText().toString().trim();
+        String confirmPassword = inputConfirmPassword.getText().toString().trim();
 
         // Checks if there is no input
         if(username.isEmpty()){
-            input_username.setError("Username is required!");
-            input_username.requestFocus();
+            inputUsername.setError("Username is required!");
+            inputUsername.requestFocus();
             return;
         } else if(email.isEmpty()){
-            input_email.setError("Email is required!");
-            input_email.requestFocus();
+            inputEmail.setError("Email is required!");
+            inputEmail.requestFocus();
             return;
         } else if(password.isEmpty()){
-            input_password.setError("Password is required!");
-            input_password.requestFocus();
+            inputPassword.setError("Password is required!");
+            inputPassword.requestFocus();
             return;
         } else if(confirmPassword.isEmpty()){
-            input_confirm_password.setError("Confirm password!");
-            input_confirm_password.requestFocus();
+            inputConfirmPassword.setError("Confirm password!");
+            inputConfirmPassword.requestFocus();
             return;
         }
 
         // Checks if email is valid
         if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            input_email.setError("Provide a valid email!");
-            input_email.requestFocus();
+            inputEmail.setError("Provide a valid email!");
+            inputEmail.requestFocus();
             return;
         }
 
         // Password must have more than 6 characters
         if(password.length() < 6){
-            input_password.setError("Minimum length should be 6 characters!");
-            input_password.requestFocus();
+            inputPassword.setError("Minimum length should be 6 characters!");
+            inputPassword.requestFocus();
             return;
         }
 
         // Verifies if password is written correctly
         if(!confirmPassword.equals(password)){
-            input_confirm_password.setError("Password does not match!");
-            input_confirm_password.requestFocus();
+            inputConfirmPassword.setError("Password does not match!");
+            inputConfirmPassword.requestFocus();
             return;
         }
 

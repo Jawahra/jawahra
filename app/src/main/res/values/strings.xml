@@ -21,5 +21,11 @@
     <string name="title_sign_up">Sign Up</string>
     <string name="title_new_user">New user? Create an account!</string>
     <string name="title_existing_user">Already have an account? Log in!</string>
+    <string name="title_google_login">Sign in with Google</string>
+    <string name="title_fb_login">Sign in with Facebook</string>
+
+    <string name="facebook_app_id">911184903013374</string>
+    <string name="fb_login_protocol_scheme">fb911184903013374</string>
+
 
 </resources>

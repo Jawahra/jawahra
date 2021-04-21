@@ -41,7 +41,7 @@ public class ProfileFragment extends Fragment {
     private String userID;
     private GoogleSignInClient gsi;
 
-    private Button btn_logout;
+    private Button btnLogout;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -58,8 +58,8 @@ public class ProfileFragment extends Fragment {
         // Initialize sign in client
         gsi = GoogleSignIn.getClient(getActivity(), gso);
 
-        btn_logout = view.findViewById(R.id.btn_logout);
-        btn_logout.setOnClickListener(new View.OnClickListener() {
+        btnLogout = view.findViewById(R.id.btn_logout);
+        btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
