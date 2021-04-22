@@ -20,8 +20,6 @@ import com.google.firebase.firestore.Query;
 
 public class VisitFragment extends Fragment {
 
-//    private VisitViewModel visitViewModel;
-
     private RecyclerView listEmirates;
     private FirestoreRecyclerAdapter adapter;
 
@@ -29,16 +27,6 @@ public class VisitFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_visit, container, false);
-
-        /*visitViewModel =
-                new ViewModelProvider(this).get(VisitViewModel.class);
-        final TextView textView = root.findViewById(R.id.text_visit);
-        visitViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });*/
 
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         listEmirates = root.findViewById(R.id.list_emirates);
@@ -68,7 +56,6 @@ public class VisitFragment extends Fragment {
         listEmirates.setHasFixedSize(true);
         listEmirates.setLayoutManager(new LinearLayoutManager(root.getContext()));
         listEmirates.setAdapter(adapter);
-
         return root;
     }
 
@@ -77,14 +64,20 @@ public class VisitFragment extends Fragment {
         private final TextView listName;
         public EmiratesViewHolder(@NonNull View itemView) {
             super(itemView);
-
             listName = itemView.findViewById(R.id.list_emirate_name);
 
-        }
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
+                }
+            });
+        }
         public TextView getView(){
             return listName;
         }
+
+
     }
 
     @Override
