@@ -15,19 +15,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.jawahra.R;
+import com.example.jawahra.ui.home.HomeViewModel;
 
 public class ProfileFragment extends Fragment {
 
     private ProfileViewModel profileViewModel;
 
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState){
-
-//        {return inflater.inflate(R.layout.fragment_profile, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
         profileViewModel =
                 new ViewModelProvider(this).get(ProfileViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_events, container, false);
+        View root = inflater.inflate(R.layout.fragment_profile, container, false);
         final TextView textView = root.findViewById(R.id.text_profile);
         profileViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
