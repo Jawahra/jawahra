@@ -18,6 +18,7 @@ import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -46,13 +47,12 @@ import java.util.Arrays;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener authStateListener;
 
     private EditText inputEmail, inputPassword;
     private Button btnLogin, btnNewAcc;
 
     private CallbackManager callbackManager;
-    private LoginButton btnFbLogin;
+    private Button btnFbLogin;
     private static final String TAG = "FacebookAuthentication";
     private static final String EMAIL = "email";
     private AccessTokenTracker accessTokenTracker;
@@ -101,39 +101,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         FacebookSdk.sdkInitialize(getApplicationContext());
 
         btnFbLogin = findViewById(R.id.btn_fb_login);
-        btnFbLogin.setReadPermissions(Arrays.asList(EMAIL));
+        btnFbLogin.setOnClickListener(this);
 
         callbackManager = CallbackManager.Factory.create();
-
-        btnFbLogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Log.d(TAG, "onSuccess" + loginResult);
-                handleFacebookToken(loginResult.getAccessToken());
-            }
-
-            @Override
-            public void onCancel() {
-                Log.d(TAG, "onCancel");
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                Log.d(TAG, "onError");
-            }
-        });
-
-        authStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if(user!=null){
-                    updateUI(user);
-                } else {
-                    updateUI(null);
-                }
-            }
-        };
 
         accessTokenTracker = new AccessTokenTracker() {
             @Override
@@ -143,6 +113,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
             }
         };
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        // Check if user is signed in (non-null) and update UI accordingly.
+        if(currentUser != null) {
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            updateUI(currentUser);
+        }
     }
 
     @Override
@@ -157,6 +140,26 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.btn_google_login:
                 Intent i = gsi.getSignInIntent();
                 startActivityForResult(i, RC_SIGN_IN);
+                break;
+            case R.id.btn_fb_login:
+                LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList(EMAIL));
+                LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        Log.d(TAG, "onSuccess" + loginResult);
+                        handleFacebookToken(loginResult.getAccessToken());
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        Log.d(TAG, "onCancel");
+                    }
+
+                    @Override
+                    public void onError(FacebookException error) {
+                        Log.d(TAG, "onError");
+                    }
+                });
                 break;
         }
     }
@@ -287,18 +290,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(authStateListener);
-    }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if(authStateListener!=null){
-            mAuth.removeAuthStateListener(authStateListener);
-        }
-    }
+
 
 }

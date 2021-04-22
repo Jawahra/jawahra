@@ -21,6 +21,7 @@ import com.example.jawahra.AuthActivity;
 import com.example.jawahra.LoginActivity;
 import com.example.jawahra.R;
 import com.example.jawahra.User;
+import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -34,9 +35,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ProfileFragment extends Fragment {
 
-    private ProfileViewModel profileViewModel;
-
     private FirebaseUser user;
+
     private DatabaseReference reference;
     private String userID;
     private GoogleSignInClient gsi;
@@ -47,6 +47,13 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        reference = FirebaseDatabase.getInstance().getReference("Users");
+        userID = user.getUid();
+
+        final TextView usernameText = view.findViewById(R.id.profile_name);
+        final TextView emailText = view.findViewById(R.id.profile_email);
 
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions
@@ -62,18 +69,15 @@ public class ProfileFragment extends Fragment {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                gsi.signOut();
+
+                FirebaseAuth.getInstance().signOut(); // Log out from email
+                gsi.signOut(); // Log out from Google
+                LoginManager.getInstance().logOut(); // Log out from Facebook
+
+                // Redirect to Login Activity
                 startActivity(new Intent(getActivity(), LoginActivity.class));
             }
         });
-
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        reference = FirebaseDatabase.getInstance().getReference("Users");
-        userID = user.getUid();
-
-        final TextView usernameText = view.findViewById(R.id.profile_name);
-        final TextView emailText = view.findViewById(R.id.profile_email);
 
         reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -95,17 +99,6 @@ public class ProfileFragment extends Fragment {
                 Toast.makeText(getActivity(), "There has been an error!", Toast.LENGTH_LONG).show();
             }
         });
-
-//        profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
-//        View root = inflater.inflate(R.layout.fragment_events, container, false);
-//        final TextView textView = root.findViewById(R.id.text_profile);
-//        profileViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
-//        return root;
 
         return view;
     }
