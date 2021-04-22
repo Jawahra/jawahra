@@ -7,29 +7,94 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jawahra.R;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 public class VisitFragment extends Fragment {
 
-    private VisitViewModel visitViewModel;
+//    private VisitViewModel visitViewModel;
+
+    private RecyclerView listEmirate;
+    private FirestoreRecyclerAdapter adapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        visitViewModel =
-                new ViewModelProvider(this).get(VisitViewModel.class);
+
         View root = inflater.inflate(R.layout.fragment_visit, container, false);
+
+        /*visitViewModel =
+                new ViewModelProvider(this).get(VisitViewModel.class);
         final TextView textView = root.findViewById(R.id.text_visit);
         visitViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
             }
-        });
+        });*/
+
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        listEmirate = root.findViewById(R.id.list_emirates);
+
+        //Query
+        Query query = firebaseFirestore.collection("emirate");
+
+        //RecyclerOptions
+        FirestoreRecyclerOptions<EmiratesModel> options = new FirestoreRecyclerOptions.Builder<EmiratesModel>()
+                .setQuery(query, EmiratesModel.class)
+                .build();
+
+        adapter = new FirestoreRecyclerAdapter<EmiratesModel, EmiratesViewHolder>(options) {
+            @NonNull
+            @Override
+            public EmiratesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_emirate, parent, false);
+                return new EmiratesViewHolder(view);
+            }
+
+            @Override
+            protected void onBindViewHolder(@NonNull EmiratesViewHolder holder, int position, @NonNull EmiratesModel model) {
+                holder.listName.setText(model.getEmirateName());
+            }
+        };
+
+        listEmirate.setHasFixedSize(true);
+        listEmirate.setLayoutManager(new LinearLayoutManager(root.getContext()));
+        listEmirate.setAdapter(adapter);
+
         return root;
+    }
+
+    private class EmiratesViewHolder extends RecyclerView.ViewHolder {
+
+        private final TextView listName;
+        public EmiratesViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            listName = itemView.findViewById(R.id.list_name);
+
+        }
+
+        public TextView getView(){
+            return listName;
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapter.stopListening();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
     }
 }

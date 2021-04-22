@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Jawahra</string>
-    <string name="title_activity_main2">MainActivity</string>
 
     <!--    NAVIGATION TITLES   -->
     <string name="title_home">Home</string>
