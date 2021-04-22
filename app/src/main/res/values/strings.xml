@@ -10,4 +10,25 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!--  LOG IN/SIGN IN TITLES  -->
+    <string name="title_welcome_message">Welcome</string>
+    <string name="title_welcome_back_message">Welcome back!</string>
+    <string name="title_email">Email</string>
+    <string name="title_pw">Password</string>
+    <string name="title_confirm_pw">Confirm Password</string>
+    <string name="title_user_name">Username</string>
+
+    <string name="title_log_in">Log In</string>
+    <string name="title_log_out">Log Out</string>
+    <string name="title_sign_up">Sign Up</string>
+    <string name="title_new_user">New user? Create an account!</string>
+    <string name="title_existing_user">Already have an account? Log in!</string>
+    <string name="title_google_login">Sign in with Google</string>
+    <string name="title_fb_login">Sign in with Facebook</string>
+
+    <string name="facebook_app_id">911184903013374</string>
+    <string name="fb_login_protocol_scheme">fb911184903013374</string>
+
+    <string name="title_settings">Settings</string>
+
 </resources>
