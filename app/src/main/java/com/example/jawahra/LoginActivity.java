@@ -7,6 +7,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -50,6 +51,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private EditText inputEmail, inputPassword;
     private Button btnLogin, btnNewAcc;
+    private TextView guestLogin;
 
     private CallbackManager callbackManager;
     private Button btnFbLogin;
@@ -81,6 +83,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // Sign Up Button
         btnNewAcc = findViewById(R.id.btn_new_acc);
         btnNewAcc.setOnClickListener(this);
+
+        // Guest Login
+        guestLogin = findViewById(R.id.guest_login);
+        guestLogin.setOnClickListener(this);
 
         // Sign in with Google
         btnGoogleLogin = findViewById(R.id.btn_google_login);
@@ -133,6 +139,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch (v.getId()){
             case R.id.btn_new_acc:
                 startActivity(new Intent(LoginActivity.this, AuthActivity.class));
+                break;
+            case R.id.guest_login:
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 break;
             case R.id.btn_login:
                 loginUser();

@@ -3,6 +3,7 @@ package com.example.jawahra.ui.profile;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.jawahra.AuthActivity;
 import com.example.jawahra.LoginActivity;
+import com.example.jawahra.MainActivity;
 import com.example.jawahra.R;
 import com.example.jawahra.User;
 import com.facebook.login.LoginManager;
@@ -35,25 +37,62 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ProfileFragment extends Fragment {
 
+    private View layoutLoggedIn, layoutGuest;
+    private int screen;
+    private static final int LOGGED = 0;
+    private static final int GUEST = 1;
+
     private FirebaseUser user;
 
     private DatabaseReference reference;
     private String userID;
     private GoogleSignInClient gsi;
 
-    private Button btnLogout;
+    private Button btnLogout, btnGuestLogin;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState){
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        View profile = inflater.inflate(R.layout.fragment_profile, container, false);
 
+        layoutLoggedIn = profile.findViewById(R.id.layout_logged_in);
+        layoutGuest = profile.findViewById(R.id.layout_guest);
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (currentUser != null) {
+            screen = LOGGED;
+            loggedIn(profile);
+        } else {
+            screen = GUEST;
+            guestSignedIn(profile);
+        }
+
+        renderScreen();
+
+        return profile;
+    }
+
+    private void guestSignedIn(View profile) {
+
+        btnGuestLogin=profile.findViewById(R.id.btn_guest_login);
+        btnGuestLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // Redirect to Login Activity
+                startActivity(new Intent(getActivity(), LoginActivity.class));
+            }
+        });
+    }
+
+    private void loggedIn(View profile) {
         user = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Users");
         userID = user.getUid();
 
-        final TextView usernameText = view.findViewById(R.id.profile_name);
-        final TextView emailText = view.findViewById(R.id.profile_email);
+        final TextView usernameText = profile.findViewById(R.id.profile_name);
+        final TextView emailText = profile.findViewById(R.id.profile_email);
 
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions
@@ -65,7 +104,7 @@ public class ProfileFragment extends Fragment {
         // Initialize sign in client
         gsi = GoogleSignIn.getClient(getActivity(), gso);
 
-        btnLogout = view.findViewById(R.id.btn_logout);
+        btnLogout = profile.findViewById(R.id.btn_logout);
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,6 +129,7 @@ public class ProfileFragment extends Fragment {
 
                     usernameText.setText(username);
                     emailText.setText(email);
+
                 }
 
             }
@@ -99,7 +139,11 @@ public class ProfileFragment extends Fragment {
                 Toast.makeText(getActivity(), "There has been an error!", Toast.LENGTH_LONG).show();
             }
         });
+    }
 
-        return view;
+
+    private void renderScreen() {
+        layoutLoggedIn.setVisibility(screen == LOGGED ? View.VISIBLE : View.GONE);
+        layoutGuest.setVisibility(screen == GUEST ? View.VISIBLE : View.GONE);
     }
 }
