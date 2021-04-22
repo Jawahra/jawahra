@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray_light"
     android:padding="20dp">
 
     <androidx.cardview.widget.CardView
@@ -12,33 +13,44 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:cardElevation="5dp"
-        android:layout_margin="5dp"
-        android:backgroundTint="#ccc">
+        app:cardCornerRadius="15dp"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="200dp"
             android:orientation="vertical"
-            android:padding="5dp">
+            android:background="@drawable/dubai_mall">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="15dp"
+                android:background="@drawable/image_shadow">
 
             <TextView
                 android:id="@+id/upcoming_places_emirate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/playfair_display"
                 android:text="Emirate"
                 android:textSize="18sp"
+                android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_above="@+id/upcoming_places_name"
+                />
 
             <TextView
                 android:id="@+id/upcoming_places_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/playfair_display_bold"
                 android:text="Name"
                 android:textSize="28sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
+                android:textColor="@color/white"
+                android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
