@@ -44,7 +44,7 @@ public class VisitFragment extends Fragment {
         listEmirates = root.findViewById(R.id.list_emirates);
 
         //Query
-        Query query = firebaseFirestore.collection("emirate");
+        Query query = firebaseFirestore.collection("emirates");
 
         //RecyclerOptions
         FirestoreRecyclerOptions<EmiratesModel> options = new FirestoreRecyclerOptions.Builder<EmiratesModel>()
@@ -78,7 +78,7 @@ public class VisitFragment extends Fragment {
         public EmiratesViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            listName = itemView.findViewById(R.id.list_name);
+            listName = itemView.findViewById(R.id.list_emirate_name);
 
         }
 
