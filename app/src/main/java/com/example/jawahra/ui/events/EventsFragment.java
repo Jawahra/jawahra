@@ -24,7 +24,6 @@ import java.util.Objects;
 
 public class EventsFragment extends Fragment {
 
-    private RecyclerView listUpcomingPlaces;
     private FirebaseFirestore firebaseFirestore;
     private FirestoreRecyclerAdapter adapter;
     FirestoreRecyclerOptions<UpcomingPlacesModel> options;
@@ -36,11 +35,14 @@ public class EventsFragment extends Fragment {
         firebaseFirestore = FirebaseFirestore.getInstance();
 
 
+//        Query to find right collection
         Query query = firebaseFirestore.collection("upcoming_places");
 
         options = new FirestoreRecyclerOptions.Builder<UpcomingPlacesModel>()
                 .setQuery(query, UpcomingPlacesModel.class)
                 .build();
+
+//        Initialise adapter when view is created
         setAdapterUpcomingPlaces();
 
         return view;
@@ -49,13 +51,16 @@ public class EventsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        listUpcomingPlaces = requireView().findViewById(R.id.list_upcoming_places);
+//        Hook variable to Recycler view
+        RecyclerView listUpcomingPlaces = requireView().findViewById(R.id.list_upcoming_places);
 
+//        Set layout manager and adapter after view is created
         listUpcomingPlaces.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         listUpcomingPlaces.setAdapter(adapter);
 
     }
 
+//    Function to initialise adapter
     private void setAdapterUpcomingPlaces() {
         adapter = new FirestoreRecyclerAdapter<UpcomingPlacesModel, UpcomingPlacesViewHolder>(options) {
             @NonNull
@@ -74,6 +79,7 @@ public class EventsFragment extends Fragment {
 
     }
 
+//          Contain data for recycler view
     private class UpcomingPlacesViewHolder extends RecyclerView.ViewHolder{
         private TextView listName, listEmirate;
 
