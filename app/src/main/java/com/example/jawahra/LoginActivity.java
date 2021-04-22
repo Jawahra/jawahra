@@ -40,6 +40,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 
+import java.util.Arrays;
+
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -52,6 +54,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private CallbackManager callbackManager;
     private LoginButton btnFbLogin;
     private static final String TAG = "FacebookAuthentication";
+    private static final String EMAIL = "email";
     private AccessTokenTracker accessTokenTracker;
 
     private SignInButtonImpl btnGoogleLogin;
@@ -98,7 +101,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         FacebookSdk.sdkInitialize(getApplicationContext());
 
         btnFbLogin = findViewById(R.id.btn_fb_login);
-        btnFbLogin.setReadPermissions("email", "public_profile");
+        btnFbLogin.setReadPermissions(Arrays.asList(EMAIL));
 
         callbackManager = CallbackManager.Factory.create();
 
