@@ -5,54 +5,74 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.events.EventsFragment"
-    android:background="#ccc"
-    android:padding="10dp">
+    android:background="@color/gray_light">
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:padding="10dp"
+        android:layout_height="270dp"
         app:cardCornerRadius="20dp"
+        app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="20dp">
+            android:background="@drawable/dubai_mall">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
 
-            <com.google.android.material.textview.MaterialTextView
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Place"
-                android:textSize="28sp" />
+                android:layout_height="match_parent"
+                android:background="@drawable/image_shadow"
+                android:padding="15dp"
+                >
 
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Tourist Spot of the Day"
-                android:textSize="20sp" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/highlight_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/highlight_text"
+                    android:fontFamily="@font/playfair_display_bold"
+                    android:text="Dubai Mall"
+                    android:textColor="@color/white"
+                    android:textSize="28sp" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Learn more..."
-                android:textSize="16sp" />
-        </LinearLayout>
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/highlight_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/highlight_link_learn_more"
+                    android:fontFamily="@font/playfair_display"
+                    android:text="Gem of the day"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/highlight_link_learn_more"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/playfair_display"
+                    android:text="@string/link_learn_more"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+
+            </RelativeLayout>
+        </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:padding="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -71,9 +91,11 @@
                 android:id="@+id/title_upcoming_places"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Upcoming Places"
+                android:fontFamily="@font/playfair_display_bold"
+                android:text="@string/title_upcoming_places"
                 android:textFontWeight="700"
                 android:textSize="28sp"
+                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -90,8 +112,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-
-                android:text="Upcoming Events"
+                android:textColor="@color/black"
+                android:fontFamily="@font/playfair_display_bold"
+                android:text="@string/title_upcoming_events"
                 android:textFontWeight="700"
                 android:textSize="28sp"
                 app:layout_constraintBottom_toBottomOf="parent"
