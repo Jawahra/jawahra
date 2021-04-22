@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jawahra.R;
+import com.example.jawahra.models.EmiratesModel;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -21,7 +22,7 @@ public class VisitFragment extends Fragment {
 
 //    private VisitViewModel visitViewModel;
 
-    private RecyclerView listEmirate;
+    private RecyclerView listEmirates;
     private FirestoreRecyclerAdapter adapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -40,7 +41,7 @@ public class VisitFragment extends Fragment {
         });*/
 
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-        listEmirate = root.findViewById(R.id.list_emirates);
+        listEmirates = root.findViewById(R.id.list_emirates);
 
         //Query
         Query query = firebaseFirestore.collection("emirate");
@@ -64,9 +65,9 @@ public class VisitFragment extends Fragment {
             }
         };
 
-        listEmirate.setHasFixedSize(true);
-        listEmirate.setLayoutManager(new LinearLayoutManager(root.getContext()));
-        listEmirate.setAdapter(adapter);
+        listEmirates.setHasFixedSize(true);
+        listEmirates.setLayoutManager(new LinearLayoutManager(root.getContext()));
+        listEmirates.setAdapter(adapter);
 
         return root;
     }

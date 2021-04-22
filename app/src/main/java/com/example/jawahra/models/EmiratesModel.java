@@ -1,4 +1,4 @@
-package com.example.jawahra.ui.visit;
+package com.example.jawahra.models;
 
 public class EmiratesModel {
 
