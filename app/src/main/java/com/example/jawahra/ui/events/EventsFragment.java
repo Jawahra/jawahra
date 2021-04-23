@@ -80,8 +80,9 @@ public class EventsFragment extends Fragment {
     }
 
 //          Contain data for recycler view
-    private class UpcomingPlacesViewHolder extends RecyclerView.ViewHolder{
-        private TextView listName, listEmirate;
+    private static class UpcomingPlacesViewHolder extends RecyclerView.ViewHolder{
+        private final TextView listName;
+    private final TextView listEmirate;
 
 
         public UpcomingPlacesViewHolder(@NonNull View itemView) {
