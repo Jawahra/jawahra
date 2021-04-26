@@ -18,3 +18,4 @@ public class EmiratesModel {
         this.emirateName = emirateName;
     }
 }
+

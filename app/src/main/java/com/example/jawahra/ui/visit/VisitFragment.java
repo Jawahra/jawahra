@@ -18,7 +18,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
-public class VisitFragment extends Fragment {
+public class VisitFragment extends Fragment{
 
     private RecyclerView listEmirates;
     private FirestoreRecyclerAdapter adapter;
@@ -59,7 +59,7 @@ public class VisitFragment extends Fragment {
         return root;
     }
 
-    private class EmiratesViewHolder extends RecyclerView.ViewHolder {
+    public class EmiratesViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView listName;
         public EmiratesViewHolder(@NonNull View itemView) {
@@ -69,15 +69,9 @@ public class VisitFragment extends Fragment {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                 }
             });
         }
-        public TextView getView(){
-            return listName;
-        }
-
-
     }
 
     @Override
