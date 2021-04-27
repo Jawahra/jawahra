@@ -1,7 +1,6 @@
 package com.example.jawahra.ui.events;
 
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +22,6 @@ import com.google.firebase.firestore.Query;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 
 public class EventsFragment extends Fragment {
@@ -96,8 +94,8 @@ public class EventsFragment extends Fragment {
 
             @Override
             protected void onBindViewHolder(@NonNull UpcomingPlacesViewHolder holder, int position, @NonNull UpcomingPlacesModel model) {
-                holder.listName.setText(model.getName());
-                holder.listEmirate.setText(model.getEmirate());
+                holder.placeName.setText(model.getPlaceName());
+                holder.placeEmirate.setText(model.getPlaceEmirate());
             }
         };
 
@@ -117,33 +115,32 @@ public class EventsFragment extends Fragment {
                 holder.eventEmirate.setText(model.getEventEmirate());
                 holder.eventName.setText(model.getEventName());
 
-//                Put this in function and add delay handler
+//                Set text of date TextView if variable is not null
                 if (model.getEventDate() != null){
                     String strEventDate = convertDateToString(model.getEventDate());
                     holder.eventDate.setText(strEventDate);
-
                 }
             }
         };
     }
 
+//    Function to convert date to string
     private String convertDateToString(Date date) {
-        DateFormat dateFormat = new SimpleDateFormat("hh:mm dd-MM-yyyy");
+        DateFormat dateFormat = new SimpleDateFormat("E, dd MMM yyyy | hh:mm aa");
         return dateFormat.format(date);
     }
 
 
     //          Contain data for recycler view
     private static class UpcomingPlacesViewHolder extends RecyclerView.ViewHolder{
-        private final TextView listName;
-    private final TextView listEmirate;
+        private final TextView placeName, placeEmirate;
 
 
         public UpcomingPlacesViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            listName = itemView.findViewById(R.id.upcoming_place_name);
-            listEmirate = itemView.findViewById(R.id.upcoming_place_emirate);
+            placeName = itemView.findViewById(R.id.upcoming_place_name);
+            placeEmirate = itemView.findViewById(R.id.upcoming_place_emirate);
         }
 
     }
