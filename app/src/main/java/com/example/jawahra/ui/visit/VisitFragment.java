@@ -8,12 +8,15 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jawahra.adapters.EmiratesAdapter;
 import com.example.jawahra.R;
 import com.example.jawahra.models.EmiratesModel;
+import com.example.jawahra.ui.PlacesFragment;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.SnapshotParser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -21,7 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.MetadataChanges;
 import com.google.firebase.firestore.Query;
 
-public class VisitFragment<config> extends Fragment implements EmiratesAdapter.OnListItemClick {
+public class VisitFragment extends Fragment implements EmiratesAdapter.OnListItemClick {
 
     private FirebaseFirestore firebaseFirestore;
     private RecyclerView listEmirates;
@@ -74,17 +77,22 @@ public class VisitFragment<config> extends Fragment implements EmiratesAdapter.O
 
     @Override
     public void OnItemClick(String myDocumentId) {
+        Log.d("CHECK_ID", "visit fragment, id received: " + myDocumentId);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("docID",myDocumentId);
+
+        Log.d("CHECK_ID", "bundle, id received" + bundle.getString("docID"));
+
+        PlacesFragment placesFragment = new PlacesFragment();
+        placesFragment.setArguments(bundle);
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_visit,placesFragment);
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
 
 
-
-//
-//        Log.d("ITEM_CLICK","CLICKED AN ITEM" + " and id: " + id);
-//        PlacesFragment placesFragment = new PlacesFragment();
-//        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.replace(R.id.fragment_visit,placesFragment);
-//        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-//        fragmentTransaction.addToBackStack(null);
-//        fragmentTransaction.commit();
     }
 }

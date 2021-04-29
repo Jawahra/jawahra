@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.PlacesFragment"
-    android:id="@+id/fragment_emirates">
+    android:id="@+id/fragment_places">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_places"

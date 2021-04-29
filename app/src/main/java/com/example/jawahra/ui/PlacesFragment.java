@@ -3,40 +3,88 @@ package com.example.jawahra.ui;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.jawahra.R;
+import com.example.jawahra.adapters.EmiratesAdapter;
 import com.example.jawahra.adapters.PlacesAdapter;
+import com.example.jawahra.models.PlacesModel;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
-public class PlacesFragment extends Fragment{
+public class PlacesFragment extends Fragment implements PlacesAdapter.OnListItemClick {
 
+    private FirebaseFirestore firebaseFirestore;
     private RecyclerView listPlaces;
     private PlacesAdapter adapter;
+    private String documentId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        //get bundle values
+        Bundle bundle = getArguments();
+        if(bundle != null){
+            documentId = bundle.getString("docID");
+            Log.d("CHECK_ID", "bundle, id  part2 " + bundle.getString("docID"));
+        }
 
+        // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_places, container, false);
         if (container != null) {
             container.removeAllViews();
         }
 
-        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        Log.d("CHECK_ID", "place fragment, id received: " + documentId);
+
+        firebaseFirestore = FirebaseFirestore.getInstance();
         listPlaces = root.findViewById(R.id.list_places);
 
-//        CollectionReference emirateRef = firebaseFirestore.collection("emirates").document();
+        //query
+        CollectionReference query = firebaseFirestore.collection("emirates")
+                .document(documentId)
+                .collection("places");
 
+        FirestoreRecyclerOptions<PlacesModel> options = new FirestoreRecyclerOptions.Builder<PlacesModel>()
+                .setQuery(query, PlacesModel.class)
+                .build();
 
+        Log.d("CHECK_ID", query.toString());
+
+        adapter = new PlacesAdapter(options, this);
+
+        listPlaces.setHasFixedSize(true);
+        listPlaces.setLayoutManager(new LinearLayoutManager(root.getContext()));
+        listPlaces.setAdapter(adapter);
         return root;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapter.stopListening();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+
+    @Override
+    public void OnItemClick(String myDocumentId) {
+
     }
 }
 
