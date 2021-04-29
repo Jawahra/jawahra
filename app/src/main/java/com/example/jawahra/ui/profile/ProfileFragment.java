@@ -37,10 +37,11 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ProfileFragment extends Fragment {
 
-    private View layoutLoggedIn, layoutGuest;
+    private View layoutLoggedIn, layoutSettings, layoutGuest;
     private int screen;
     private static final int LOGGED = 0;
-    private static final int GUEST = 1;
+    private static final int SETTINGS = 1;
+    private static final int GUEST = 2;
 
     private FirebaseUser user;
 
@@ -48,7 +49,7 @@ public class ProfileFragment extends Fragment {
     private String userID;
     private GoogleSignInClient gsi;
 
-    private Button btnLogout, btnGuestLogin;
+    private TextView btnLogout, btnGuestLogin, btnSettings;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -56,6 +57,7 @@ public class ProfileFragment extends Fragment {
         View profile = inflater.inflate(R.layout.fragment_profile, container, false);
 
         layoutLoggedIn = profile.findViewById(R.id.layout_logged_in);
+        layoutSettings = profile.findViewById(R.id.layout_user_settings);
         layoutGuest = profile.findViewById(R.id.layout_guest);
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -87,10 +89,6 @@ public class ProfileFragment extends Fragment {
     }
 
     private void loggedIn(View profile) {
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        reference = FirebaseDatabase.getInstance().getReference("Users");
-        userID = user.getUid();
-
         final TextView usernameText = profile.findViewById(R.id.profile_name);
         final TextView emailText = profile.findViewById(R.id.profile_email);
 
@@ -118,6 +116,26 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        btnSettings = profile.findViewById(R.id.btn_settings);
+        btnSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                screen = SETTINGS;
+                final TextView usernameText = profile.findViewById(R.id.profile_name2);
+                final TextView emailText = profile.findViewById(R.id.profile_email2);
+                updateUI(usernameText, emailText);
+                renderScreen();
+            }
+        });
+
+        updateUI(usernameText, emailText);
+    }
+
+    private void updateUI(TextView usernameText, TextView emailText) {
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        reference = FirebaseDatabase.getInstance().getReference("Users");
+        userID = user.getUid();
+
         reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -141,9 +159,9 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-
     private void renderScreen() {
         layoutLoggedIn.setVisibility(screen == LOGGED ? View.VISIBLE : View.GONE);
+        layoutSettings.setVisibility(screen == SETTINGS ? View.VISIBLE : View.GONE);
         layoutGuest.setVisibility(screen == GUEST ? View.VISIBLE : View.GONE);
     }
 }

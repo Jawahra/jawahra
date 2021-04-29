@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--  USER PROFILE  -->
+    <style name="user_card">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_margin">15dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="cardCornerRadius">10dp</item>
+    </style>
+
+    <style name="user_card_text">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:paddingTop">100dp</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="btn_text">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+</resources>

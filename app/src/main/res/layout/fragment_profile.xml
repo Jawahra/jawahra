@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context=".ui.profile.ProfileFragment">
 
     <FrameLayout
@@ -16,54 +15,55 @@
             android:id="@+id/layout_logged_in"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="invisible">
+            tools:visibility="gone">
 
-            <ImageView
-                android:id="@+id/profile_img"
-                android:layout_width="170dp"
-                android:layout_height="160dp"
-                android:contentDescription="@string/title_profile"
+            <RelativeLayout
+                android:id="@+id/profile_user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias=".5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/com_facebook_profile_picture_blank_square" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/profile_img"
+                    android:layout_width="170dp"
+                    android:layout_height="160dp"
+                    android:layout_centerHorizontal="true"
+                    android:contentDescription="@string/title_profile"
+                    app:srcCompat="@drawable/com_facebook_profile_picture_blank_square" />
+
+                <TextView
+                    android:id="@+id/profile_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/profile_name"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/title_email" />
+
+                <TextView
+                    android:id="@+id/profile_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/profile_img"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/title_user_name"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
 
             <TextView
-                android:id="@+id/profile_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="@string/title_user_name"
-                android:textSize="24sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profile_img" />
-
-            <TextView
-                android:id="@+id/profile_email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/title_email"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias=".5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profile_name" />
-
-            <Button
                 android:id="@+id/btn_settings"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                style="@style/btn_text"
                 android:text="@string/title_settings"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
-            <Button
+            <TextView
                 android:id="@+id/btn_logout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/btn_text"
                 android:text="@string/title_log_out"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -73,18 +73,16 @@
                 android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginHorizontal="10dp"
+                android:background="@drawable/bottom_border"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profile_email">
+                app:layout_constraintTop_toBottomOf="@+id/profile_user">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/protocols_covid"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1">
+                    style="@style/user_card">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -92,11 +90,8 @@
 
                         <TextView
                             android:id="@+id/textView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
+                            style="@style/user_card_text"
                             android:text="Covid-19 Protocols"
-                            android:textSize="24sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent" />
 
@@ -106,21 +101,16 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/profile_fav"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1">
+                    style="@style/user_card">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
+                            android:id="@+id/fav_title"
+                            style="@style/user_card_text"
                             android:text="Favorites"
-                            android:textSize="24sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent" />
 
@@ -132,11 +122,84 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <!-- Profile: User settings -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_user_settings"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/profile_user2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:background="@drawable/bottom_border"
+                android:paddingBottom="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/profile_img2"
+                    android:layout_width="170dp"
+                    android:layout_height="160dp"
+                    android:layout_centerHorizontal="true"
+                    android:contentDescription="@string/title_profile"
+                    app:srcCompat="@drawable/com_facebook_profile_picture_blank_square" />
+
+                <TextView
+                    android:id="@+id/profile_email2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/profile_name2"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/title_email" />
+
+                <TextView
+                    android:id="@+id/profile_name2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/profile_img2"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/title_user_name"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/textView3"
+                style="@style/btn_text"
+                android:text="Create an account"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profile_user2" />
+
+            <TextView
+                android:id="@+id/textView4"
+                style="@style/btn_text"
+                android:text="Text-to-speech"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+            <TextView
+                android:id="@+id/textView5"
+                style="@style/btn_text"
+                android:text="Change language"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <!-- Profile: User as guest -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_guest"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            tools:visibility="gone">
 
             <TextView
                 android:id="@+id/textView2"
