@@ -1,10 +1,12 @@
 package com.example.jawahra.models;
 
-public class EmiratesModel {
+import com.google.firebase.firestore.DocumentSnapshot;
 
+public class EmiratesModel{
     private String emirateName;
 
-    private EmiratesModel() {}
+    private EmiratesModel() {
+    }
 
     private EmiratesModel(String emirateName){
         this.emirateName = emirateName;
@@ -17,5 +19,6 @@ public class EmiratesModel {
     public void setEmirateName(String emirateName) {
         this.emirateName = emirateName;
     }
+
 }
 
