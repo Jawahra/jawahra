@@ -1,5 +1,7 @@
 package com.example.jawahra.ui.profile;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -37,11 +39,12 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ProfileFragment extends Fragment {
 
-    private View layoutLoggedIn, layoutSettings, layoutGuest;
+    private View layoutGuest, layoutLoggedIn, layoutSettings, layoutFavorites;
     private int screen;
-    private static final int LOGGED = 0;
-    private static final int SETTINGS = 1;
-    private static final int GUEST = 2;
+    private static final int GUEST = 0;
+    private static final int LOGGED = 1;
+    private static final int SETTINGS = 2;
+    private static final int FAVORITES = 3;
 
     private FirebaseUser user;
 
@@ -49,6 +52,7 @@ public class ProfileFragment extends Fragment {
     private String userID;
     private GoogleSignInClient gsi;
 
+    private CardView cardFavorites;
     private TextView btnLogout, btnGuestLogin, btnSettings;
 
     @Override
@@ -56,9 +60,10 @@ public class ProfileFragment extends Fragment {
                              @Nullable Bundle savedInstanceState){
         View profile = inflater.inflate(R.layout.fragment_profile, container, false);
 
+        layoutGuest = profile.findViewById(R.id.layout_guest);
         layoutLoggedIn = profile.findViewById(R.id.layout_logged_in);
         layoutSettings = profile.findViewById(R.id.layout_user_settings);
-        layoutGuest = profile.findViewById(R.id.layout_guest);
+        layoutFavorites = profile.findViewById(R.id.layout_favorites);
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -92,6 +97,10 @@ public class ProfileFragment extends Fragment {
         final TextView usernameText = profile.findViewById(R.id.profile_name);
         final TextView emailText = profile.findViewById(R.id.profile_email);
 
+        // Toolbar
+        Toolbar toolbar = profile.findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(null);
+
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions
                 .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -121,14 +130,47 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 screen = SETTINGS;
-                final TextView usernameText = profile.findViewById(R.id.profile_name2);
-                final TextView emailText = profile.findViewById(R.id.profile_email2);
-                updateUI(usernameText, emailText);
+                userSettings(profile);
                 renderScreen();
             }
         });
 
+        cardFavorites = profile.findViewById(R.id.profile_fav);
+        cardFavorites.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                screen = FAVORITES;
+                userFavorites(profile);
+                renderScreen();
+            }
+        });
+
+
         updateUI(usernameText, emailText);
+    }
+
+    private void userSettings(View profile) {
+        final TextView usernameText = profile.findViewById(R.id.profile_name2);
+        final TextView emailText = profile.findViewById(R.id.profile_email2);
+        updateUI(usernameText, emailText);
+
+        // Toolbar
+        Toolbar toolbar = profile.findViewById(R.id.toolbar1);
+        toolbar.setNavigationIcon(null);
+    }
+
+    private void userFavorites(View profile) {
+
+        // Toolbar
+        Toolbar toolbar = profile.findViewById(R.id.toolbar_fav);
+        toolbar.setTitle("FAVORITES");
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                screen = LOGGED;
+                renderScreen();
+            }
+        });
     }
 
     private void updateUI(TextView usernameText, TextView emailText) {
@@ -160,8 +202,9 @@ public class ProfileFragment extends Fragment {
     }
 
     private void renderScreen() {
+        layoutGuest.setVisibility(screen == GUEST ? View.VISIBLE : View.GONE);
         layoutLoggedIn.setVisibility(screen == LOGGED ? View.VISIBLE : View.GONE);
         layoutSettings.setVisibility(screen == SETTINGS ? View.VISIBLE : View.GONE);
-        layoutGuest.setVisibility(screen == GUEST ? View.VISIBLE : View.GONE);
+        layoutFavorites.setVisibility(screen == FAVORITES ? View.VISIBLE : View.GONE);
     }
 }
