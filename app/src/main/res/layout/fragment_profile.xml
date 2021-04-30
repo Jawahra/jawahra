@@ -14,7 +14,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_guest"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/textView2"
@@ -42,8 +43,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_logged_in"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone">
+            android:layout_height="match_parent">
 
             <include
                 android:id="@+id/toolbar"
@@ -116,6 +116,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:background="@drawable/bottom_border"
+                android:elevation="1dp"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toTopOf="@+id/btn_settings"
                 app:layout_constraintEnd_toEndOf="parent"

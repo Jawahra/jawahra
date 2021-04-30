@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jawahra.AuthActivity;
+import com.example.jawahra.CovidProtocolActivity;
 import com.example.jawahra.LoginActivity;
 import com.example.jawahra.MainActivity;
 import com.example.jawahra.R;
@@ -77,7 +78,7 @@ public class ProfileFragment extends Fragment {
     private Uri imageUri;
 
     // Cards and buttons
-    private CardView cardFavorites;
+    private CardView cardProtocol, cardFavorites;
     private TextView btnLogout, btnGuestLogin, btnSettings;
     private TextView btnChangePFP;
 
@@ -163,6 +164,16 @@ public class ProfileFragment extends Fragment {
                 screen = SETTINGS;
                 userSettings(profile);
                 renderScreen();
+            }
+        });
+
+        cardProtocol = profile.findViewById(R.id.protocols_covid);
+        cardProtocol.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // Redirect to Activity
+                startActivity(new Intent(getActivity(), CovidProtocolActivity.class));
             }
         });
 
