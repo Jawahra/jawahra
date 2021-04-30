@@ -47,7 +47,8 @@ import java.util.Arrays;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private FirebaseAuth mAuth;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseUser currentUser = mAuth.getCurrentUser();
 
     private EditText inputEmail, inputPassword;
     private Button btnLogin, btnNewAcc;
@@ -68,9 +69,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        // Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
 
         // User input
         inputEmail = findViewById(R.id.input_email);
@@ -124,8 +122,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onStart() {
         super.onStart();
-
-        FirebaseUser currentUser = mAuth.getCurrentUser();
 
         // Check if user is signed in (non-null) and update UI accordingly.
         if(currentUser != null) {
@@ -286,9 +282,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             // Get display name and email of the account
             String username = user.getDisplayName();
             String email = user.getEmail();
+            String imageUrl = user.getPhotoUrl().toString();
 
             // Add to User object
-            User userInfo = new User(username, email);
+            User userInfo = new User(username, email, imageUrl);
             FirebaseDatabase.getInstance().getReference("Users")
                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                     .setValue(userInfo);

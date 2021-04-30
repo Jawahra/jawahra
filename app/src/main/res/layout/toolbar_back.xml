@@ -6,4 +6,11 @@
     android:elevation="4dp"
     app:navigationIcon="@drawable/ic_baseline_arrow_back_ios_24">
 
+    <TextView
+        android:id="@+id/toolbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_gravity="center" />
+
 </androidx.appcompat.widget.Toolbar>
