@@ -37,10 +37,14 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Arrays;
 
@@ -48,7 +52,8 @@ import java.util.Arrays;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    FirebaseUser currentUser = mAuth.getCurrentUser();
+    private FirebaseUser currentUser = mAuth.getCurrentUser();
+    private DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
 
     private EditText inputEmail, inputPassword;
     private Button btnLogin, btnNewAcc;
@@ -277,23 +282,38 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void updateUI(FirebaseUser user) {
 
-        if (user != null){
+        String userID = currentUser.getUid();
 
-            // Get display name and email of the account
-            String username = user.getDisplayName();
-            String email = user.getEmail();
-            String imageUrl = user.getPhotoUrl().toString();
+        // Get display name and email of the account
+        String username = user.getDisplayName();
+        String email = user.getEmail();
 
-            // Add to User object
-            User userInfo = new User(username, email, imageUrl);
-            FirebaseDatabase.getInstance().getReference("Users")
-                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                    .setValue(userInfo);
+        reference.child(userID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (user != null){
+                    User userProfile = snapshot.getValue(User.class);
 
-            // Redirect to homepage
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    String imageUrl = userProfile.imageUrl;
 
-        }
+                    // Add to User object
+                    User userInfo = new User(username, email, imageUrl);
+                    FirebaseDatabase.getInstance().getReference("Users")
+                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            .setValue(userInfo);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(LoginActivity.this, "There has been an error!", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        // Redirect to homepage
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+
     }
 
 
