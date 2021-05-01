@@ -23,6 +23,7 @@
         <item name="android:textSize">24sp</item>
     </style>
 
+    <!--  BUTTONS  -->
     <style name="btn_text">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -43,4 +44,14 @@
         <item name="android:background">@color/transparent_light</item>
         <item name="android:textColor">@color/white</item>
     </style>
+
+    <!--  USER INPUT  -->
+    <style name="sign_up_input">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/input_custom</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+
 </resources>
