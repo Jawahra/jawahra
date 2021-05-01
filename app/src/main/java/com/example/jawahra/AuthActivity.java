@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.common.internal.SignInButtonImpl;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -21,8 +22,8 @@ import com.google.firebase.database.FirebaseDatabase;
 public class AuthActivity extends AppCompatActivity implements View.OnClickListener {
 
     private FirebaseAuth mAuth;
-    EditText inputUsername, inputEmail, inputPassword, inputConfirmPassword;
-    Button btnSignUp, btnExistingUser;
+    private EditText inputUsername, inputEmail, inputPassword, inputConfirmPassword;
+    private SignInButtonImpl btnSignUp, btnExistingUser;
 
 
     @Override
