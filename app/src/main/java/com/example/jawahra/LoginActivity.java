@@ -56,11 +56,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
 
     private EditText inputEmail, inputPassword;
-    private Button btnLogin, btnNewAcc;
+    private SignInButtonImpl btnLogin, btnNewAcc;
     private TextView guestLogin;
 
     private CallbackManager callbackManager;
-    private Button btnFbLogin;
+    private SignInButtonImpl btnFbLogin;
     private static final String TAG = "FacebookAuthentication";
     private static final String EMAIL = "email";
     private AccessTokenTracker accessTokenTracker;
@@ -282,16 +282,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void updateUI(FirebaseUser user) {
 
-        String userID = currentUser.getUid();
+        if (user != null) {
 
-        // Get display name and email of the account
-        String username = user.getDisplayName();
-        String email = user.getEmail();
+            String userID = currentUser.getUid();
 
-        reference.child(userID).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (user != null){
+            // Get display name and email of the account
+            String username = user.getDisplayName();
+            String email = user.getEmail();
+
+            reference.child(userID).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
                     User userProfile = snapshot.getValue(User.class);
 
                     String imageUrl = userProfile.imageUrl;
@@ -303,17 +304,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             .setValue(userInfo);
 
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(LoginActivity.this, "There has been an error!", Toast.LENGTH_LONG).show();
-            }
-        });
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(LoginActivity.this, "There has been an error!", Toast.LENGTH_LONG).show();
+                }
+            });
 
-        // Redirect to homepage
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-
+            // Redirect to homepage
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        }
     }
 
 

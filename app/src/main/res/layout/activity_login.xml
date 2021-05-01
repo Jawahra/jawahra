@@ -4,50 +4,65 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="170dp"
-        android:layout_height="160dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/com_facebook_profile_picture_blank_square" />
-
-    <TextView
-        android:id="@+id/welcome_back_message"
+    <RelativeLayout
+        android:id="@+id/welcome_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="@string/title_welcome_back_message"
-        android:textSize="30sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            app:srcCompat="@drawable/com_facebook_profile_picture_blank_square" />
+
+        <TextView
+            android:id="@+id/welcome_back_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imageView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/title_welcome_back_message"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
 
 
-    <Button
-        android:id="@+id/btn_fb_login"
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:id="@+id/online_login"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/com_facebook_button_icon"
-        android:text="@string/title_fb_login"
+        android:background="@drawable/bottom_border"
+        android:padding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_google_login" />
+        app:layout_constraintTop_toBottomOf="@+id/welcome_user">
 
-    <com.google.android.gms.common.internal.SignInButtonImpl
-        android:id="@+id/btn_google_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/googleg_standard_color_18"
-        android:text="@string/title_google_login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcome_back_message" />
+        <com.google.android.gms.common.internal.SignInButtonImpl
+            android:id="@+id/btn_google_login"
+            style="@style/btn_login_signup"
+            android:layout_marginBottom="10dp"
+            android:drawableLeft="@drawable/googleg_standard_color_18"
+            android:text="@string/title_google_login" />
+
+        <com.google.android.gms.common.internal.SignInButtonImpl
+            android:id="@+id/btn_fb_login"
+            style="@style/btn_login_signup"
+            android:layout_below="@id/btn_google_login"
+            android:drawableLeft="@drawable/com_facebook_button_icon"
+            android:text="@string/title_fb_login" />
+    </RelativeLayout>
 
     <EditText
         android:id="@+id/input_password"
@@ -67,19 +82,17 @@
         android:id="@+id/input_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:ems="10"
         android:hint="@string/title_email"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias=".5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_fb_login" />
+        app:layout_constraintTop_toBottomOf="@+id/online_login" />
 
-    <Button
+    <com.google.android.gms.common.internal.SignInButtonImpl
         android:id="@+id/btn_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/btn_login_signup"
         android:layout_marginTop="32dp"
         android:text="@string/title_log_in"
         app:layout_constraintEnd_toEndOf="parent"
@@ -87,10 +100,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/input_password" />
 
-    <Button
+    <com.google.android.gms.common.internal.SignInButtonImpl
         android:id="@+id/btn_new_acc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/btn_login_signup"
         android:text="@string/title_new_user"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
