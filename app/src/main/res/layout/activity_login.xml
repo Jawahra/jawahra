@@ -11,9 +11,11 @@
         android:id="@+id/welcome_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/online_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <ImageView
             android:id="@+id/imageView"
@@ -43,9 +45,11 @@
         android:id="@+id/online_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/bottom_border"
-        android:padding="20dp"
+        android:elevation="1dp"
+        android:paddingHorizontal="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/sign_in_with"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcome_user">
 
@@ -53,73 +57,122 @@
             android:id="@+id/btn_google_login"
             style="@style/btn_login_signup"
             android:layout_marginBottom="10dp"
-            android:drawableLeft="@drawable/googleg_standard_color_18"
+            android:drawableStart="@drawable/googleg_standard_color_18"
             android:text="@string/title_google_login" />
 
         <com.google.android.gms.common.internal.SignInButtonImpl
             android:id="@+id/btn_fb_login"
             style="@style/btn_login_signup"
             android:layout_below="@id/btn_google_login"
-            android:drawableLeft="@drawable/com_facebook_button_icon"
+            android:drawableStart="@drawable/com_facebook_button_icon"
             android:text="@string/title_fb_login" />
+
     </RelativeLayout>
 
-    <EditText
-        android:id="@+id/input_password"
+    <RelativeLayout
+        android:id="@+id/sign_in_with"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="@string/title_pw"
-        android:inputType="textPassword"
+        android:paddingHorizontal="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/input_user_login"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias=".5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_email" />
+        app:layout_constraintTop_toBottomOf="@+id/online_login">
 
+        <TextView
+            android:id="@+id/or_sign_up_with"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:paddingHorizontal="10dp"
+            android:text="or sign in with"
+            android:textColor="@color/white" />
 
-    <EditText
-        android:id="@+id/input_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/title_email"
-        android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias=".5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/online_login" />
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/or_sign_up_with"
+            android:background="@color/white" />
 
-    <com.google.android.gms.common.internal.SignInButtonImpl
-        android:id="@+id/btn_login"
-        style="@style/btn_login_signup"
-        android:layout_marginTop="32dp"
-        android:text="@string/title_log_in"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias=".5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_password" />
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/or_sign_up_with"
+            android:background="@color/white" />
+    </RelativeLayout>
 
-    <com.google.android.gms.common.internal.SignInButtonImpl
-        android:id="@+id/btn_new_acc"
-        style="@style/btn_login_signup"
-        android:text="@string/title_new_user"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_login" />
-
-    <TextView
-        android:id="@+id/guest_login"
+    <RelativeLayout
+        android:id="@+id/input_user_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:text="Continue as Guest"
+        android:paddingHorizontal="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttons_next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/online_login"
+        app:layout_constraintVertical_bias="0.0">
+
+        <EditText
+            android:id="@+id/input_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/input_custom"
+            android:ems="10"
+            android:hint="@string/title_email"
+            android:inputType="textEmailAddress"
+            android:padding="12dp" />
+
+        <EditText
+            android:id="@+id/input_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/input_email"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/input_custom"
+            android:ems="10"
+            android:hint="@string/title_pw"
+            android:inputType="textPassword"
+            android:padding="12dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/buttons_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_new_acc"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/input_user_login">
+
+        <com.google.android.gms.common.internal.SignInButtonImpl
+            android:id="@+id/btn_login"
+            style="@style/btn_login_signup"
+            android:layout_marginBottom="10dp"
+            android:text="@string/title_log_in" />
+
+        <com.google.android.gms.common.internal.SignInButtonImpl
+            android:id="@+id/btn_new_acc"
+            style="@style/btn_login_signup"
+            android:layout_below="@id/btn_login"
+            android:text="@string/title_new_user" />
+
+        <TextView
+            android:id="@+id/guest_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_new_acc"
+            android:layout_centerHorizontal="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:padding="10dp"
+            android:text="Continue as Guest"
+            android:textAlignment="center" />
+    </RelativeLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
