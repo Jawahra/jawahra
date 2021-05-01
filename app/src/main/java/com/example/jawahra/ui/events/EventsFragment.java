@@ -4,7 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.jawahra.R;
 import com.example.jawahra.models.UpcomingEventsModel;
 import com.example.jawahra.models.UpcomingPlacesModel;
@@ -33,7 +37,6 @@ public class EventsFragment extends Fragment {
 
     private FirestoreRecyclerAdapter adapterUE;
     FirestoreRecyclerOptions<UpcomingEventsModel> optionsUE;
-
 
     @Nullable
     @Override
@@ -73,32 +76,37 @@ public class EventsFragment extends Fragment {
         RecyclerView listUpcomingPlaces = requireView().findViewById(R.id.list_upcoming_places);
         RecyclerView listUpcomingEvents = requireView().findViewById(R.id.list_upcoming_events);
 
+
+
 //        Set layout manager and adapter after view is created
         listUpcomingPlaces.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         listUpcomingPlaces.setAdapter(adapterUP);
 
+
         listUpcomingEvents.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         listUpcomingEvents.setAdapter(adapterUE);
-
     }
 
-//    Function to initialise adapter
+    //    Function to initialise adapter
     private void setAdapterUpcomingPlaces() {
         adapterUP = new FirestoreRecyclerAdapter<UpcomingPlacesModel, UpcomingPlacesViewHolder>(optionsUP) {
             @NonNull
             @Override
             public UpcomingPlacesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_upcoming_place, parent, false);
+
                 return new UpcomingPlacesViewHolder(view);
             }
 
+//            Take data from each document and display their values
             @Override
             protected void onBindViewHolder(@NonNull UpcomingPlacesViewHolder holder, int position, @NonNull UpcomingPlacesModel model) {
                 holder.placeName.setText(model.getPlaceName());
                 holder.placeEmirate.setText(model.getPlaceEmirate());
+                //                Get url string of image from document in Firestore and set ImageView to that image
+                Glide.with(getActivity()).load(model.getPlaceImg()).into(holder.placeImg);
             }
         };
-
     }
 
     private void setAdapterUpcomingEvents() {
@@ -115,25 +123,25 @@ public class EventsFragment extends Fragment {
                 holder.eventEmirate.setText(model.getEventEmirate());
                 holder.eventName.setText(model.getEventName());
 
-//                Set text of date TextView if variable is not null
+//                Set text of date TextView only when Textview is not null
                 if (model.getEventDate() != null){
                     String strEventDate = convertDateToString(model.getEventDate());
                     holder.eventDate.setText(strEventDate);
                 }
+
+//                Get url string of image from document in Firestore and set ImageView to that image
+                Glide.with(getActivity()).load(model.getEventImg()).into(holder.eventImg);
             }
         };
     }
 
-//    Function to convert date to string
-    private String convertDateToString(Date date) {
-        DateFormat dateFormat = new SimpleDateFormat("E, dd MMM yyyy | hh:mm aa");
-        return dateFormat.format(date);
-    }
 
 
+// TODO Implement Glide library and try to pass url string as image for imageview
     //          Contain data for recycler view
     private static class UpcomingPlacesViewHolder extends RecyclerView.ViewHolder{
         private final TextView placeName, placeEmirate;
+        private final ImageView placeImg;
 
 
         public UpcomingPlacesViewHolder(@NonNull View itemView) {
@@ -141,12 +149,14 @@ public class EventsFragment extends Fragment {
 
             placeName = itemView.findViewById(R.id.upcoming_place_name);
             placeEmirate = itemView.findViewById(R.id.upcoming_place_emirate);
+            placeImg = itemView.findViewById(R.id.upcoming_place_img);
         }
 
     }
 
     private static class UpcomingEventsViewHolder extends RecyclerView.ViewHolder{
         private final TextView eventEmirate, eventName, eventDate;
+        private final ImageView eventImg;
 
         public UpcomingEventsViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -154,7 +164,7 @@ public class EventsFragment extends Fragment {
             eventEmirate = itemView.findViewById(R.id.upcoming_event_emirate);
             eventName = itemView.findViewById(R.id.upcoming_event_name);
             eventDate  = itemView.findViewById(R.id.upcoming_event_date);
-
+            eventImg = itemView.findViewById(R.id.upcoming_event_img);
         }
     }
 
@@ -172,5 +182,12 @@ public class EventsFragment extends Fragment {
         adapterUE.stopListening();
     }
 
+    //    Function to convert date to string
+    private String convertDateToString(Date date) {
+        DateFormat dateFormat = new SimpleDateFormat("E, dd MMM yyyy | hh:mm aa");
+        return dateFormat.format(date);
+    }
+
 
 }
+

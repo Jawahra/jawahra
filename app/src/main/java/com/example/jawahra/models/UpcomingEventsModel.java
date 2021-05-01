@@ -3,7 +3,7 @@ package com.example.jawahra.models;
 import java.util.Date;
 
 public class UpcomingEventsModel {
-    private String eventEmirate, eventName, eventDetails;
+    private String eventImg, eventEmirate, eventName, eventDetails;
     Date eventDate;
 
 //    Empty constructor for firebase
@@ -11,7 +11,8 @@ public class UpcomingEventsModel {
 
     }
 
-    public UpcomingEventsModel(String eventEmirate,String eventName,String eventDetails, Date eventDate){
+    public UpcomingEventsModel(String eventImg, String eventEmirate,String eventName,String eventDetails, Date eventDate){
+        this.eventImg = eventImg;
         this.eventEmirate = eventEmirate;
         this.eventName = eventName;
         this.eventDetails = eventDetails;
@@ -48,5 +49,13 @@ public class UpcomingEventsModel {
 
     public void setEventDate(Date eventDate) {
         this.eventDate = eventDate;
+    }
+
+    public String getEventImg() {
+        return eventImg;
+    }
+
+    public void setEventImg(String eventImg) {
+        this.eventImg = eventImg;
     }
 }
