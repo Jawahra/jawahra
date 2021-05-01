@@ -73,14 +73,14 @@
         android:id="@+id/sign_in_with"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="10dp"
+        android:paddingHorizontal="5dp"
         app:layout_constraintBottom_toTopOf="@+id/input_user_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/online_login">
 
         <TextView
-            android:id="@+id/or_sign_up_with"
+            android:id="@+id/or_sign_in_with"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -93,7 +93,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/or_sign_up_with"
+            android:layout_toRightOf="@id/or_sign_in_with"
             android:background="@color/white" />
 
         <View
@@ -101,7 +101,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/or_sign_up_with"
+            android:layout_toLeftOf="@id/or_sign_in_with"
             android:background="@color/white" />
     </RelativeLayout>
 
