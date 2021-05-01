@@ -64,6 +64,7 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
         String email = inputEmail.getText().toString().trim();
         String password = inputPassword.getText().toString().trim();
         String confirmPassword = inputConfirmPassword.getText().toString().trim();
+        String imageUrl = null;
 
         // Checks if there is no input
         if(username.isEmpty()){
@@ -110,7 +111,7 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            User user = new User(username, email);
+                            User user = new User(username, email, imageUrl);
 
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
