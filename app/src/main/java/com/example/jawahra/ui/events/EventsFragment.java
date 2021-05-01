@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.jawahra.R;
 import com.example.jawahra.models.UpcomingEventsModel;
 import com.example.jawahra.models.UpcomingPlacesModel;
@@ -103,8 +105,18 @@ public class EventsFragment extends Fragment {
             protected void onBindViewHolder(@NonNull UpcomingPlacesViewHolder holder, int position, @NonNull UpcomingPlacesModel model) {
                 holder.placeName.setText(model.getPlaceName());
                 holder.placeEmirate.setText(model.getPlaceEmirate());
+
+//                Change settings to make image load faster
+                RequestOptions repOpt = RequestOptions
+                        .fitCenterTransform()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL) // It will cache your image after loaded for first time
+                        .override(holder.placeImg.getWidth(),holder.placeImg.getHeight()); // Overrides size of downloaded image and converts it's bitmaps to your desired image size;
+
                 //                Get url string of image from document in Firestore and set ImageView to that image
-                Glide.with(getActivity()).load(model.getPlaceImg()).into(holder.placeImg);
+                Glide.with(getActivity())
+                        .load(model.getPlaceImg())
+                        .apply(repOpt)
+                        .into(holder.placeImg);
             }
         };
     }
