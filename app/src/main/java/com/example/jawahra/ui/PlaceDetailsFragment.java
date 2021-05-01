@@ -12,10 +12,10 @@ import com.example.jawahra.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link LocationDetailsFragment#newInstance} factory method to
+ * Use the {@link PlaceDetailsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LocationDetailsFragment extends Fragment {
+public class PlaceDetailsFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class LocationDetailsFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public LocationDetailsFragment() {
+    public PlaceDetailsFragment() {
         // Required empty public constructor
     }
 
@@ -36,11 +36,11 @@ public class LocationDetailsFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment LocationDetailsFragment.
+     * @return A new instance of fragment PlaceDetailsFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static LocationDetailsFragment newInstance(String param1, String param2) {
-        LocationDetailsFragment fragment = new LocationDetailsFragment();
+    public static PlaceDetailsFragment newInstance(String param1, String param2) {
+        PlaceDetailsFragment fragment = new PlaceDetailsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,6 +61,6 @@ public class LocationDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_location_details, container, false);
+        return inflater.inflate(R.layout.fragment_place_details, container, false);
     }
 }
