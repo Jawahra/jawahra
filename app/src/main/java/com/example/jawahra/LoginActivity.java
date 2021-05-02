@@ -284,7 +284,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if (user != null) {
 
-            String userID = currentUser.getUid();
+            String userID = user.getUid();
 
             // Get display name and email of the account
             String username = user.getDisplayName();
