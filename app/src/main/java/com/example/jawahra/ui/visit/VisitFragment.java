@@ -16,12 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.jawahra.adapters.EmiratesAdapter;
 import com.example.jawahra.R;
 import com.example.jawahra.models.EmiratesModel;
-import com.example.jawahra.ui.PlacesFragment;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.SnapshotParser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.MetadataChanges;
 import com.google.firebase.firestore.Query;
 
 public class VisitFragment extends Fragment implements EmiratesAdapter.OnListItemClick {

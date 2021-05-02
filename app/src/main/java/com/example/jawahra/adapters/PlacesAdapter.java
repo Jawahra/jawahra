@@ -16,7 +16,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
 public class PlacesAdapter  extends FirestoreRecyclerAdapter<PlacesModel, PlacesAdapter.PlacesViewHolder> {
 
-    public String documentId;
+//    public String documentId;
 
     private OnListItemClick onListItemClick;
 
@@ -28,8 +28,8 @@ public class PlacesAdapter  extends FirestoreRecyclerAdapter<PlacesModel, Places
     @Override
     protected void onBindViewHolder(@NonNull PlacesViewHolder holder, int position, @NonNull PlacesModel model) {
         holder.listName.setText(model.getName());
-        documentId = getSnapshots().getSnapshot(position).getId();
-        Log.d("CHECK_ID", "ID : " + documentId);
+//        documentId = getSnapshots().getSnapshot(position).getId();
+//        Log.d("CHECK_ID", "ID : " + documentId);
     }
 
     @NonNull
@@ -51,12 +51,12 @@ public class PlacesAdapter  extends FirestoreRecyclerAdapter<PlacesModel, Places
         @Override
         public void onClick(View v) {
             //get document ID of selected recyclerview card
-            onListItemClick.OnItemClick(getSnapshots().getSnapshot(getAdapterPosition()).getId());
+            onListItemClick.OnItemClick(getSnapshots().getSnapshot(getAdapterPosition()).getId(), getSnapshots().getSnapshot(getAdapterPosition()).getString("name"));
         }
 
     }
 
     public interface OnListItemClick {
-        void OnItemClick(String myDocumentid);
+        void OnItemClick(String placeId, String placeName);
     }
 }

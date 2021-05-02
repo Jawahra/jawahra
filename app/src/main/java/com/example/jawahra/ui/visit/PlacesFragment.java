@@ -1,8 +1,11 @@
-package com.example.jawahra.ui;
+package com.example.jawahra.ui.visit;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,24 +13,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jawahra.R;
-import com.example.jawahra.adapters.EmiratesAdapter;
 import com.example.jawahra.adapters.PlacesAdapter;
 import com.example.jawahra.models.PlacesModel;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 
 public class PlacesFragment extends Fragment implements PlacesAdapter.OnListItemClick {
 
     private FirebaseFirestore firebaseFirestore;
     private RecyclerView listPlaces;
     private PlacesAdapter adapter;
-    private String documentId;
+    private String emirateId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,7 +35,7 @@ public class PlacesFragment extends Fragment implements PlacesAdapter.OnListItem
         //get bundle values
         Bundle bundle = getArguments();
         if(bundle != null){
-            documentId = bundle.getString("docID");
+            emirateId = bundle.getString("docID");
             Log.d("CHECK_ID", "bundle, id  part2 " + bundle.getString("docID"));
         }
 
@@ -45,14 +45,14 @@ public class PlacesFragment extends Fragment implements PlacesAdapter.OnListItem
             container.removeAllViews();
         }
 
-        Log.d("CHECK_ID", "place fragment, id received: " + documentId);
+        Log.d("CHECK_ID", "place fragment, id received: " + emirateId);
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         listPlaces = root.findViewById(R.id.list_places);
 
         //query
         CollectionReference query = firebaseFirestore.collection("emirates")
-                .document(documentId)
+                .document(emirateId)
                 .collection("places");
 
         FirestoreRecyclerOptions<PlacesModel> options = new FirestoreRecyclerOptions.Builder<PlacesModel>()
@@ -83,8 +83,22 @@ public class PlacesFragment extends Fragment implements PlacesAdapter.OnListItem
 
 
     @Override
-    public void OnItemClick(String myDocumentId) {
+    public void OnItemClick(String placeId, String placeName) {
+        Bundle bundle = new Bundle();
+        bundle.putString("emirateId", emirateId);
+        bundle.putString("placeId", placeId);
+        bundle.putString("placeName",placeName);
 
+        Log.d("CHECK_ID", "PLACE ID : " + placeId);
+
+        PlaceDetailsFragment placeDetailsFragment = new PlaceDetailsFragment();
+        placeDetailsFragment.setArguments(bundle);
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_places,placeDetailsFragment);
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 }
 
