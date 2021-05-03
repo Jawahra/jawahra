@@ -14,7 +14,7 @@
     <item
         android:id="@+id/navigation_events"
         android:icon="@drawable/ic_events_black_24dp"
-        android:title="@string/title_events" />
+        android:title="@string/title_news" />
 
     <item
         android:id="@+id/navigation_profile"
