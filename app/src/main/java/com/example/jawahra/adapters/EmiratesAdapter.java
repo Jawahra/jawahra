@@ -51,13 +51,13 @@ public class EmiratesAdapter extends FirestoreRecyclerAdapter<EmiratesModel, Emi
         @Override
         public void onClick(View v) {
             //get document ID of selected recyclerview card
-            onListItemClick.OnItemClick(getSnapshots().getSnapshot(getAdapterPosition()).getId());
+            onListItemClick.OnItemClick(getSnapshots().getSnapshot(getAdapterPosition()).getId(),getSnapshots().getSnapshot(getAdapterPosition()).getString("emirateName"));
         }
 
     }
 
     public interface OnListItemClick {
-        void OnItemClick(String myDocumentId);
+        void OnItemClick(String myDocumentId, String emirateName);
     }
 }
 

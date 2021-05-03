@@ -9,4 +9,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!--    SUB FRAGMENTS TITLES    -->
+    <string name="subtitle_emirates">Emirates</string>
+    <string name="subtitle_caption">Hidden Gems</string>
 </resources>

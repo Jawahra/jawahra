@@ -28,14 +28,12 @@ public class PlacesAdapter  extends FirestoreRecyclerAdapter<PlacesModel, Places
     @Override
     protected void onBindViewHolder(@NonNull PlacesViewHolder holder, int position, @NonNull PlacesModel model) {
         holder.listName.setText(model.getName());
-//        documentId = getSnapshots().getSnapshot(position).getId();
-//        Log.d("CHECK_ID", "ID : " + documentId);
     }
 
     @NonNull
     @Override
     public PlacesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_emirate, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_places, parent, false);
         return new PlacesViewHolder(view);
     }
 

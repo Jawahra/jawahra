@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jawahra.R;
@@ -27,7 +29,8 @@ public class PlacesFragment extends Fragment implements PlacesAdapter.OnListItem
     private FirebaseFirestore firebaseFirestore;
     private RecyclerView listPlaces;
     private PlacesAdapter adapter;
-    private String emirateId;
+    private String emirateId, emirateName;
+    public TextView emirateTitle;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,6 +39,7 @@ public class PlacesFragment extends Fragment implements PlacesAdapter.OnListItem
         Bundle bundle = getArguments();
         if(bundle != null){
             emirateId = bundle.getString("docID");
+            emirateName = bundle.getString("emirateName");
             Log.d("CHECK_ID", "bundle, id  part2 " + bundle.getString("docID"));
         }
 
@@ -45,7 +49,8 @@ public class PlacesFragment extends Fragment implements PlacesAdapter.OnListItem
             container.removeAllViews();
         }
 
-        Log.d("CHECK_ID", "place fragment, id received: " + emirateId);
+        emirateTitle = root.findViewById(R.id.emirate_title);
+        emirateTitle.setText(emirateName);
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         listPlaces = root.findViewById(R.id.list_places);
@@ -64,7 +69,7 @@ public class PlacesFragment extends Fragment implements PlacesAdapter.OnListItem
         adapter = new PlacesAdapter(options, this);
 
         listPlaces.setHasFixedSize(true);
-        listPlaces.setLayoutManager(new LinearLayoutManager(root.getContext()));
+        listPlaces.setLayoutManager(new GridLayoutManager(root.getContext(),2));
         listPlaces.setAdapter(adapter);
         return root;
     }

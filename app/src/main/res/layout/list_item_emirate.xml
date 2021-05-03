@@ -2,31 +2,31 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginVertical="10dp"
+    android:layout_marginHorizontal="20dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/gray_bg"
-    android:paddingHorizontal="20dp"
-    android:paddingVertical="10dp">
-
+    android:layout_height="wrap_content">
+    <!--android:background="@color/gray_bg"-->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:cardCornerRadius="15dp">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="170dp"
-            android:orientation="vertical"
-            android:background="@drawable/placeholder_image">
+            android:background="@drawable/placeholder_image"
+            android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="15dp"
-                android:background="@drawable/image_shadow">
+                android:background="@drawable/image_shadow"
+                android:padding="15dp">
 
                 <TextView
                     android:id="@+id/list_emirate_name"
@@ -34,7 +34,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:fontFamily="@font/playfair_display_sc_bold"
-                    android:text="Emirate"
+                    android:text="@string/subtitle_emirates"
                     android:textColor="@color/white"
                     android:textSize="30sp" />
 

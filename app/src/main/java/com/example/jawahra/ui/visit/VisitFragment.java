@@ -74,11 +74,12 @@ public class VisitFragment extends Fragment implements EmiratesAdapter.OnListIte
     }
 
     @Override
-    public void OnItemClick(String myDocumentId) {
+    public void OnItemClick(String myDocumentId, String emirateName) {
         Log.d("CHECK_ID", "visit fragment, id received: " + myDocumentId);
 
         Bundle bundle = new Bundle();
         bundle.putString("docID",myDocumentId);
+        bundle.putString("emirateName", emirateName);
 
         Log.d("CHECK_ID", "bundle, id received" + bundle.getString("docID"));
 
