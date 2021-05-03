@@ -15,4 +15,7 @@
     <string name="title_upcoming_places">Upcoming Places</string>
     <string name="title_upcoming_events">Upcoming Events</string>
     <string name="link_learn_more">Learn more...</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consequat, felis at accumsan accumsan, sapien mi lacinia quam, ac condimentum diam dui quis est. Pellentesque orci augue, pharetra varius aliquam nec, malesuada eget nisl. Proin lobortis tortor libero, ut porta magna tempus a. Nunc sit amet neque ipsum. Nulla suscipit tristique nibh, eu euismod augue eleifend semper. Nam molestie sit amet quam sed placerat. Aliquam ultrices scelerisque ante, semper congue orci volutpat at. Donec risus dui, molestie sit amet sem id, consectetur commodo velit. Vestibulum nibh elit, gravida ut pulvinar non, suscipit quis nisl. Nullam vitae sollicitudin lorem. Proin elit mi, lobortis suscipit mollis sit amet, tincidunt nec nibh. Aliquam sed ornare odio, id elementum orci. Donec consectetur lobortis elit, id gravida ex sagittis ut. Ut tincidunt lorem nibh, quis gravida nisl iaculis vitae. Duis sed egestas massa. Maecenas urna odio, tincidunt sed varius et, vehicula a lectus.</string>
+    <string name="date_time_published"><![CDATA[Date & Time published]]></string>
+    <string name="author">Author</string>
 </resources>
