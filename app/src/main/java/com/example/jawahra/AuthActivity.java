@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -13,15 +14,22 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.internal.SignInButtonImpl;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class AuthActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private FirebaseAuth mAuth;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+    private DocumentReference userDocRef;
+    private String userID;
     private EditText inputUsername, inputEmail, inputPassword, inputConfirmPassword;
     private SignInButtonImpl btnSignUp, btnExistingUser;
 
@@ -30,9 +38,6 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
-
-        // Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
 
         // User input
         inputUsername=findViewById(R.id.input_username);
@@ -65,7 +70,6 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
         String email = inputEmail.getText().toString().trim();
         String password = inputPassword.getText().toString().trim();
         String confirmPassword = inputConfirmPassword.getText().toString().trim();
-        String imageUrl = null;
 
         // Checks if there is no input
         if(username.isEmpty()){
@@ -111,29 +115,23 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            User user = new User(username, email, imageUrl);
 
-                            FirebaseDatabase.getInstance().getReference("Users")
-                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful()){
-                                        // Display text
-                                        Toast.makeText(AuthActivity.this, "You have registered successfully!", Toast.LENGTH_LONG).show();
+                        userID = mAuth.getCurrentUser().getUid();
+                        userDocRef = fStore.collection("users").document(userID);
 
-                                        // Go to homepage
-                                        startActivity(new Intent(AuthActivity.this, MainActivity.class));
+                        Map<String, Object> userProfile = new HashMap<>();
+                        userProfile.put("username", username);
+                        userProfile.put("email", email);
 
-                                    }
-                                }
-                            });
+                        userDocRef.set(userProfile).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d("CHECK_USER", "onSuccess: user profile is created for "+ userID);
+                            }
+                        });
 
-                        } else{
-                            // Display text
-                            Toast.makeText(AuthActivity.this, "Registration unsuccessful.", Toast.LENGTH_LONG).show();
-                        }
+                        // Redirect to homepage
+                        startActivity(new Intent(AuthActivity.this, MainActivity.class));
                     }
                 });
 

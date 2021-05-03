@@ -46,12 +46,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
 
 import java.util.UUID;
 
@@ -66,13 +70,16 @@ public class ProfileFragment extends Fragment {
     private static final int FAVORITES = 3;
 
     // Firebase database and storage
-    private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private FirebaseUser currentUser = mAuth.getCurrentUser();
+    private FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+    private DocumentReference userDocRef;
     private DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
     private StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-    private String userID;
     private GoogleSignInClient gsi;
     
     // User information
+    private String userID;
     private TextView usernameText, emailText;
     private ShapeableImageView profileImg;
     private Uri imageUri;
@@ -127,7 +134,6 @@ public class ProfileFragment extends Fragment {
     private void loggedIn(View profile) {
         final TextView usernameText = profile.findViewById(R.id.profile_name);
         final TextView emailText = profile.findViewById(R.id.profile_email);
-        final ShapeableImageView profileImg = profile.findViewById(R.id.profile_img);
 
         // Toolbar
         toolbar = profile.findViewById(R.id.toolbar);
@@ -187,101 +193,21 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        updateUI(usernameText, emailText, profileImg);
+        updateUI(usernameText, emailText);
     }
 
     // User settings layout
     private void userSettings(View profile) {
         usernameText = profile.findViewById(R.id.profile_name2);
         emailText = profile.findViewById(R.id.profile_email2);
-        profileImg = profile.findViewById(R.id.profile_img2);
 
-        updateUI(usernameText, emailText, profileImg);
+        updateUI(usernameText, emailText);
 
         // Toolbar
         toolbar = profile.findViewById(R.id.toolbar1);
         toolbar.setNavigationIcon(null);
 
-        // Select Image
-        btnChangePFP = profile.findViewById(R.id.btn_change_pfp);
-        btnChangePFP.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(intent, 1);
-                getActivity().startActivityForResult(intent, 1);
-            }
-        });
-
     }
-
-    // Uploading new profile picture
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        
-         if (requestCode == 1 && resultCode == Activity.RESULT_OK && data != null&& data.getData() != null){
-             imageUri = data.getData();
-             profileImg.setImageURI(imageUri);
-
-             uploadPic(imageUri);
-         }
-    }
-
-    private void uploadPic(Uri uri) {
-
-        final ProgressDialog pd = new ProgressDialog(getActivity());
-        pd.setTitle("Uploading image...");
-        pd.show();
-
-        final StorageReference imageRef = storageRef.child("images/" + imageUri.getLastPathSegment() + getFileExtension(uri));
-
-        imageRef.putFile(uri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                        imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-
-                                userID  = currentUser.getUid();
-                                reference.child(userID).child("imageUrl").setValue(uri.toString());
-
-                                // Toast message
-                                Toast.makeText(getActivity(), "Image Uploaded!", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-
-                        // Dismiss dialog
-                        pd.dismiss();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        // Dismiss dialog
-                        pd.dismiss();
-                        Toast.makeText(getActivity(), "Failed Uploading.", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                        double progressPercent = (100.00 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
-                        pd.setMessage("Uploaded " + (int) progressPercent + "%");
-                    }
-                });
-    }
-
-    private String getFileExtension(Uri mUri) {
-        ContentResolver cr = getActivity().getContentResolver();
-        MimeTypeMap mime = MimeTypeMap.getSingleton();
-        return mime.getExtensionFromMimeType(cr.getType(mUri));
-    }
-
 
     // User Favorites Layout
     private void userFavorites(View profile) {
@@ -301,32 +227,16 @@ public class ProfileFragment extends Fragment {
 
 
     // Update user information
-    private void updateUI(TextView usernameText, TextView emailText, ShapeableImageView profileImg) {
+    private void updateUI(TextView usernameText, TextView emailText) {
 
         userID  = currentUser.getUid();
 
-        reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+        userDocRef = fStore.collection("users").document(userID);
+        userDocRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User userProfile = snapshot.getValue(User.class);
-
-                if(userProfile != null){
-                    String username = userProfile.username;
-                    String email = userProfile.email;
-                    String imageUrl = userProfile.imageUrl;
-
-                    usernameText.setText(username);
-                    emailText.setText(email);
-                    Picasso.get().load(imageUrl).fit()
-                            .placeholder(R.drawable.com_facebook_profile_picture_blank_square)
-                            .into(profileImg);
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(), "There has been an error!", Toast.LENGTH_LONG).show();
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                usernameText.setText(value.getString("username"));
+                emailText.setText(value.getString("email"));
             }
         });
     }

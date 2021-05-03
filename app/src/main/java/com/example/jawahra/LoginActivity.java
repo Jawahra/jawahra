@@ -30,6 +30,7 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.internal.SignInButtonImpl;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
@@ -45,15 +46,20 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseUser currentUser = mAuth.getCurrentUser();
-    private DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+    private FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+    private DocumentReference userDocRef;
 
     private EditText inputEmail, inputPassword;
     private SignInButtonImpl btnLogin, btnNewAcc;
@@ -284,30 +290,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if (user != null) {
 
-            String userID = user.getUid();
-
             // Get display name and email of the account
             String username = user.getDisplayName();
             String email = user.getEmail();
 
-            reference.child(userID).addValueEventListener(new ValueEventListener() {
+            String userID = mAuth.getCurrentUser().getUid();
+            userDocRef = fStore.collection("users").document(userID);
+
+            Map<String, Object> userProfile = new HashMap<>();
+            userProfile.put("username", username);
+            userProfile.put("email", email);
+            userDocRef.set(userProfile).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    User userProfile = snapshot.getValue(User.class);
-
-                    String imageUrl = userProfile.imageUrl;
-
-                    // Add to User object
-                    User userInfo = new User(username, email, imageUrl);
-                    FirebaseDatabase.getInstance().getReference("Users")
-                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                            .setValue(userInfo);
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(LoginActivity.this, "There has been an error!", Toast.LENGTH_LONG).show();
+                public void onSuccess(Void aVoid) {
+                    Log.d("CHECK_USER", "onSuccess: user profile is created for "+ userID);
                 }
             });
 
