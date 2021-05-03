@@ -2,47 +2,43 @@ package com.example.jawahra.ui.visit;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.jawahra.R;
+import com.example.jawahra.adapters.SectionPagerAdapter;
 import com.example.jawahra.models.PlaceDetailsModel;
-import com.example.jawahra.models.PlacesModel;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+import com.example.jawahra.ui.visit.childfragments.FaqsChildFragment;
+import com.example.jawahra.ui.visit.childfragments.StoriesChildFragment;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import org.w3c.dom.Document;
-
-import java.util.Map;
 
 public class PlaceDetailsFragment extends Fragment {
 
+    //database
     private FirebaseFirestore firebaseFirestore;
+    private DocumentReference placeRef;
+    private CollectionReference detailsRef, imagesRef, faqsRef;
+
+    //child fragments
+//    View myFragment;
+    ViewPager viewPager;
+    TabLayout tabLayout;
 
     private TextView placeName, placeDesc, placeLocation;
-
     public String emirateId, placeId, placeTitle, detailsId, imagesId;
-
-    private DocumentReference placeRef;
-    private CollectionReference detailsRef;
-    private DocumentReference imagesRef;
-    private DocumentReference faqsRef;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,21 +65,8 @@ public class PlaceDetailsFragment extends Fragment {
         Log.d("CHECK_ID", "onCreate: placeRef : " + placeRef);
 
         detailsRef = placeRef.collection("details");
-
-       /* placeRef.get()
-                .addOnSuccessListener(snapshot -> {
-                    Log.d("CHECK_ID", "Document DOES Exist" );
-
-                    if(!snapshot.exists()){
-                        detailsRef  = placeRef.collection("details");
-
-                        Log.d("CHECK_ID","details id: " + detailsRef.getId());
-
-                    }else{
-                        Log.d("CHECK_ID", "Document does not Exist" );
-                    }
-                })
-                .addOnFailureListener(e -> Log.d("CHECK_ID", "Document does not Exist" ));*/
+        imagesRef = placeRef.collection("images");
+        faqsRef = placeRef.collection("faqs");
     }
 
     @Override
@@ -94,6 +77,10 @@ public class PlaceDetailsFragment extends Fragment {
         if (container != null) {
             container.removeAllViews();
         }
+
+        //set up child fragments
+        viewPager = root.findViewById(R.id.view_pager);
+        tabLayout = root.findViewById(R.id.tab_layout);
 
         //set views
         placeName = root.findViewById(R.id.place_name);
@@ -128,8 +115,43 @@ public class PlaceDetailsFragment extends Fragment {
                     }
                 })
                 .addOnFailureListener(e -> Log.d("CHECK_ID", "Document does not Exist" ));
-
     }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        setUpViewPager(viewPager);
+        tabLayout.setupWithViewPager(viewPager);
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+    }
+
+    private void setUpViewPager(ViewPager viewPager) {
+        SectionPagerAdapter adapter = new SectionPagerAdapter(getChildFragmentManager(),2);
+
+        adapter.addFragment(new FaqsChildFragment(), "FAQS");
+        adapter.addFragment(new StoriesChildFragment(), "Stories");
+
+        viewPager.setAdapter(adapter);
+    }
+
+
 
     @Override
     public void onStop() {
