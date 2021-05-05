@@ -4,9 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.widget.ViewPager2;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,7 +16,7 @@ import com.example.jawahra.R;
 import com.example.jawahra.adapters.SectionPagerAdapter;
 import com.example.jawahra.models.PlaceDetailsModel;
 import com.example.jawahra.ui.visit.childfragments.FaqsChildFragment;
-import com.example.jawahra.ui.visit.childfragments.StoriesChildFragment;
+import com.example.jawahra.ui.visit.childfragments.ImagesChildFragment;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -94,27 +92,27 @@ public class PlaceDetailsFragment extends Fragment {
 
     public void GetValues(){
         detailsRef.get()
-                .addOnSuccessListener(snapshot -> {
+            .addOnSuccessListener(snapshot -> {
 
-                    for (QueryDocumentSnapshot snapshots : snapshot){
-                        Log.d("CHECK_ID", "onCreate: DETAILSREF.GET IS WORKING???????");
+                for (QueryDocumentSnapshot snapshots : snapshot){
+                    Log.d("CHECK_ID", "onCreate: DETAILSREF.GET IS WORKING???????");
 
-                        PlaceDetailsModel placeDetailsModel = snapshots.toObject(PlaceDetailsModel.class);
-                        /*String desc = snapshots.getString("desc");
-                        String map = snapshots.getString("map");*/
+                    PlaceDetailsModel placeDetailsModel = snapshots.toObject(PlaceDetailsModel.class);
+                    /*String desc = snapshots.getString("desc");
+                    String map = snapshots.getString("map");*/
 
-                        String desc = placeDetailsModel.getDesc();
-                        String map = placeDetailsModel.getMap();
+                    String desc = placeDetailsModel.getDesc();
+                    String map = placeDetailsModel.getMap();
 
-                        Log.d("CHECK_ID", "onCreate: DESC VALUE: " +desc);
-                        Log.d("CHECK_ID", "onCreate: MAP VALUE: " +map);
+                    Log.d("CHECK_ID", "onCreate: DESC VALUE: " +desc);
+                    Log.d("CHECK_ID", "onCreate: MAP VALUE: " +map);
 
-                        placeName.setText(placeTitle);
-                        placeDesc.setText(desc);
-                        placeLocation.setText(map);
-                    }
-                })
-                .addOnFailureListener(e -> Log.d("CHECK_ID", "Document does not Exist" ));
+                    placeName.setText(placeTitle);
+                    placeDesc.setText(desc);
+                    placeLocation.setText(map);
+                }
+            })
+            .addOnFailureListener(e -> Log.d("CHECK_ID", "Document does not Exist" ));
     }
 
     @Override
@@ -145,13 +143,11 @@ public class PlaceDetailsFragment extends Fragment {
     private void setUpViewPager(ViewPager viewPager) {
         SectionPagerAdapter adapter = new SectionPagerAdapter(getChildFragmentManager(),2);
 
+        adapter.addFragment(new ImagesChildFragment(), "Images");
         adapter.addFragment(new FaqsChildFragment(), "FAQS");
-        adapter.addFragment(new StoriesChildFragment(), "Stories");
 
         viewPager.setAdapter(adapter);
     }
-
-
 
     @Override
     public void onStop() {
