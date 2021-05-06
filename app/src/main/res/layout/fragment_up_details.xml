@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.UPDetailsFragment"
-    android:background="@color/gray_light">
+    android:background="@color/gray_light"
+    android:id="@+id/fragment_up_details">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/up_details_app_bar"
@@ -44,9 +45,9 @@
 
             </LinearLayout>
 
-
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/up_details_toolbar"
+                app:navigationIcon="?attr/homeAsUpIndicator"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 app:layout_collapseMode="pin"/>
@@ -74,15 +75,6 @@
                 android:textColor="@color/black"
                 android:fontFamily="@font/playfair_display_bold"
                 android:textAlignment="textEnd"/>
-
-
-<!--            <com.google.android.material.textview.MaterialTextView-->
-<!--                android:textSize="20sp"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@string/author"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:fontFamily="@font/playfair_display_bold"/>-->
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/up_details_content"

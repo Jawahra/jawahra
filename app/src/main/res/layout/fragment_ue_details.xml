@@ -5,10 +5,11 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.UPDetailsFragment"
-    android:background="@color/gray_light">
+    android:background="@color/gray_light"
+    android:id="@+id/fragment_ue_details">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/up_details_app_bar"
+        android:id="@+id/ue_details_app_bar"
         android:layout_width="match_parent"
         android:layout_height="280dp"
         android:fitsSystemWindows="true"
@@ -26,16 +27,27 @@
             app:title="Upcoming Place"
             >
 
-            <ImageView
+            <LinearLayout
+                android:id="@+id/ue_details_img_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/rain_room"
-                android:scaleType="centerCrop"
-                android:layout_gravity="center|end"
-                />
+                android:background="@drawable/rain_room"
+
+                >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/image_shadow"
+                    android:scaleType="centerCrop"
+                    android:layout_gravity="center|end"
+                    />
+
+            </LinearLayout>
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/ue_details_toolbar"
+                app:navigationIcon="?attr/homeAsUpIndicator"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 app:layout_collapseMode="pin"/>
@@ -55,31 +67,52 @@
             android:padding="20dp">
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/ue_details_emirate"
                 android:textSize="20sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/author"
+                android:text="@string/emirate"
                 android:textColor="@color/black"
-                android:fontFamily="@font/playfair_display_bold"/>
+                android:fontFamily="@font/playfair_display_bold"
+                android:textAlignment="textEnd"/>
 
-            <com.google.android.material.textview.MaterialTextView
-                android:paddingTop="5dp"
+            <TextView
+                android:id="@+id/ue_details_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="When: eventDate"
                 android:textColor="@color/black"
-                android:text="@string/date_time_published"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/playfair_display_bold"
+                />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/ue_details_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="Where: eventLocation"
+                android:textColor="@color/black"
                 android:fontFamily="@font/playfair_display_bold"/>
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/ue_details_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/playfair_display"
                 android:lineHeight="30dp"
                 android:paddingTop="20dp"
-                android:text="@string/lorem_ipsum"
                 android:textColor="@color/black"
                 android:textSize="18sp"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/ue_details_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/mark_event_to_calendar"/>
+
         </LinearLayout>
+
 
     </androidx.core.widget.NestedScrollView>
 

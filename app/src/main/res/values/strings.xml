@@ -19,4 +19,5 @@
     <string name="date_time_published"><![CDATA[Date & Time published]]></string>
     <string name="author">Author</string>
     <string name="emirate">Emirate</string>
+    <string name="mark_event_to_calendar">Mark event to calendar</string>
 </resources>
