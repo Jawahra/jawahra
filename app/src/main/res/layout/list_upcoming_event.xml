@@ -80,7 +80,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/playfair_display_bold"
                 android:text="Name"
-                android:textSize="26sp"
+                android:textSize="24sp"
                 android:textColor="@color/black"
                 />
 
