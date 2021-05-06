@@ -4,12 +4,14 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_home" />
+        android:title="@string/title_home"
+        />
 
     <item
         android:id="@+id/navigation_visit"
         android:icon="@drawable/ic_location_black_24dp"
-        android:title="@string/title_visit" />
+        android:title="@string/title_visit"
+        />
 
     <item
         android:id="@+id/navigation_events"

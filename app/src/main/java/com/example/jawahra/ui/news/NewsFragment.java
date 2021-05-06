@@ -43,7 +43,6 @@ public class NewsFragment extends Fragment implements UpcomingPlacesAdapter.OnCa
     private UpcomingEventsAdapter adapterUE;
     FirestoreRecyclerOptions<UpcomingEventsModel> optionsUE;
 
-    private String upcomingPlaceId, upcomingEventId;
 
     @Nullable
     @Override
@@ -68,8 +67,8 @@ public class NewsFragment extends Fragment implements UpcomingPlacesAdapter.OnCa
 
 
 //        Initialise adapter when view is created
-        setAdapterUpcomingPlaces();
-        setAdapterUpcomingEvents();
+        adapterUP = new UpcomingPlacesAdapter(optionsUP, this, getActivity());
+        adapterUE = new UpcomingEventsAdapter(optionsUE, this, getActivity());
 
         return view;
     }
@@ -92,15 +91,6 @@ public class NewsFragment extends Fragment implements UpcomingPlacesAdapter.OnCa
         listUpcomingEvents.setAdapter(adapterUE);
     }
 
-    //    Function to initialise adapter
-    private void setAdapterUpcomingPlaces() {
-        adapterUP = new UpcomingPlacesAdapter(optionsUP, this, getActivity());
-    }
-
-    private void setAdapterUpcomingEvents() {
-        adapterUE = new UpcomingEventsAdapter(optionsUE, this, getActivity());
-    }
-
     @Override
     public void onCardClickUP(String upcomingPlaceID, String placeEmirate, String placeName, String placeImg) {
         Log.d("ITEM_CLICK", "Clicked item id: " + upcomingPlaceID + "\nEmirate: " + placeEmirate + "\nName: " + placeName + "\nImg URL: " + placeImg);
@@ -115,7 +105,13 @@ public class NewsFragment extends Fragment implements UpcomingPlacesAdapter.OnCa
         upDetailsFragment.setArguments(bundle);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.replace(R.id.)
+        fragmentTransaction.replace(R.id.fragment_news, upDetailsFragment);
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        fragmentTransaction.show(upDetailsFragment);
+        fragmentTransaction.commit();
+
+
+
     }
 
 
@@ -139,16 +135,4 @@ public class NewsFragment extends Fragment implements UpcomingPlacesAdapter.OnCa
         adapterUP.stopListening();
         adapterUE.stopListening();
     }
-
-
-    private void OnCardClickUP(String placeId, String placeName){
-        Bundle bundle = new Bundle();
-        bundle.putString("idUpcomingPlace", upcomingPlaceId);
-        bundle.putString("placeId", placeId);
-        bundle.putString("placeName", placeName);
-
-
-    }
-
-
 }
