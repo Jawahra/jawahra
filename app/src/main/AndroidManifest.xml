@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.jawahra">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -33,8 +35,11 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
+        <meta-data android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"/>
+
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:label="@string/title_activity_main2">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,7 +47,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity"></activity>
         <activity android:name=".AuthActivity"></activity>
+
     </application>
 
 </manifest>
