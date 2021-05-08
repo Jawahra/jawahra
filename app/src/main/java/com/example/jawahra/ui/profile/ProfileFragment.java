@@ -67,7 +67,8 @@ public class ProfileFragment extends Fragment {
 
         btnLogout = view.findViewById(R.id.btn_logout);
         btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
+
+          @Override
             public void onClick(View v) {
 
                 FirebaseAuth.getInstance().signOut(); // Log out from email

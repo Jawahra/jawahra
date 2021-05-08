@@ -19,9 +19,9 @@
 
     <fragment
         android:id="@+id/navigation_events"
-        android:name="com.example.jawahra.ui.events.EventsFragment"
-        android:label="@string/title_events"
-        tools:layout="@layout/fragment_events" />
+        android:name="com.example.jawahra.ui.news.NewsFragment"
+        android:label="@string/title_news"
+        tools:layout="@layout/fragment_news" />
 
     <fragment
         android:id="@+id/navigation_profile"

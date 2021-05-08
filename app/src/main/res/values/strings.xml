@@ -5,12 +5,23 @@
     <!--    NAVIGATION TITLES   -->
     <string name="title_home">Home</string>
     <string name="title_visit">Visit</string>
-    <string name="title_events">Events</string>
+    <string name="title_news">News</string>
     <string name="title_profile">Profile</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <!--  LOG IN/SIGN IN TITLES  -->
+
+    <!--    EVENTS PAGE-->
+    <string name="title_upcoming_places">Upcoming Places</string>
+    <string name="title_upcoming_events">Upcoming Events</string>
+    <string name="link_learn_more">Learn more...</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consequat, felis at accumsan accumsan, sapien mi lacinia quam, ac condimentum diam dui quis est. Pellentesque orci augue, pharetra varius aliquam nec, malesuada eget nisl. Proin lobortis tortor libero, ut porta magna tempus a. Nunc sit amet neque ipsum. Nulla suscipit tristique nibh, eu euismod augue eleifend semper. Nam molestie sit amet quam sed placerat. Aliquam ultrices scelerisque ante, semper congue orci volutpat at. Donec risus dui, molestie sit amet sem id, consectetur commodo velit. Vestibulum nibh elit, gravida ut pulvinar non, suscipit quis nisl. Nullam vitae sollicitudin lorem. Proin elit mi, lobortis suscipit mollis sit amet, tincidunt nec nibh. Aliquam sed ornare odio, id elementum orci. Donec consectetur lobortis elit, id gravida ex sagittis ut. Ut tincidunt lorem nibh, quis gravida nisl iaculis vitae. Duis sed egestas massa. Maecenas urna odio, tincidunt sed varius et, vehicula a lectus.</string>
+    <string name="date_time_published"><![CDATA[Date & Time published]]></string>
+    <string name="author">Author</string>
+    <string name="emirate">Emirate</string>
+    <string name="mark_event_to_calendar">Mark event to calendar</string>
+
+  <!--  LOG IN/SIGN IN TITLES  -->
     <string name="title_welcome_message">Welcome</string>
     <string name="title_welcome_back_message">Welcome back!</string>
     <string name="title_email">Email</string>
