@@ -28,6 +28,7 @@ public class PlacesAdapter  extends FirestoreRecyclerAdapter<PlacesModel, Places
     @Override
     protected void onBindViewHolder(@NonNull PlacesViewHolder holder, int position, @NonNull PlacesModel model) {
         holder.listName.setText(model.getName());
+        
     }
 
     @NonNull
