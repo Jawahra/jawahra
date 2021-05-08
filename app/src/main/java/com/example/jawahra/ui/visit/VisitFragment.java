@@ -40,8 +40,6 @@ public class VisitFragment extends Fragment implements EmiratesAdapter.OnListIte
         firebaseFirestore = FirebaseFirestore.getInstance();
         listEmirates = root.findViewById(R.id.list_emirates);
 
-        Glide.with(this).load("").into(cardImage);
-
         //Query
         Query query = firebaseFirestore.collection("emirates");
 

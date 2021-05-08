@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.jawahra.R;
 import com.example.jawahra.models.EmiratesModel;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -24,13 +25,13 @@ public class EmiratesAdapter extends FirestoreRecyclerAdapter<EmiratesModel, Emi
     public EmiratesAdapter(@NonNull FirestoreRecyclerOptions<EmiratesModel> options, OnListItemClick onListItemClick) {
         super(options);
         this.onListItemClick = onListItemClick;
+
     }
 
     @Override
     protected void onBindViewHolder(@NonNull EmiratesViewHolder holder, int position, @NonNull EmiratesModel model) {
         holder.listName.setText(model.getEmirateName());
-//        documentId = getSnapshots().getSnapshot(position).getId();
-//        Log.d("CHECK_ID", "ID : " + documentId);
+        Glide.with(content).load(model.getCoverImg()).into(holder.cardImage);
     }
 
     @NonNull
@@ -43,7 +44,7 @@ public class EmiratesAdapter extends FirestoreRecyclerAdapter<EmiratesModel, Emi
     public class EmiratesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private final TextView listName;
-        private ImageView cardImage;
+        public ImageView cardImage;
 
         public EmiratesViewHolder(@NonNull View itemView) {
             super(itemView);
