@@ -56,7 +56,7 @@ public class VisitFragment extends Fragment implements EmiratesAdapter.OnListIte
                 })
                 .build();
 
-        adapter= new EmiratesAdapter(options, this);
+        adapter = new EmiratesAdapter(options, this, getActivity());
 
         listEmirates.setHasFixedSize(true);
         listEmirates.setLayoutManager(new LinearLayoutManager(root.getContext()));

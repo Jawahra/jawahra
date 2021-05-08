@@ -16,7 +16,8 @@
             android:src="@drawable/placeholder_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scaleType="centerCrop"/>
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"/>
 
         <RelativeLayout
             android:layout_width="match_parent"

@@ -24,9 +24,10 @@ public class EmiratesAdapter extends FirestoreRecyclerAdapter<EmiratesModel, Emi
     public String documentId;
     private OnListItemClick onListItemClick;
 
-    public EmiratesAdapter(@NonNull FirestoreRecyclerOptions<EmiratesModel> options, OnListItemClick onListItemClick) {
+    public EmiratesAdapter(@NonNull FirestoreRecyclerOptions<EmiratesModel> options, OnListItemClick onListItemClick, Context context) {
         super(options);
         this.onListItemClick = onListItemClick;
+        this.context = context;
     }
 
     @Override
