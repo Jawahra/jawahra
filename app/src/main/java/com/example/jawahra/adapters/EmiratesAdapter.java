@@ -1,5 +1,6 @@
 package com.example.jawahra.adapters;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,19 +20,19 @@ import com.google.firebase.firestore.DocumentSnapshot;
 
 public class EmiratesAdapter extends FirestoreRecyclerAdapter<EmiratesModel, EmiratesAdapter.EmiratesViewHolder> {
 
+    private Context context;
     public String documentId;
     private OnListItemClick onListItemClick;
 
     public EmiratesAdapter(@NonNull FirestoreRecyclerOptions<EmiratesModel> options, OnListItemClick onListItemClick) {
         super(options);
         this.onListItemClick = onListItemClick;
-
     }
 
     @Override
     protected void onBindViewHolder(@NonNull EmiratesViewHolder holder, int position, @NonNull EmiratesModel model) {
         holder.listName.setText(model.getEmirateName());
-        Glide.with(content).load(model.getCoverImg()).into(holder.cardImage);
+        Glide.with(context).load(model.getCoverImg()).into(holder.cardImage);
     }
 
     @NonNull
@@ -50,7 +51,6 @@ public class EmiratesAdapter extends FirestoreRecyclerAdapter<EmiratesModel, Emi
             super(itemView);
             listName = itemView.findViewById(R.id.list_emirate_name);
             cardImage = itemView.findViewById(R.id.list_emirate_img);
-
             itemView.setOnClickListener(this);
         }
 
