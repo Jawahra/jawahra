@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -42,9 +43,13 @@ public class EmiratesAdapter extends FirestoreRecyclerAdapter<EmiratesModel, Emi
     public class EmiratesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private final TextView listName;
+        private ImageView cardImage;
+
         public EmiratesViewHolder(@NonNull View itemView) {
             super(itemView);
             listName = itemView.findViewById(R.id.list_emirate_name);
+            cardImage = itemView.findViewById(R.id.list_emirate_img);
+
             itemView.setOnClickListener(this);
         }
 
