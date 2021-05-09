@@ -26,10 +26,12 @@ import androidx.navigation.ui.NavigationUI;
 
 public class MainActivity extends AppCompatActivity {
 
-    private boolean locationPermissionGranted = false;
+    // constants
     private static final int PERMISSIONS_REQUEST_ENABLE_GPS = 701;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 702;
     private static final int ERROR_DIALOG_REQUEST = 703;
+
+    private boolean locationPermissionGranted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,12 +152,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        if(checkMapServices()) {
-            locationPermissionGranted = true;
-        } else{
-            getLocationPermission();
+    protected void onResume() {
+        super.onResume();
+        if(checkMapServices()){
+            if(locationPermissionGranted){
+
+            }
+            else{
+                getLocationPermission();
+            }
         }
     }
 }
