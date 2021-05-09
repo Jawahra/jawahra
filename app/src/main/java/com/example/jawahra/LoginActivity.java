@@ -310,12 +310,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                     UserModel userModel = value.toObject(UserModel.class);
-
                     String imageUrl = userModel.imageUrl;
+
                     userProfile.put("imageUrl", imageUrl);
-
                     userDocRef.set(userProfile);
-
                 }
             });
 

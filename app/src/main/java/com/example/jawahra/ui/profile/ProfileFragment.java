@@ -289,19 +289,21 @@ public class ProfileFragment extends Fragment {
         userDocRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                UserModel userModel = value.toObject(UserModel.class);
+                if(isAdded()){
+                    UserModel userModel = value.toObject(UserModel.class);
 
-                String username = userModel.username;
-                String email = userModel.email;
-                String imageUrl = userModel.imageUrl;
+                    String username = userModel.username;
+                    String email = userModel.email;
+                    String imageUrl = userModel.imageUrl;
 
-                usernameText.setText(username);
-                emailText.setText(email);
+                    usernameText.setText(username);
+                    emailText.setText(email);
 
-                Glide.with(getActivity())
-                        .load(imageUrl).circleCrop()
-                        .placeholder(R.drawable.com_facebook_profile_picture_blank_square)
-                        .into(profileImg);
+                    Glide.with(getActivity())
+                            .load(imageUrl).circleCrop()
+                            .placeholder(R.drawable.com_facebook_profile_picture_blank_square)
+                            .into(profileImg);
+                }
             }
         });
     }
