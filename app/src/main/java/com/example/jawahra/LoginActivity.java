@@ -14,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+import com.example.jawahra.models.UserModel;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
@@ -47,7 +49,10 @@ import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -300,10 +305,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Map<String, Object> userProfile = new HashMap<>();
             userProfile.put("username", username);
             userProfile.put("email", email);
-            userDocRef.set(userProfile).addOnSuccessListener(new OnSuccessListener<Void>() {
+
+            userDocRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                 @Override
-                public void onSuccess(Void aVoid) {
-                    Log.d("CHECK_USER", "onSuccess: user profile is created for "+ userID);
+                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                    UserModel userModel = value.toObject(UserModel.class);
+
+                    String imageUrl = userModel.imageUrl;
+                    userProfile.put("imageUrl", imageUrl);
+
+                    userDocRef.set(userProfile);
+
                 }
             });
 

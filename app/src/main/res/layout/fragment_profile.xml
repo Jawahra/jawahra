@@ -1,14 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.profile.ProfileFragment">
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- BLANK -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_blank"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
 
         <!-- Profile: AS GUEST -->
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -63,14 +75,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-                <com.google.android.material.imageview.ShapeableImageView
+                <ImageView
                     android:id="@+id/profile_img"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_centerHorizontal="true"
                     android:contentDescription="@string/title_profile"
-                    app:shapeAppearanceOverlay="@style/user_pfp_bg"
-                    app:srcCompat="@drawable/com_facebook_profile_picture_blank_square" />
+                    android:src="@drawable/com_facebook_profile_picture_blank_square" />
 
                 <TextView
                     android:id="@+id/profile_email"
@@ -191,14 +202,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/toolbar1">
 
-                <com.google.android.material.imageview.ShapeableImageView
+                <ImageView
                     android:id="@+id/profile_img2"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_centerHorizontal="true"
                     android:contentDescription="@string/title_profile"
-                    app:shapeAppearanceOverlay="@style/user_pfp_bg"
-                    app:srcCompat="@drawable/com_facebook_profile_picture_blank_square" />
+                    android:src="@drawable/com_facebook_profile_picture_blank_square" />
 
                 <TextView
                     android:id="@+id/profile_email2"
@@ -264,4 +274,4 @@
 
     </FrameLayout>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
