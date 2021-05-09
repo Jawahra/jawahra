@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import com.example.jawahra.R;
 import com.example.jawahra.adapters.SectionPagerAdapter;
 import com.example.jawahra.models.PlaceDetailsModel;
+import com.example.jawahra.ui.MapsFragment;
 import com.example.jawahra.ui.visit.childfragments.FaqsChildFragment;
 import com.example.jawahra.ui.visit.childfragments.StoriesChildFragment;
 import com.google.android.material.tabs.TabLayout;
@@ -87,6 +89,24 @@ public class PlaceDetailsFragment extends Fragment {
         placeDesc = root.findViewById(R.id.place_desc);
         placeLocation = root.findViewById(R.id.place_location);
 
+        placeLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("emirateId", emirateId);
+                bundle.putString("placeId", placeId);
+                bundle.putString("placeName", String.valueOf(placeTitle));
+
+                MapsFragment mapsFragment = new MapsFragment();
+                mapsFragment.setArguments(bundle);
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_places,mapsFragment);
+                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
         GetValues();
 
         return root;
