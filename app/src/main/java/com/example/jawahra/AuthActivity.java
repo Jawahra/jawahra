@@ -1,16 +1,15 @@
 package com.example.jawahra;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.common.internal.SignInButtonImpl;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -115,26 +114,37 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
 
-                        userID = mAuth.getCurrentUser().getUid();
-                        userDocRef = fStore.collection("users").document(userID);
+                            userID = mAuth.getCurrentUser().getUid();
+                            userDocRef = fStore.collection("users").document(userID);
 
-                        Map<String, Object> userProfile = new HashMap<>();
-                        userProfile.put("username", username);
-                        userProfile.put("email", email);
+                            Map<String, Object> userProfile = new HashMap<>();
+                            userProfile.put("username", username);
+                            userProfile.put("email", email);
+                            userProfile.put("imageUrl", null);
 
-                        userDocRef.set(userProfile).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d("CHECK_USER", "onSuccess: user profile is created for "+ userID);
-                            }
-                        });
+                            userDocRef.set(userProfile).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("CHECK_USER", "onSuccess: user profile is created for "+ userID);
+                                }
+                            });
 
-                        // Redirect to homepage
-                        startActivity(new Intent(AuthActivity.this, MainActivity.class));
+                            // Redirect to homepage
+                            startActivity(new Intent(AuthActivity.this, MainActivity.class));
+                        }
+                        else {
+                            // If sign in fails, display a message to the user.
+                            Log.w("CHECK_USER", "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(AuthActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
                     }
                 });
 
 
     }
+
 }
