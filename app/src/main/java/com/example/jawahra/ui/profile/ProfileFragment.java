@@ -5,11 +5,13 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,10 +32,12 @@ import com.example.jawahra.LoginActivity;
 import com.example.jawahra.R;
 import com.example.jawahra.models.UserModel;
 import com.example.jawahra.ui.FavoritesFragment;
+
 import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.imageview.ShapeableImageView;
@@ -87,6 +92,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState){
+
         View profile = inflater.inflate(R.layout.fragment_profile, container, false);
 
         layoutGuest = profile.findViewById(R.id.layout_guest);
@@ -131,6 +137,7 @@ public class ProfileFragment extends Fragment {
         toolbar = profile.findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(null);
 
+
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions
                 .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -141,9 +148,11 @@ public class ProfileFragment extends Fragment {
         // Initialize sign in client
         gsi = GoogleSignIn.getClient(getActivity(), gso);
 
+
         btnLogout = profile.findViewById(R.id.btn_logout);
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
+
             public void onClick(View v) {
 
                 FirebaseAuth.getInstance().signOut(); // Log out from email
@@ -314,5 +323,6 @@ public class ProfileFragment extends Fragment {
         layoutLoggedIn.setVisibility(screen == LOGGED ? View.VISIBLE : View.GONE);
         layoutSettings.setVisibility(screen == SETTINGS ? View.VISIBLE : View.GONE);
         layoutBlank.setVisibility(screen == BLANK ? View.VISIBLE : View.GONE);
+
     }
 }
