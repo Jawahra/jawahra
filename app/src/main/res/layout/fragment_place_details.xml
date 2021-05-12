@@ -1,88 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.UPDetailsFragment"
-    android:background="@color/gray_light">
+    tools:context=".ui.visit.PlaceDetailsFragment">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/upcoming_place_details_app_bar"
+<!--    todo: Complete UI for Fragment_place_details-->
+
+    <TextView
+        android:id="@+id/place_name"
         android:layout_width="match_parent"
-        android:layout_height="280dp"
-        android:fitsSystemWindows="true"
-        android:background="@color/blue"
-        >
+        android:layout_height="wrap_content"
+        android:text="@string/title_visit"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/place_desc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/upcoming_place_details_collapsing_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            app:contentScrim="@color/blue"
-            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
-            app:title="Upcoming Place">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/rain_room"
-                android:scaleType="centerCrop"
-                android:layout_gravity="center|end"
-                />
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/up_details_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                app:layout_collapseMode="pin"
-                />
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.core.widget.NestedScrollView
+    <TextView
+        android:id="@+id/place_desc"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+        android:layout_height="wrap_content"
+        android:text="Description"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/place_history" />
 
-        <LinearLayout
+    <TextView
+        android:id="@+id/place_history"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="History"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/place_location" />
+
+    <TextView
+        android:id="@+id/place_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Map Location"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/child_fragments" />
+
+    <LinearLayout
+        android:id="@+id/child_fragments"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="20dp">
+            android:layout_height="wrap_content"
+            android:background="@color/blue">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:textSize="20sp"
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/author"
-                android:textColor="@color/black"
-                android:fontFamily="@font/playfair_display_bold"/>
+                android:layout_height="wrap_content">
+            </com.google.android.material.tabs.TabLayout>
 
-            <com.google.android.material.textview.MaterialTextView
-                android:paddingTop="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:text="@string/date_time_published"
-                android:fontFamily="@font/playfair_display_bold"/>
+        </com.google.android.material.appbar.AppBarLayout>
 
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/playfair_display"
-                android:lineHeight="30dp"
-                android:paddingTop="20dp"
-                android:text="@string/lorem_ipsum"
-                android:textColor="@color/black"
-                android:textSize="18sp"/>
-        </LinearLayout>
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
-    </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
 
-
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
