@@ -7,23 +7,32 @@
     tools:context=".ui.visit.PlaceDetailsFragment">
 
 <!--    todo: Complete UI for Fragment_place_details-->
+
     <TextView
-    android:id="@+id/place_name"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="@string/title_visit"
-    android:textSize="30sp"
-    app:layout_constraintBottom_toTopOf="@+id/place_desc"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/place_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/title_visit"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/place_desc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/place_desc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Description"
-        android:textSize="24sp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/place_history" />
+
+    <TextView
+        android:id="@+id/place_history"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="History"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/place_location" />
 
     <TextView
@@ -38,7 +47,7 @@
         android:id="@+id/child_fragments"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="300dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <com.google.android.material.appbar.AppBarLayout
