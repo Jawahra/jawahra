@@ -5,8 +5,6 @@
     <color name="white_light">#EEF1EB</color>
     
     <!-- GRADIENT BACKGROUND COLOR -->
-    <color name="blue_light">#59C0C5</color>
-    <color name="blue_dark">#2B8099</color>
 
     <!-- NAVIGATION THEME COLORS-->
     <color name="purple_200">#FFBB86FC</color>
@@ -29,8 +27,7 @@
     <color name="blue_dark">#2B8099</color>
     <color name="blue_light">#A8E0CA</color>
     <color name="gray">#E9E9E9</color>
-    <color name="gray_light">#EEF1EA</color>
-    <color name="white">#FCFCFC</color>
+    <color name="gray_light">#EEF1EA</color>\
 
     <color name="gray_bg">#E5E5E5</color>
 
