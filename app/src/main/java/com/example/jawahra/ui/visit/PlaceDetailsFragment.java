@@ -35,7 +35,7 @@ public class PlaceDetailsFragment extends Fragment {
     ViewPager viewPager;
     TabLayout tabLayout;
 
-    private TextView placeName, placeDesc, placeLocation;
+    private TextView placeName, placeDesc, placeLocation, placeHistory;
     public String emirateId, placeId, placeTitle, detailsId, imagesId;
 
     @Override
@@ -83,6 +83,7 @@ public class PlaceDetailsFragment extends Fragment {
         //set views
         placeName = root.findViewById(R.id.place_name);
         placeDesc = root.findViewById(R.id.place_desc);
+        placeHistory = root.findViewById(R.id.place_history);
         placeLocation = root.findViewById(R.id.place_location);
 
         GetValues();
@@ -102,6 +103,7 @@ public class PlaceDetailsFragment extends Fragment {
                     String map = snapshots.getString("map");*/
 
                     String desc = placeDetailsModel.getDesc();
+                    String history = placeDetailsModel.getHistory();
                     String map = placeDetailsModel.getMap();
 
                     Log.d("CHECK_ID", "onCreate: DESC VALUE: " +desc);
@@ -109,6 +111,7 @@ public class PlaceDetailsFragment extends Fragment {
 
                     placeName.setText(placeTitle);
                     placeDesc.setText(desc);
+                    placeHistory.setText(history);
                     placeLocation.setText(map);
                 }
             })

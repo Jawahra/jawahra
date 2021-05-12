@@ -9,8 +9,10 @@ public class EmiratesModel{
     private EmiratesModel() {
     }
 
-    private EmiratesModel(String emirateName){
+    private EmiratesModel(String emirateName, String coverImg){
+
         this.emirateName = emirateName;
+        this.coverImg = coverImg;
     }
 
     public String getEmirateName() {

@@ -66,7 +66,7 @@ public class PlacesFragment extends Fragment implements PlacesAdapter.OnListItem
 
         Log.d("CHECK_ID", query.toString());
 
-        adapter = new PlacesAdapter(options, this);
+        adapter = new PlacesAdapter(options, this, getContext());
 
         listPlaces.setHasFixedSize(true);
         listPlaces.setLayoutManager(new GridLayoutManager(root.getContext(),2));
