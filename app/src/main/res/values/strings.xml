@@ -26,7 +26,7 @@
 
   <!--  LOG IN/SIGN IN TITLES  -->
 
-    <string name="title_welcome_message">Welcome</string>
+    <string name="title_welcome_message">Welcome!</string>
     <string name="title_welcome_back_message">Welcome back!</string>
     <string name="title_email">Email</string>
     <string name="title_pw">Password</string>
