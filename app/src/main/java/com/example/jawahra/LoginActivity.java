@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import com.bumptech.glide.Glide;
 import com.example.jawahra.models.UserModel;
@@ -30,7 +31,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.internal.SignInButtonImpl;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -67,16 +67,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private DocumentReference userDocRef;
 
     private EditText inputEmail, inputPassword;
-    private SignInButtonImpl btnLogin, btnNewAcc;
+    private AppCompatButton btnLogin, btnNewAcc;
     private TextView guestLogin;
 
     private CallbackManager callbackManager;
-    private SignInButtonImpl btnFbLogin;
+    private AppCompatButton btnFbLogin;
     private static final String TAG = "FacebookAuthentication";
     private static final String EMAIL = "email";
     private AccessTokenTracker accessTokenTracker;
 
-    private SignInButtonImpl btnGoogleLogin;
+    private AppCompatButton btnGoogleLogin;
     private GoogleSignInClient gsi;
     private int RC_SIGN_IN = 1;
 

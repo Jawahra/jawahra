@@ -10,8 +10,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
-import com.google.android.gms.common.internal.SignInButtonImpl;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -30,7 +30,7 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
     private DocumentReference userDocRef;
     private String userID;
     private EditText inputUsername, inputEmail, inputPassword, inputConfirmPassword;
-    private SignInButtonImpl btnSignUp, btnExistingUser;
+    private AppCompatButton btnSignUp, btnExistingUser;
 
 
     @Override

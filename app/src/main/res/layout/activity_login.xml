@@ -53,14 +53,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcome_user">
 
-        <com.google.android.gms.common.internal.SignInButtonImpl
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_google_login"
             style="@style/btn_login_signup"
             android:layout_marginBottom="10dp"
             android:drawableStart="@drawable/googleg_standard_color_18"
             android:text="@string/title_google_login" />
 
-        <com.google.android.gms.common.internal.SignInButtonImpl
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_fb_login"
             style="@style/btn_login_signup"
             android:layout_below="@id/btn_google_login"
@@ -149,13 +149,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/input_user_login">
 
-        <com.google.android.gms.common.internal.SignInButtonImpl
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_login"
             style="@style/btn_login_signup"
             android:layout_marginBottom="10dp"
             android:text="@string/title_log_in" />
 
-        <com.google.android.gms.common.internal.SignInButtonImpl
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_new_acc"
             style="@style/btn_login_signup"
             android:layout_below="@id/btn_login"
