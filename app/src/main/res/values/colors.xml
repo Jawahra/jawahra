@@ -15,8 +15,24 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+
     <color name="white">#FFFFFFFF</color>
 
     <color name="transparent">#00FFFFFF</color>
     <color name="transparent_light">#66EEF1EB</color>
+
+<!--    <color name="white">#FFFFFFFF</color>-->
+
+
+
+    <color name="blue">#59C0C5</color>
+    <color name="blue_dark">#2B8099</color>
+    <color name="blue_light">#A8E0CA</color>
+    <color name="gray">#E9E9E9</color>
+    <color name="gray_light">#EEF1EA</color>
+    <color name="white">#FCFCFC</color>
+
+    <color name="gray_bg">#E5E5E5</color>
+
+
 </resources>
