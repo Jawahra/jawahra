@@ -53,6 +53,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.SetOptions;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -64,6 +65,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseUser currentUser = mAuth.getCurrentUser();
     private FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+    private String userID;
     private DocumentReference userDocRef;
 
     private EditText inputEmail, inputPassword;
@@ -214,11 +216,32 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         if(task.isSuccessful()){
                             // Go to homepage
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                            Toast.makeText(LoginActivity.this, "Signed in successfully", Toast.LENGTH_LONG).show();
+
+                            userID = mAuth.getCurrentUser().getUid();
+                            userDocRef = fStore.collection("users").document(userID);
+                            userDocRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                                @Override
+                                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                                    UserModel userModel = value.toObject(UserModel.class);
+                                    String username = userModel.username;
+                                    String email = userModel.email;
+                                    String imageUrl = userModel.imageUrl;
+
+                                    Map<String, Object> userProfile = new HashMap<>();
+                                    userProfile.put("username", username);
+                                    userProfile.put("email", email);
+                                    userProfile.put("imageUrl", imageUrl);
+
+                                    userDocRef.set(userProfile);
+                                }
+                            });
+
+                            Toast.makeText(LoginActivity.this, "Signed in!", Toast.LENGTH_SHORT).show();
+                            Log.d("CHECK_USER_LOGIN", "with custom email and password, user: "+ userID);
 
                         } else {
                             // Display text
-                            Toast.makeText(LoginActivity.this, "Failed to login! Check your credentials.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, "Failed to login! Check your credentials.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -239,11 +262,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount acc = completedTask.getResult(ApiException.class);
-            Toast.makeText(this, "Signed in successfully", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Signed in!", Toast.LENGTH_LONG).show();
             FirebaseGoogleAuth(acc);
         } catch (ApiException e) {
             e.printStackTrace();
-            Toast.makeText(this, "Sign in failed", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Failed to login!", Toast.LENGTH_LONG).show();
             FirebaseGoogleAuth(null);
         }
     }
@@ -260,7 +283,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     updateUI(user);
 
                 } else {
-                    Toast.makeText(LoginActivity.this, "Google login failed", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "Failed to login!", Toast.LENGTH_LONG).show();
                     updateUI(null);
                 }
             }
@@ -277,13 +300,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
 
-                            Toast.makeText(LoginActivity.this, "FB login successful", Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, "Signed in!", Toast.LENGTH_LONG).show();
 
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
 
                         } else {
-                            Toast.makeText(LoginActivity.this, "FB login failed", Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, "Failed to login!", Toast.LENGTH_LONG).show();
                             updateUI(null);
                         }
 
@@ -292,19 +315,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void updateUI(FirebaseUser user) {
-
         if (user != null) {
 
             // Get display name and email of the account
             String username = user.getDisplayName();
             String email = user.getEmail();
 
-            String userID = mAuth.getCurrentUser().getUid();
-            userDocRef = fStore.collection("users").document(userID);
-
             Map<String, Object> userProfile = new HashMap<>();
             userProfile.put("username", username);
             userProfile.put("email", email);
+
+            userID = mAuth.getCurrentUser().getUid();
+            userDocRef = fStore.collection("users").document(userID);
 
             userDocRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                 @Override
@@ -313,16 +335,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     String imageUrl = userModel.imageUrl;
 
                     userProfile.put("imageUrl", imageUrl);
-                    userDocRef.set(userProfile);
                 }
             });
 
+            userDocRef.set(userProfile, SetOptions.merge());
+            Log.d("CHECK_USER_LOGIN", "with online sign in, user: "+ userID);
+
             // Redirect to homepage
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
+
         }
     }
-
-
-
-
 }
