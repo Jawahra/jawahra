@@ -4,68 +4,72 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.visit.PlaceDetailsFragment">
+    android:fitsSystemWindows="true"
+    tools:context=".ui.visit.PlaceDetailsFragment"
+    android:id="@+id/fragment_place_details">
 
 <!--    todo: Complete UI for Fragment_place_details-->
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/place_details_app_bar"
         android:layout_width="match_parent"
-        android:layout_height="400dp">
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.MaterialComponents.Light.DarkActionBar"
+        android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/place_details_collapsing_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            android:layout_height="400dp"
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark"
+            app:title="@string/emirate">
 
             <ImageView
+                android:id="@+id/place_details_img"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/placeholder_image"
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/image_shadow"
+                />
 
             <androidx.appcompat.widget.Toolbar
+                android:id="@+id/place_details_toolbar"
+                app:navigationIcon="?attr/homeAsUpIndicator"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark"
                 app:layout_collapseMode="pin" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-   <!--     <TextView
-            android:id="@+id/place_name"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/title_visit"
-            android:textSize="30sp" />-->
-
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="bottom"
+            app:tabBackground="@android:color/transparent">
+        </com.google.android.material.tabs.TabLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <LinearLayout
-        android:id="@+id/child_fragments"
-        android:orientation="vertical"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="300dp">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/app_bar_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/blue">
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tab_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </com.google.android.material.tabs.TabLayout>
-
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-    </LinearLayout>
-
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/location_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                app:layout_anchor="@+id/place_details_collapsing_toolbar"
+                app:layout_anchorGravity="bottom|end"
+                app:srcCompat="@drawable/ic_location_black_24dp"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+

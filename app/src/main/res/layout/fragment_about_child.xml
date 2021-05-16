@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.visit.childfragments.ImagesChildFragment">
+    tools:context=".ui.visit.childfragments.AboutChildFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textSize="25dp"
+        android:textSize="20dp"
         android:text="@string/lorem_ipsum" />
 
 </androidx.core.widget.NestedScrollView>
