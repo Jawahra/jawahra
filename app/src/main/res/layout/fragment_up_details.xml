@@ -13,8 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="280dp"
         android:fitsSystemWindows="true"
-        android:background="@color/blue"
-        >
+        android:background="@color/blue">
 
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -31,17 +30,15 @@
                 android:id="@+id/up_details_img_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/rain_room"
+                android:background="@drawable/rain_room">
 
-                >
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/image_shadow"
-                android:scaleType="centerCrop"
-                android:layout_gravity="center|end"
-                />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/image_shadow"
+                    android:scaleType="centerCrop"
+                    android:layout_gravity="center|end"
+                    />
 
             </LinearLayout>
 

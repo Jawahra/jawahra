@@ -1,7 +1,6 @@
 package com.example.jawahra.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,12 +56,12 @@ public class PlacesAdapter  extends FirestoreRecyclerAdapter<PlacesModel, Places
         @Override
         public void onClick(View v) {
             //get document ID of selected recyclerview card
-            onListItemClick.OnItemClick(getSnapshots().getSnapshot(getAdapterPosition()).getId(), getSnapshots().getSnapshot(getAdapterPosition()).getString("name"));
+            onListItemClick.OnItemClick(getSnapshots().getSnapshot(getAdapterPosition()).getId(), getSnapshots().getSnapshot(getAdapterPosition()).getString("name"), getSnapshots().getSnapshot(getAdapterPosition()).getString("coverImg"));
         }
 
     }
 
     public interface OnListItemClick {
-        void OnItemClick(String placeId, String placeName);
+        void OnItemClick(String placeId, String placeName, String placeImg);
     }
 }
