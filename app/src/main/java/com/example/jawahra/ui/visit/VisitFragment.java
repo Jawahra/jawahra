@@ -8,16 +8,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.example.jawahra.adapters.EmiratesAdapter;
 import com.example.jawahra.R;
+import com.example.jawahra.adapters.EmiratesAdapter;
 import com.example.jawahra.models.EmiratesModel;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.SnapshotParser;
@@ -89,13 +87,11 @@ public class VisitFragment extends Fragment implements EmiratesAdapter.OnListIte
 
         PlacesFragment placesFragment = new PlacesFragment();
         placesFragment.setArguments(bundle);
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_visit,placesFragment);
+        fragmentTransaction.replace(R.id.fragment_visit,placesFragment,null);
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-
-
     }
 }

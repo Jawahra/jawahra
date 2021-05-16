@@ -41,9 +41,9 @@ public class PlacesFragment extends Fragment implements PlacesAdapter.OnListItem
 
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_places, container, false);
-        if (container != null) {
+        /*if (container != null) {
             container.removeAllViews();
-        }
+        }*/
 
         emirateTitle = root.findViewById(R.id.emirate_title);
         emirateTitle.setText(emirateName);
@@ -97,9 +97,10 @@ public class PlacesFragment extends Fragment implements PlacesAdapter.OnListItem
         placeDetailsFragment.setArguments(bundle);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_places,placeDetailsFragment);
+        fragmentTransaction.replace(R.id.fragment_places,placeDetailsFragment,null);
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+
     }
 }

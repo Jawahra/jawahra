@@ -25,14 +25,12 @@ import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.jawahra.R;
 import com.example.jawahra.adapters.SectionPagerAdapter;
-import com.example.jawahra.models.PlaceDetailsModel;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.Objects;
 
@@ -43,12 +41,12 @@ public class PlaceDetailsFragment extends Fragment {
     private DocumentReference placeRef;
     private CollectionReference detailsRef, imagesRef, faqsRef;
 
-
+    private View root;
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private SectionPagerAdapter sectionPagerAdapter;
-    FragmentManager fragmentManager;
-    FloatingActionButton locationButton;
+    private FragmentManager fragmentManager;
+    private FloatingActionButton locationButton;
 
     private TextView placeName, placeDesc, placeLocation, placeHistory;
     private ImageView imageView;
@@ -83,33 +81,33 @@ public class PlaceDetailsFragment extends Fragment {
         imagesRef = placeRef.collection("images");
         faqsRef = placeRef.collection("faqs");
     }
-    private View root;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         root = inflater.inflate(R.layout.fragment_place_details, container, false);
-        if (container != null) {
+        /*if (container != null) {
             container.removeAllViews();
-        }
+        }*/
 
+        //set up tablayout
         initToolBar();
         SetTabLayoutAnim();
-        //set up tablayout
         viewPager = root.findViewById(R.id.view_pager);
         tabLayout = root.findViewById(R.id.tab_layout);
         sectionPagerAdapter = new SectionPagerAdapter(((AppCompatActivity) requireContext()).getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager.setAdapter(sectionPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
+        //replace imageview with conresponding image
         imageView = root.findViewById(R.id.place_details_img);
         Glide.with(requireActivity())
                 .load(placeImg)
                 .into(new CustomTarget<Drawable>() {
                     @Override
                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                        imageView.setBackground(resource);
+                        imageView.setImageDrawable(resource);
                     }
 
                     @Override
@@ -118,7 +116,7 @@ public class PlaceDetailsFragment extends Fragment {
                     }
                 });
 
-        GetValues();
+//        GetValues();
         return root;
     }
 
@@ -141,7 +139,7 @@ public class PlaceDetailsFragment extends Fragment {
 
     }
 
-    public void GetValues(){
+    /*public void GetValues(){
         detailsRef.get()
             .addOnSuccessListener(snapshot -> {
 
@@ -157,7 +155,7 @@ public class PlaceDetailsFragment extends Fragment {
                 }
             })
             .addOnFailureListener(e -> Log.d("CHECK_ID", "Document does not Exist" ));
-    }
+    }*/
 
     @Override
     public void onStop() {
