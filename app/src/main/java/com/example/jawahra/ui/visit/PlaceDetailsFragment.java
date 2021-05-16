@@ -87,9 +87,9 @@ public class PlaceDetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_place_details, container, false);
-        /*if (container != null) {
+        if (container != null) {
             container.removeAllViews();
-        }*/
+        }
 
         //set up tablayout
         initToolBar();

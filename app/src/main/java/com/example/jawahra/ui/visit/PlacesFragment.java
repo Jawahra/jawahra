@@ -41,9 +41,9 @@ public class PlacesFragment extends Fragment implements PlacesAdapter.OnListItem
 
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_places, container, false);
-        /*if (container != null) {
+        if (container != null) {
             container.removeAllViews();
-        }*/
+        }
 
         emirateTitle = root.findViewById(R.id.emirate_title);
         emirateTitle.setText(emirateName);
