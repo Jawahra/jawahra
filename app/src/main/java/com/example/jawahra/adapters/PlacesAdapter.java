@@ -20,8 +20,8 @@ public class PlacesAdapter  extends FirestoreRecyclerAdapter<PlacesModel, Places
 
 //    public String documentId;
 
-    private Context context;
-    private OnListItemClick onListItemClick;
+    private final Context context;
+    private final OnListItemClick onListItemClick;
 
     public PlacesAdapter(@NonNull FirestoreRecyclerOptions<PlacesModel> options, OnListItemClick onListItemClick, Context context) {
         super(options);

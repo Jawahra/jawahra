@@ -21,8 +21,8 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
 public class UpcomingPlacesAdapter extends FirestoreRecyclerAdapter<UpcomingPlacesModel, UpcomingPlacesAdapter.UpcomingPlacesViewHolder> {
 
-    private OnCardsClickUP onCardsClickUP;
-    private Context context;
+    private final OnCardsClickUP onCardsClickUP;
+    private final Context context;
 
     public UpcomingPlacesAdapter(@NonNull FirestoreRecyclerOptions<UpcomingPlacesModel> options, OnCardsClickUP onCardClickUP, Context context) {
         super(options);

@@ -77,13 +77,22 @@
                 android:textAlignment="textEnd"/>
 
             <TextView
-                android:id="@+id/ue_details_date"
+                android:id="@+id/ue_details_from_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
-                android:text="When: eventDate"
+                android:text="From: "
                 android:textColor="@color/black"
                 android:layout_marginTop="5dp"
+                android:fontFamily="@font/playfair_display_bold"
+                />
+            <TextView
+                android:id="@+id/ue_details_to_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="To: "
+                android:textColor="@color/black"
                 android:fontFamily="@font/playfair_display_bold"
                 />
             <com.google.android.material.textview.MaterialTextView
@@ -92,6 +101,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:text="Where: eventLocation"
+                android:layout_marginTop="10dp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/playfair_display_bold"/>
 
@@ -109,7 +119,8 @@
                 android:id="@+id/ue_details_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/mark_event_to_calendar"/>
+                android:layout_marginTop="20dp"
+                android:text="@string/mark_event_to_calendar" />
 
         </LinearLayout>
 
