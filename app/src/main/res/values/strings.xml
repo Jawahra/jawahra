@@ -25,6 +25,7 @@
     <string name="mark_event_to_calendar">Mark event to calendar</string>
 
   <!--  LOG IN/SIGN IN TITLES  -->
+
     <string name="title_welcome_message">Welcome</string>
     <string name="title_welcome_back_message">Welcome back!</string>
     <string name="title_email">Email</string>
@@ -43,6 +44,9 @@
     <string name="facebook_app_id">911184903013374</string>
     <string name="fb_login_protocol_scheme">fb911184903013374</string>
 
+    <!-- PROFILE -->
     <string name="title_settings">Settings</string>
+    <string name="message_to_guest">Log in to bookmark and<br/> download your favorite places!</string>
+
 
 </resources>
