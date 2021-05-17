@@ -13,17 +13,13 @@ import com.example.jawahra.R;
 import com.example.jawahra.models.PlaceDetailsModel;
 import com.example.jawahra.ui.visit.PlaceDetailsFragment;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 public class AboutChildFragment extends Fragment {
     private View root;
-
-    private FirebaseFirestore firebaseFirestore;
-//    private DocumentReference placeRef;
     private CollectionReference detailsRef;
 
-    private String emirateId, placeId, aboutDesc, aboutHist, desc, hist;
+    private String desc, hist;
     private TextView placeDesc, placeHist;
 
     @Override

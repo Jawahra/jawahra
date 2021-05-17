@@ -95,7 +95,7 @@ public class PlacesFragment extends Fragment implements PlacesAdapter.OnListItem
 
         PlaceDetailsFragment placeDetailsFragment = new PlaceDetailsFragment();
         placeDetailsFragment.setArguments(bundle);
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_places,placeDetailsFragment,null);
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
