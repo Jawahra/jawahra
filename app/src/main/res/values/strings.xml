@@ -53,5 +53,7 @@
     <string name="title_images">Images</string>
     <string name="title_faqs">FAQs</string>
 
+    <!--    ABOUT PAGE      -->
+    <string name="subtitle_history">History</string>
 
 </resources>

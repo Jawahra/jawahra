@@ -38,7 +38,7 @@ public class PlaceDetailsFragment extends Fragment {
 
     //database
     private FirebaseFirestore firebaseFirestore;
-    private DocumentReference placeRef;
+    public static DocumentReference placeRef;
     private CollectionReference detailsRef, imagesRef, faqsRef;
 
     private View root;
@@ -48,7 +48,7 @@ public class PlaceDetailsFragment extends Fragment {
     private FragmentManager fragmentManager;
     private FloatingActionButton locationButton;
 
-    private TextView placeName, placeDesc, placeLocation, placeHistory;
+    private TextView placeName, placeLocation;
     private ImageView imageView;
     public String emirateId, placeId, placeTitle, placeImg, detailsId, imagesId;
 
@@ -63,19 +63,16 @@ public class PlaceDetailsFragment extends Fragment {
             placeId = bundle.getString("placeId");
             placeTitle = bundle.getString("placeName");
             placeImg = bundle.getString("placeImg");
-
-            Log.d("CHECK_ID", "bundle, emirates id  part2 " + bundle.getString("emirateId"));
-            Log.d("CHECK_ID", "bundle, place id  part2 " + bundle.getString("placeId"));
         }
 
+        Log.d("ABTCHILD", "PlaceDetails onCreate: emiratesId" + emirateId);
+        Log.d("ABTCHILD", "PlaceDetails onCreate: placeId" + placeId);
         //QUERY
         firebaseFirestore = FirebaseFirestore.getInstance();
         placeRef = firebaseFirestore.collection("emirates")
                 .document(emirateId)
                 .collection("places")
                 .document(placeId);
-
-        Log.d("CHECK_ID", "onCreate: placeRef : " + placeRef);
 
         detailsRef = placeRef.collection("details");
         imagesRef = placeRef.collection("images");
@@ -119,6 +116,8 @@ public class PlaceDetailsFragment extends Fragment {
 //        GetValues();
         return root;
     }
+
+
 
     private void initToolBar(){
         Toolbar toolbar = root.findViewById(R.id.place_details_toolbar);
