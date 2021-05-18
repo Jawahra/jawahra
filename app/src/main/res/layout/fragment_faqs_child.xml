@@ -3,13 +3,129 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.visit.childfragments.FaqsChildFragment">
+    tools:context=".ui.visit.childfragments.FaqsChildFragment"
+    android:padding="20dp">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="18dp"
-        android:text="@string/lorem_ipsum" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:fontFamily="@font/quicksand"
+            android:textSize="20sp"
+            android:text="@string/subtitle_prices" />
+
+        <TextView
+            android:id="@+id/faqs_prices"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@color/black"
+            android:fontFamily="@font/quicksand"
+            android:textSize="18sp"
+            android:text="@string/subtitle_prices"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/blue"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:fontFamily="@font/quicksand"
+            android:textSize="20sp"
+            android:text="@string/subtitle_availability" />
+
+        <TextView
+            android:id="@+id/faqs_availability"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@color/black"
+            android:fontFamily="@font/quicksand"
+            android:textSize="18sp"
+            android:text="@string/subtitle_availability"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/blue"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:fontFamily="@font/quicksand"
+            android:textSize="20sp"
+            android:text="@string/subtitle_activities" />
+
+        <TextView
+            android:id="@+id/faqs_activities"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@color/black"
+            android:fontFamily="@font/quicksand"
+            android:textSize="18sp"
+            android:text="@string/subtitle_activities"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/blue"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:fontFamily="@font/quicksand"
+            android:textSize="20sp"
+            android:text="@string/subtitle_attire" />
+
+        <TextView
+            android:id="@+id/faqs_attire"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@color/black"
+            android:fontFamily="@font/quicksand"
+            android:textSize="18sp"
+            android:text="@string/subtitle_attire"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/blue"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:fontFamily="@font/quicksand"
+            android:textSize="20sp"
+            android:text="@string/subtitle_website" />
+
+        <TextView
+            android:id="@+id/faqs_website"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@color/black"
+            android:fontFamily="@font/quicksand"
+            android:textSize="18sp"
+            android:text="@string/subtitle_website"/>
+
+
+
+    </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>
