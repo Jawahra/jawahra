@@ -105,7 +105,7 @@ public class UEDetailsFragment extends Fragment {
         collapsingToolbar.setTitle(eventName);
         tvEventEmirate.setText(eventEmirate);
 
-        //                Get url string of image from document in Firestore and set ImageView to that image
+        //                Get url string of image from document in Firestore and set Linear layout's background to that image
         Glide.with(requireActivity())
                 .load(eventImg)
                 .into(new CustomTarget<Drawable>() {
@@ -161,7 +161,7 @@ public class UEDetailsFragment extends Fragment {
                     tvEventDetails.setText(eventDetails);
 
                     eventFromDate = doc.getDate("eventFromDate");
-                    tvEventFromDate.setText("From:" + convertDateToString(eventFromDate));
+                    tvEventFromDate.setText("From: " + convertDateToString(eventFromDate));
 
                     eventToDate = doc.getDate("eventToDate");
                     tvEventToDate.setText("To: " + convertDateToString(eventToDate));

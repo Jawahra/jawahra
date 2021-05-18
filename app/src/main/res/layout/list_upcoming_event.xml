@@ -59,7 +59,7 @@
                     android:text="Date"
                     android:textColor="@color/black"
                     android:textSize="14sp"
-                    android:fontFamily="@font/playfair_display"
+                    android:fontFamily="@font/quicksand"
                     android:textAlignment="textEnd"
 
                     />
@@ -67,7 +67,7 @@
                 android:id="@+id/upcoming_event_emirate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/playfair_display"
+                android:fontFamily="@font/quicksand"
                 android:text="Emirate"
                 android:textSize="18sp"
                 android:textColor="@color/black"

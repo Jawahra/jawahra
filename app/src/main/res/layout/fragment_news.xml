@@ -34,9 +34,10 @@
         android:layout_marginTop="-15dp">
 
         <RelativeLayout
+            android:id="@+id/featured_img"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/dubai_mall">
+            >
 
 
             <RelativeLayout
@@ -47,33 +48,33 @@
                 >
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/highlight_title"
+                    android:id="@+id/featured_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_above="@id/highlight_text"
+                    android:layout_above="@id/featured_text"
                     android:fontFamily="@font/playfair_display_bold"
-                    android:text="Dubai Mall"
+                    android:text="Featured Event"
                     android:textColor="@color/white"
                     android:textSize="28sp" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/highlight_text"
+                    android:id="@+id/featured_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_above="@id/btn_learn_more"
-                    android:fontFamily="@font/playfair_display"
-                    android:text="Gem of the day"
+                    android:fontFamily="@font/quicksand"
+                    android:text="Featured event of the week"
                     android:textColor="@color/white"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/btn_learn_more"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="10dp"
-                    android:fontFamily="@font/playfair_display"
-                    android:text="@string/link_learn_more"
+                    android:layout_marginBottom="2dp"
+                    android:fontFamily="@font/quicksand"
+                    android:text="Click to learn more"
                     android:textAlignment="textEnd"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
