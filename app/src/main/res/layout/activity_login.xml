@@ -35,9 +35,10 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
-            android:text="@string/title_welcome_back_message"
+            android:text="@string/title_welcome_message"
             android:textSize="30sp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/playfair_display_bold"
+            android:textColor="@color/black"/>
     </RelativeLayout>
 
 

@@ -22,8 +22,8 @@ import java.util.Date;
 
 public class UpcomingEventsAdapter extends FirestoreRecyclerAdapter<UpcomingEventsModel, UpcomingEventsAdapter.UpcomingEventsViewHolder> {
 
-    private Context context;
-    private onCardsClickUE onCardsClickUE;
+    private final Context context;
+    private final onCardsClickUE onCardsClickUE;
 
     public UpcomingEventsAdapter(@NonNull FirestoreRecyclerOptions<UpcomingEventsModel> options, onCardsClickUE onCardClick, Context context) {
         super(options);
@@ -37,8 +37,8 @@ public class UpcomingEventsAdapter extends FirestoreRecyclerAdapter<UpcomingEven
         holder.eventName.setText(model.getEventName());
 
 //                Set text of date TextView only when Textview is not null
-        if (model.getEventDate() != null){
-            String strEventDate = convertDateToString(model.getEventDate());
+        if (model.getEventToDate() != null){
+            String strEventDate = convertDateToString(model.getEventToDate());
             holder.eventDate.setText(strEventDate);
         }
 
@@ -87,7 +87,7 @@ public class UpcomingEventsAdapter extends FirestoreRecyclerAdapter<UpcomingEven
 
     //    Function to convert date to string
     private String convertDateToString(Date date) {
-        DateFormat dateFormat = new SimpleDateFormat("E, dd MMM yyyy | hh:mm aa");
+        DateFormat dateFormat = new SimpleDateFormat("E, dd MMM yyyy");
         return dateFormat.format(date);
     }
 }

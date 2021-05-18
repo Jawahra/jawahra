@@ -61,7 +61,7 @@ public class UPDetailsFragment extends Fragment {
         llPlaceImg = requireView().findViewById(R.id.up_details_img_layout);
 
 
-//        Bring to previous fragment when back button is pressed
+//       Bring to previous fragment when back button is pressed
         Toolbar toolbar = requireView().findViewById(R.id.up_details_toolbar);
         toolbar.setNavigationOnClickListener(view1 -> {
             NewsFragment newsFragment = new NewsFragment();
