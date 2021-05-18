@@ -104,13 +104,15 @@
             android:id="@+id/faqs_website"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textColor="@color/black"
-            android:fontFamily="@font/quicksand"
             android:layout_marginVertical="10dp"
+            android:autoLink="web"
+            android:fontFamily="@font/quicksand"
             android:lineSpacingExtra="8sp"
-            android:textSize="18sp"
-            android:text="@string/subtitle_website"/>
-
+            android:linksClickable="true"
+            android:text="@string/subtitle_website"
+            android:textColor="@color/black"
+            android:textColorLink="@color/blue_dark"
+            android:textSize="18sp" />
 
 
     </LinearLayout>

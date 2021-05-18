@@ -36,11 +36,12 @@ public class FaqsChildFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_faqs_child, container, false);
 
+        faqsWebsite = root.findViewById(R.id.faqs_website);
+
         faqsActivities = root.findViewById(R.id.faqs_activities);
         faqsAttire = root.findViewById(R.id.faqs_attire);
         faqsAvailability = root.findViewById(R.id.faqs_availability);
         faqsPrices = root.findViewById(R.id.faqs_prices);
-        faqsWebsite = root.findViewById(R.id.faqs_website);
 
         faqsRef = PlaceDetailsFragment.placeRef.collection("faqs");
 
@@ -87,9 +88,9 @@ public class FaqsChildFragment extends Fragment {
                         if (array_activities != null) {
                             for (int i = 0; i < array_activities.size(); i++) {
                                 if (i == 0) {
-                                    string_activities = array_activities.get(i);
+                                    string_activities = "\u2022 " + array_activities.get(i);
                                 }else{
-                                    string_activities += array_activities.get(i);
+                                    string_activities += "\u2022 " + array_activities.get(i);
                                 }
                                 string_activities += "\n";
                             }
@@ -97,10 +98,10 @@ public class FaqsChildFragment extends Fragment {
                         }
 
                         faqsAttire.setText(string_attire);
-                        faqsWebsite.setText(string_website);
                         faqsPrices.setText(string_prices);
                         faqsAvailability.setText(string_availability);
                         faqsActivities.setText(string_activities);
+                        faqsWebsite.setText(string_website);
                     }
                 })
                 .addOnFailureListener(e -> Log.d("CHECK_ID", "Document does not Exist"));
