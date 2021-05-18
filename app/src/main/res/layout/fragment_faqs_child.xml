@@ -14,26 +14,22 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
             android:fontFamily="@font/quicksand"
+            android:text="@string/subtitle_prices"
+            android:textColor="@color/black"
             android:textSize="20sp"
-            android:text="@string/subtitle_prices" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/faqs_prices"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textColor="@color/black"
             android:fontFamily="@font/quicksand"
-            android:textSize="18sp"
-            android:text="@string/subtitle_prices"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/blue"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="30dp"/>
+            android:layout_marginVertical="10dp"
+            android:lineSpacingExtra="8sp"
+            android:text="@string/subtitle_prices"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -41,23 +37,19 @@
             android:textColor="@color/black"
             android:fontFamily="@font/quicksand"
             android:textSize="20sp"
-            android:text="@string/subtitle_availability" />
+            android:text="@string/subtitle_availability"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/faqs_availability"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textColor="@color/black"
             android:fontFamily="@font/quicksand"
-            android:textSize="18sp"
-            android:text="@string/subtitle_availability"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/blue"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="30dp"/>
+            android:layout_marginVertical="10dp"
+            android:lineSpacingExtra="8sp"
+            android:text="@string/subtitle_availability"
+            android:textColor="@color/black"
+            android:textSize="18sp"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -65,7 +57,8 @@
             android:textColor="@color/black"
             android:fontFamily="@font/quicksand"
             android:textSize="20sp"
-            android:text="@string/subtitle_activities" />
+            android:text="@string/subtitle_activities"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/faqs_activities"
@@ -73,15 +66,10 @@
             android:layout_height="match_parent"
             android:textColor="@color/black"
             android:fontFamily="@font/quicksand"
+            android:layout_marginVertical="10dp"
+            android:lineSpacingExtra="8sp"
             android:textSize="18sp"
             android:text="@string/subtitle_activities"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/blue"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="30dp"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -89,7 +77,8 @@
             android:textColor="@color/black"
             android:fontFamily="@font/quicksand"
             android:textSize="20sp"
-            android:text="@string/subtitle_attire" />
+            android:text="@string/subtitle_attire"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/faqs_attire"
@@ -97,15 +86,10 @@
             android:layout_height="match_parent"
             android:textColor="@color/black"
             android:fontFamily="@font/quicksand"
+            android:layout_marginVertical="10dp"
+            android:lineSpacingExtra="8sp"
             android:textSize="18sp"
             android:text="@string/subtitle_attire"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/blue"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="30dp"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -113,7 +97,8 @@
             android:textColor="@color/black"
             android:fontFamily="@font/quicksand"
             android:textSize="20sp"
-            android:text="@string/subtitle_website" />
+            android:text="@string/subtitle_website"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/faqs_website"
@@ -121,6 +106,8 @@
             android:layout_height="match_parent"
             android:textColor="@color/black"
             android:fontFamily="@font/quicksand"
+            android:layout_marginVertical="10dp"
+            android:lineSpacingExtra="8sp"
             android:textSize="18sp"
             android:text="@string/subtitle_website"/>
 
