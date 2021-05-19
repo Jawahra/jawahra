@@ -87,8 +87,6 @@ public class NewsFragment extends Fragment implements UpcomingPlacesAdapter.OnCa
         RecyclerView listUpcomingPlaces = requireView().findViewById(R.id.list_upcoming_places);
         RecyclerView listUpcomingEvents = requireView().findViewById(R.id.list_upcoming_events);
 
-
-
 //        Set layout manager and adapter after view is created
         listUpcomingPlaces.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         listUpcomingPlaces.setAdapter(adapterUP);
