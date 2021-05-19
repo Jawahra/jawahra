@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful()){
+                    if (task.isSuccessful()) {
                         Log.d("CHECK_MAP", "OnComplete: successfully saved user details");
                         UserModel userModel = task.getResult().toObject(UserModel.class);
 
@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             getLastKnownLocation();
         }
+
     }
 
     private void getLastKnownLocation() {
@@ -123,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(userLocationModel != null){
             DocumentReference locationRef = fStore
-                    .collection("user collection")
+                    .collection("user location")
                     .document(FirebaseAuth.getInstance().getUid());
 
             locationRef.set(userLocationModel).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -245,14 +246,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(checkMapServices()){
-            if(locationPermissionGranted){
-                if(FirebaseAuth.getInstance().getCurrentUser() != null ){
+        if(FirebaseAuth.getInstance().getCurrentUser() != null ) {
+            if (checkMapServices()) {
+                if (locationPermissionGranted)
                     getUserDetails();
-                }
-            }
-            else{
-                getLocationPermission();
+                else
+                    getLocationPermission();
             }
         }
     }
