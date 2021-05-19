@@ -12,6 +12,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -20,6 +22,7 @@ import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.interfaces.ItemClickListener;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.jawahra.R;
+import com.example.jawahra.ui.visit.PlaceDetailsFragment;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -33,7 +36,10 @@ public class HomeFragment extends Fragment {
 
     ImageSlider imageSlider;
     List<SlideModel> imageList;
-    String fbUrl, fbTitle;
+    List<String> listFbId = new ArrayList<>(),
+        listFbUrl = new ArrayList<>(),
+        listFbTitle = new ArrayList<>(),
+        listFbEmirate = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -50,6 +56,9 @@ public class HomeFragment extends Fragment {
         imageSlider = requireView().findViewById(R.id.home_feature_banner);
 
         getFeaturedPlaces();
+
+
+
     }
 
     private void getFeaturedPlaces() {
@@ -69,21 +78,60 @@ public class HomeFragment extends Fragment {
                     .document("featured_banner")
                     .collection("featured_places")
                     .document(fbEmirates.get(i));
+
             docRef.get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     DocumentSnapshot doc = task.getResult();
                     if(doc.exists()){
-                        fbUrl = doc.getString("coverImg");
-                        fbTitle = doc.getString("name");
-                        imageList.add(new SlideModel(fbUrl,fbTitle, ScaleTypes.CENTER_CROP));
-                        imageSlider.setImageList(imageList);
+                        // Get data fields from firestore database
+                            String fbId = doc.getString("placeId");
+                            String fbUrl = doc.getString("coverImg");
+                            String fbTitle = doc.getString("name");
+                            String fbEmirate = doc.getString("emirate");
+                            // Display data to image slideshow for featured banner
+                            imageList.add(new SlideModel(fbUrl,fbTitle + ", " + fbEmirate, ScaleTypes.CENTER_CROP));
+                            imageSlider.setImageList(imageList);
+
+                            // Add data to list
+                            listFbId.add(fbId);
+                            listFbUrl.add(fbUrl);
+                            listFbTitle.add(fbTitle);
+                            listFbEmirate.add(fbEmirate);
 
 
+                        Log.d("FEATURED_BANNER", fbEmirate + " item!");
+                        Log.d("CHECK_ID", "PLACE ID : " + fbId);
+
+
+                        imageSlider.setItemClickListener(new ItemClickListener() {
+                            @Override
+                            public void onItemSelected(int i) {
+                                Log.d("FEATURED_BANNER", listFbEmirate.get(i) + " item clicked!");
+                                Bundle bundle = new Bundle();
+                                bundle.putString("emirateId", listFbEmirate.get(i));
+                                bundle.putString("placeId", listFbId.get(i));
+                                bundle.putString("placeName",listFbTitle.get(i));
+                                bundle.putString("placeImg", listFbUrl.get(i));
+                                Log.d("CHECK_ID", "PLACE ID : " + listFbId.get(i));
+
+                                // Open another fragment
+                                PlaceDetailsFragment placeDetailsFragment = new PlaceDetailsFragment();
+                                placeDetailsFragment.setArguments(bundle);
+                                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                fragmentTransaction.replace(R.id.fragment_home,placeDetailsFragment,null);
+                                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                                fragmentTransaction.addToBackStack(null);
+                                fragmentTransaction.commit();
+
+                            }
+                        });
                     } else{
                         Log.d("Document", "No data");
                     }
                 }
             });
+
         }
 
     }

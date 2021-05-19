@@ -101,6 +101,5 @@ public class PlacesFragment extends Fragment implements PlacesAdapter.OnListItem
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-
     }
 }

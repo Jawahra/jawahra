@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment"
-    android:background="@color/gray_light">
+    android:background="@color/gray_light"
+    android:id="@+id/fragment_home">
 
     <com.denzcoskun.imageslider.ImageSlider
         android:id="@+id/home_feature_banner"
