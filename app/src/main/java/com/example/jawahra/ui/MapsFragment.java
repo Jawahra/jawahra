@@ -17,6 +17,7 @@ import com.example.jawahra.R;
 import com.example.jawahra.models.PlaceDetailsModel;
 import com.example.jawahra.models.PlacesModel;
 import com.example.jawahra.models.UserLocationModel;
+import com.example.jawahra.models.UserModel;
 import com.example.jawahra.ui.visit.PlaceDetailsFragment;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
@@ -26,9 +27,12 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.common.base.Converter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -38,6 +42,9 @@ import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MapsFragment extends Fragment {
 
     private FirebaseFirestore fStore = FirebaseFirestore.getInstance();
@@ -45,11 +52,14 @@ public class MapsFragment extends Fragment {
     private DocumentReference userLocationRef;
     public String emirateId, placeId, placeTitle;
 
+    // place and user variables
     private UserLocationModel userPosition;
+    private GeoPoint userGeoPoint;
     private double placeLat, placeLng, userLat, userLng;
     private LatLng placeLatLng, userLatLng;
     private MarkerOptions placeMarker, userMarker;
 
+    private PolylineOptions direction;
 
     private final OnMapReadyCallback callback = new OnMapReadyCallback() {
 
@@ -65,54 +75,70 @@ public class MapsFragment extends Fragment {
         @Override
         public void onMapReady(GoogleMap googleMap) {
 
-            detailsRef.get().addOnSuccessListener(snapshot -> {
-                for (QueryDocumentSnapshot snapshots : snapshot){
-
-                    GeoPoint placeGeoPoint = snapshots.getGeoPoint("position");
+            readData(new FirestoreCallback() {
+                @Override
+                public void onCallback(GeoPoint placeGeoPoint, DocumentSnapshot snapshot) {
 
                     placeLat = placeGeoPoint.getLatitude();
                     placeLng = placeGeoPoint.getLongitude();
 
                     placeLatLng = new LatLng(placeLat, placeLng);
                     placeMarker = new MarkerOptions().position(placeLatLng)
-                            .title(placeTitle)
-                            .snippet("Tap to see directions");
-
-                    googleMap.addMarker(placeMarker);
+                            .title(placeTitle);
 
                     Log.d("CHECK_MAP", "onMapReady: retrieved place position: " + placeTitle
-                    + "\nlatitude: " + placeLat
-                    + "\nlongitude: "+ placeLng);
+                            + "\nlatitude: " + placeLat
+                            + "\nlongitude: " + placeLng);
+
+                    if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                        // Get user details
+                        userPosition = snapshot.toObject(UserLocationModel.class);
+                        userGeoPoint = snapshot.getGeoPoint("geoPoint");
+
+                        // Set latitude and longitude for user and place
+                        userLat = userGeoPoint.getLatitude();
+                        userLng = userGeoPoint.getLongitude();
+                        userLatLng = new LatLng(userLat, userLng);
+                        userMarker = new MarkerOptions().position(userLatLng)
+                                .title(userPosition.getUserModel().username);
+
+                        placeMarker.snippet("Tap to see directions");
+
+                        Log.d("CHECK_MAP", "onMapReady: retrieved user position: " + userPosition.getUserModel().username
+                                + "\nlatitude: " + userLat
+                                + "\nlongitude: " + userLng);
+
+                        googleMap.addMarker(userMarker);
+                    }
+
+                    googleMap.addMarker(placeMarker);
 
                     // Camera position
                     googleMap.moveCamera(CameraUpdateFactory.newLatLng(placeLatLng));
 
                     // Zoom animation
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(placeLatLng, 13.0f), 900, null);
-
                 }
             });
 
-            userLocationRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                @Override
-                public void onSuccess(DocumentSnapshot documentSnapshot) {
-
-                    GeoPoint userGeoPoint = documentSnapshot.getGeoPoint("geoPoint");
-
-                    userLat = userGeoPoint.getLatitude();
-                    userLng = userGeoPoint.getLongitude();
-                    userLatLng = new LatLng(userLat, userLng);
-
-                    userMarker = new MarkerOptions().position(userLatLng).title("Me");
-                    googleMap.addMarker(userMarker);
-
-                    Log.d("CHECK_MAP", "onMapReady: retrieved user position: " + FirebaseAuth.getInstance().getUid()
-                            + "\nlatitude: " + userLat
-                            + "\nlongitude: "+ userLng);
-
-                }
-            });
-
+//            userLocationRef.get().addOnSuccessListener(snapshots -> {
+//
+//                userPosition = snapshots.toObject(UserLocationModel.class);
+//                userGeoPoint = snapshots.getGeoPoint("geoPoint");
+//
+//                userLat = userGeoPoint.getLatitude();
+//                userLng = userGeoPoint.getLongitude();
+//                userLatLng = new LatLng(userLat, userLng);
+//
+//                userMarker = new MarkerOptions().position(userLatLng).title(userPosition.getUserModel().username);
+//
+//                googleMap.addMarker(userMarker);
+//
+//                Log.d("CHECK_MAP", "onMapReady: retrieved user position: " + userPosition.getUserModel().username
+//                        + "\nlatitude: " + userLat
+//                        + "\nlongitude: "+ userLng);
+//
+//            });
         }
     };
 
@@ -128,15 +154,9 @@ public class MapsFragment extends Fragment {
             emirateId = bundle.getString("emirateId");
             placeId = bundle.getString("placeId");
             placeTitle = bundle.getString("placeName");
-
         }
 
-        detailsRef = fStore.collection("emirates")
-                .document(emirateId).collection("places")
-                .document(placeId).collection("details");
 
-        userLocationRef = fStore.collection("user locations")
-                .document(FirebaseAuth.getInstance().getUid());
 
         // Toolbar
         Toolbar toolbar = view.findViewById(R.id.toolbar);
@@ -171,5 +191,39 @@ public class MapsFragment extends Fragment {
         if (mapFragment != null) {
             mapFragment.getMapAsync(callback);
         }
+    }
+
+    public void readData(FirestoreCallback firestoreCallback){
+
+
+        detailsRef = fStore.collection("emirates")
+                .document(emirateId).collection("places")
+                .document(placeId).collection("details");
+
+        detailsRef.get().addOnSuccessListener(snapshot -> {
+            for (QueryDocumentSnapshot snapshots : snapshot) {
+                GeoPoint placeGeoPoint = snapshots.getGeoPoint("position");
+
+                if(FirebaseAuth.getInstance().getCurrentUser() != null){
+                    userLocationRef = fStore.collection("user locations")
+                            .document(FirebaseAuth.getInstance().getUid());
+
+                    userLocationRef.get().addOnSuccessListener(docSnapshots -> {
+
+                        userPosition = docSnapshots.toObject(UserLocationModel.class);
+                        userGeoPoint = docSnapshots.getGeoPoint("geoPoint");
+
+                        firestoreCallback.onCallback(placeGeoPoint, docSnapshots);
+
+                    });
+                } else { firestoreCallback.onCallback(placeGeoPoint, null);}
+            }
+
+        });
+
+    }
+
+    public interface FirestoreCallback {
+        void onCallback(GeoPoint placeGeoPoint, DocumentSnapshot snapshot);
     }
 }
