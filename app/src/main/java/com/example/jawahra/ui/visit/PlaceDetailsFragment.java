@@ -89,7 +89,7 @@ public class PlaceDetailsFragment extends Fragment {
         placeHistory = root.findViewById(R.id.place_history);
         placeLocation = root.findViewById(R.id.place_location);
 
-        placeLocation.setOnClickListener(new View.OnClickListener() {
+        placeName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
