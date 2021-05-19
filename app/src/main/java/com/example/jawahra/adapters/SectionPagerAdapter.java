@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.jawahra.ui.visit.childfragments.AboutChildFragment;
 import com.example.jawahra.ui.visit.childfragments.FaqsChildFragment;
-import com.example.jawahra.ui.visit.childfragments.ImagesChildFragment;
+import com.example.jawahra.ui.visit.childfragments.GalleryChildFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ public class SectionPagerAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return new AboutChildFragment();
             case 1:
-                return new ImagesChildFragment();
+                return new GalleryChildFragment();
             case 2:
                 return new FaqsChildFragment();
             default:
