@@ -1,24 +1,21 @@
 package com.example.jawahra.ui.home;
 
 import android.os.Bundle;
-import android.transition.Slide;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
+import com.denzcoskun.imageslider.interfaces.ItemChangeListener;
 import com.denzcoskun.imageslider.interfaces.ItemClickListener;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.jawahra.R;
@@ -26,8 +23,6 @@ import com.example.jawahra.ui.visit.PlaceDetailsFragment;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,12 +48,9 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        imageSlider = requireView().findViewById(R.id.home_feature_banner);
+        imageSlider = requireView().findViewById(R.id.home_featured_banner);
 
         getFeaturedPlaces();
-
-
-
     }
 
     private void getFeaturedPlaces() {
@@ -89,8 +81,13 @@ public class HomeFragment extends Fragment {
                             String fbTitle = doc.getString("name");
                             String fbEmirate = doc.getString("emirate");
                             // Display data to image slideshow for featured banner
-                            imageList.add(new SlideModel(fbUrl,fbTitle + ", " + fbEmirate, ScaleTypes.CENTER_CROP));
+//                            imageList.add(new SlideModel(fbUrl,fbTitle + ", " + fbEmirate, ScaleTypes.CENTER_CROP));
+                            imageList.add(new SlideModel(fbUrl, ScaleTypes.CENTER_CROP));
                             imageSlider.setImageList(imageList);
+
+                            TextView tvFbTitle = requireView().findViewById(R.id.featured_banner_title);
+                            TextView tvFbEmirate = requireView().findViewById(R.id.featured_banner_emirate);
+
 
                             // Add data to list
                             listFbId.add(fbId);
@@ -101,6 +98,15 @@ public class HomeFragment extends Fragment {
 
                         Log.d("FEATURED_BANNER", fbEmirate + " item!");
                         Log.d("CHECK_ID", "PLACE ID : " + fbId);
+
+                        imageSlider.setItemChangeListener(new ItemChangeListener() {
+                            @Override
+                            public void onItemChanged(int i) {
+                                tvFbTitle.setText(listFbTitle.get(i));
+                                tvFbEmirate.setText(listFbEmirate.get(i));
+
+                            }
+                        });
 
 
                         imageSlider.setItemClickListener(new ItemClickListener() {

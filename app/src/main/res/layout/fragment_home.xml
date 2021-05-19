@@ -9,7 +9,7 @@
     android:id="@+id/fragment_home">
 
     <com.denzcoskun.imageslider.ImageSlider
-        android:id="@+id/home_feature_banner"
+        android:id="@+id/home_featured_banner"
         android:layout_width="match_parent"
         android:layout_height="270dp"
         app:iss_auto_cycle="true"
@@ -22,7 +22,33 @@
         app:iss_title_background="@drawable/image_shadow"
         android:theme="@style/home_feature_banner"
         style="@style/home_feature_banner">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/image_shadow"
+            android:padding="15dp"
+            >
 
+            <TextView
+                android:id="@+id/featured_banner_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Title"
+                android:textSize="28sp"
+                android:layout_above="@+id/featured_banner_emirate"
+               android:textColor="@color/white"
+             />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/featured_banner_emirate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/playfair_display"
+                android:text="Emirate"
+                android:textColor="@color/white"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="20dp"
+                android:textSize="20sp" />
+        </RelativeLayout>
     </com.denzcoskun.imageslider.ImageSlider>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
