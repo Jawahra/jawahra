@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(userLocationModel != null){
             DocumentReference locationRef = fStore
-                    .collection("user location")
+                    .collection("user locations")
                     .document(FirebaseAuth.getInstance().getUid());
 
             locationRef.set(userLocationModel).addOnCompleteListener(new OnCompleteListener<Void>() {
