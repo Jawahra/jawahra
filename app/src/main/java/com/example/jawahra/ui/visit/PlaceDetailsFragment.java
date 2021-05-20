@@ -135,7 +135,6 @@ public class PlaceDetailsFragment extends Fragment {
         collapsingToolbar.setCollapsedTitleTypeface(fontPlayFairBold);
         collapsingToolbar.setExpandedTitleTextAppearance(R.style.ExpandedAppBar);
         collapsingToolbar.setTitle(placeTitle);
-
     }
 
     /*public void GetValues(){
