@@ -1,13 +1,16 @@
 package com.example.jawahra.ui.visit;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -19,21 +22,25 @@ import com.example.jawahra.adapters.EmiratesAdapter;
 import com.example.jawahra.models.EmiratesModel;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.SnapshotParser;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+
+import java.util.Objects;
 
 public class VisitFragment extends Fragment implements EmiratesAdapter.OnListItemClick {
 
     private FirebaseFirestore firebaseFirestore;
     private RecyclerView listEmirates;
     private EmiratesAdapter adapter;
-    private ImageView cardImage;
+    View root;
+//    private ImageView cardImage;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_visit, container, false);
+        root = inflater.inflate(R.layout.fragment_visit, container, false);
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         listEmirates = root.findViewById(R.id.list_emirates);
@@ -59,7 +66,27 @@ public class VisitFragment extends Fragment implements EmiratesAdapter.OnListIte
         listEmirates.setHasFixedSize(true);
         listEmirates.setLayoutManager(new LinearLayoutManager(root.getContext()));
         listEmirates.setAdapter(adapter);
+
+        initToolBar();
+        setCollapsingToolBar();
         return root;
+    }
+
+    private void initToolBar(){
+        Toolbar toolbar = root.findViewById(R.id.visit_toolbar);
+        ((AppCompatActivity) requireContext()).setSupportActionBar(toolbar);
+
+        if(((AppCompatActivity) requireContext()).getSupportActionBar() != null){
+            Objects.requireNonNull(((AppCompatActivity) requireContext()).getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
+        }
+    }
+    private void setCollapsingToolBar(){
+        final CollapsingToolbarLayout collapsingToolbar = root.findViewById(R.id.visit_collapsing_toolbar);
+        //Set title font
+        final Typeface fontPlayFairBold = ResourcesCompat.getFont(requireContext(), R.font.playfair_display_sc_bold);
+        collapsingToolbar.setCollapsedTitleTypeface(fontPlayFairBold);
+        collapsingToolbar.setExpandedTitleTypeface(fontPlayFairBold);
+//        collapsingToolbar.setExpandedTitleTextAppearance(R.style.ExpandedAppBar);
     }
 
 

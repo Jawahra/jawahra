@@ -1,12 +1,11 @@
 package com.example.jawahra.ui;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
 
 import com.example.jawahra.R;
 
@@ -36,7 +35,7 @@ public class StoriesFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ImagesChildFragment.
+     * @return A new instance of fragment GalleryChildFragment.
      */
     // TODO: Rename and change types and number of parameters
     public static StoriesFragment newInstance(String param1, String param2) {
