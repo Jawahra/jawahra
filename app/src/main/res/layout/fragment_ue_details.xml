@@ -22,7 +22,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
-            app:contentScrim="@color/blue"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
             app:title="Upcoming Place"
             >
@@ -73,18 +72,27 @@
                 android:layout_height="wrap_content"
                 android:text="@string/emirate"
                 android:textColor="@color/black"
-                android:fontFamily="@font/playfair_display_bold"
+                android:fontFamily="@font/quicksand_bold"
                 android:textAlignment="textEnd"/>
 
             <TextView
-                android:id="@+id/ue_details_date"
+                android:id="@+id/ue_details_from_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
-                android:text="When: eventDate"
+                android:text="From: "
                 android:textColor="@color/black"
                 android:layout_marginTop="5dp"
-                android:fontFamily="@font/playfair_display_bold"
+                android:fontFamily="@font/quicksand"
+                />
+            <TextView
+                android:id="@+id/ue_details_to_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="To: "
+                android:textColor="@color/black"
+                android:fontFamily="@font/quicksand"
                 />
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/ue_details_location"
@@ -92,14 +100,15 @@
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:text="Where: eventLocation"
+                android:layout_marginTop="10dp"
                 android:textColor="@color/black"
-                android:fontFamily="@font/playfair_display_bold"/>
+                android:fontFamily="@font/quicksand"/>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/ue_details_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/playfair_display"
+                android:fontFamily="@font/quicksand"
                 android:lineHeight="30dp"
                 android:paddingTop="20dp"
                 android:textColor="@color/black"
@@ -109,7 +118,9 @@
                 android:id="@+id/ue_details_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/mark_event_to_calendar"/>
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="@string/mark_event_to_calendar" />
 
         </LinearLayout>
 

@@ -4,19 +4,19 @@ import java.util.Date;
 
 public class UpcomingEventsModel {
     private String eventImg, eventEmirate, eventName, eventDetails;
-    Date eventDate;
+    Date eventToDate;
 
 //    Empty constructor for firebase
     public UpcomingEventsModel() {
 
     }
 
-    public UpcomingEventsModel(String eventImg, String eventEmirate,String eventName,String eventDetails, Date eventDate){
+    public UpcomingEventsModel(String eventImg, String eventEmirate,String eventName,String eventDetails, Date eventToDate){
         this.eventImg = eventImg;
         this.eventEmirate = eventEmirate;
         this.eventName = eventName;
         this.eventDetails = eventDetails;
-        this.eventDate = eventDate;
+        this.eventToDate = eventToDate;
     }
 
     public String getEventEmirate() {
@@ -43,12 +43,12 @@ public class UpcomingEventsModel {
         this.eventDetails = eventDetails;
     }
 
-    public Date getEventDate() {
-        return eventDate;
+    public Date getEventToDate() {
+        return eventToDate;
     }
 
-    public void setEventDate(Date eventDate) {
-        this.eventDate = eventDate;
+    public void setEventToDate(Date eventToDate) {
+        this.eventToDate = eventToDate;
     }
 
     public String getEventImg() {

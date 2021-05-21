@@ -20,9 +20,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 
 public class EmiratesAdapter extends FirestoreRecyclerAdapter<EmiratesModel, EmiratesAdapter.EmiratesViewHolder> {
 
-    private Context context;
+    private final Context context;
     public String documentId;
-    private OnListItemClick onListItemClick;
+    private final OnListItemClick onListItemClick;
 
     public EmiratesAdapter(@NonNull FirestoreRecyclerOptions<EmiratesModel> options, OnListItemClick onListItemClick, Context context) {
         super(options);

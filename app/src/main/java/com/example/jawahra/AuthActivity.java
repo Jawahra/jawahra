@@ -1,37 +1,44 @@
 package com.example.jawahra;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+
+
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class AuthActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private FirebaseAuth mAuth;
-    EditText inputUsername, inputEmail, inputPassword, inputConfirmPassword;
-    Button btnSignUp, btnExistingUser;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+    private DocumentReference userDocRef;
+    private String userID;
+    private EditText inputUsername, inputEmail, inputPassword, inputConfirmPassword;
+    private AppCompatButton btnSignUp, btnExistingUser;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
-
-        // Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
 
         // User input
         inputUsername=findViewById(R.id.input_username);
@@ -109,32 +116,37 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            User user = new User(username, email);
+                        if (task.isSuccessful()) {
 
-                            FirebaseDatabase.getInstance().getReference("Users")
-                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            userID = mAuth.getCurrentUser().getUid();
+                            userDocRef = fStore.collection("users").document(userID);
+
+                            Map<String, Object> userProfile = new HashMap<>();
+                            userProfile.put("username", username);
+                            userProfile.put("email", email);
+                            userProfile.put("imageUrl", null);
+
+                            userDocRef.set(userProfile).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful()){
-                                        // Display text
-                                        Toast.makeText(AuthActivity.this, "You have registered successfully!", Toast.LENGTH_LONG).show();
-
-                                        // Go to homepage
-                                        startActivity(new Intent(AuthActivity.this, MainActivity.class));
-
-                                    }
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("CHECK_USER", "onSuccess: user profile is created for "+ userID);
                                 }
                             });
 
-                        } else{
-                            // Display text
-                            Toast.makeText(AuthActivity.this, "Registration unsuccessful.", Toast.LENGTH_LONG).show();
+                            // Redirect to homepage
+                            startActivity(new Intent(AuthActivity.this, MainActivity.class));
                         }
+                        else {
+                            // If sign in fails, display a message to the user.
+                            Log.w("CHECK_USER", "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(AuthActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
                     }
                 });
 
 
     }
+
 }

@@ -7,11 +7,18 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import androidx.appcompat.widget.AppCompatButton;
+
+import com.bumptech.glide.Glide;
+import com.example.jawahra.models.UserModel;
 
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -27,8 +34,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.internal.SignInButtonImpl;
+
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
@@ -36,28 +45,51 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+
 import com.google.firebase.database.FirebaseDatabase;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.SetOptions;
+
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private FirebaseAuth mAuth;
+
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private FirebaseUser currentUser = mAuth.getCurrentUser();
+    private FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+    private String userID;
+    private DocumentReference userDocRef;
 
     private EditText inputEmail, inputPassword;
-    private Button btnLogin, btnNewAcc;
+    private AppCompatButton btnLogin, btnNewAcc;
+    private TextView guestLogin;
 
     private CallbackManager callbackManager;
-    private Button btnFbLogin;
+    private AppCompatButton btnFbLogin;
+
     private static final String TAG = "FacebookAuthentication";
     private static final String EMAIL = "email";
     private AccessTokenTracker accessTokenTracker;
 
-    private SignInButtonImpl btnGoogleLogin;
+    private AppCompatButton btnGoogleLogin;
+
     private GoogleSignInClient gsi;
     private int RC_SIGN_IN = 1;
 
@@ -66,9 +98,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        // Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
 
         // User input
         inputEmail = findViewById(R.id.input_email);
@@ -81,6 +110,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // Sign Up Button
         btnNewAcc = findViewById(R.id.btn_new_acc);
         btnNewAcc.setOnClickListener(this);
+
+
+        // Guest Login
+        guestLogin = findViewById(R.id.guest_login);
+        guestLogin.setOnClickListener(this);
 
         // Sign in with Google
         btnGoogleLogin = findViewById(R.id.btn_google_login);
@@ -119,8 +153,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onStart() {
         super.onStart();
 
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-
         // Check if user is signed in (non-null) and update UI accordingly.
         if(currentUser != null) {
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
@@ -133,6 +165,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch (v.getId()){
             case R.id.btn_new_acc:
                 startActivity(new Intent(LoginActivity.this, AuthActivity.class));
+                break;
+            case R.id.guest_login:
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 break;
             case R.id.btn_login:
                 loginUser();
@@ -193,11 +228,32 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         if(task.isSuccessful()){
                             // Go to homepage
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                            Toast.makeText(LoginActivity.this, "Signed in successfully", Toast.LENGTH_LONG).show();
+
+                            userID = mAuth.getCurrentUser().getUid();
+                            userDocRef = fStore.collection("users").document(userID);
+                            userDocRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                                @Override
+                                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                                    UserModel userModel = value.toObject(UserModel.class);
+                                    String username = userModel.username;
+                                    String email = userModel.email;
+                                    String imageUrl = userModel.imageUrl;
+
+                                    Map<String, Object> userProfile = new HashMap<>();
+                                    userProfile.put("username", username);
+                                    userProfile.put("email", email);
+                                    userProfile.put("imageUrl", imageUrl);
+
+                                    userDocRef.set(userProfile);
+                                }
+                            });
+
+                            Toast.makeText(LoginActivity.this, "Signed in!", Toast.LENGTH_SHORT).show();
+                            Log.d("CHECK_USER_LOGIN", "with custom email and password, user: "+ userID);
 
                         } else {
                             // Display text
-                            Toast.makeText(LoginActivity.this, "Failed to login! Check your credentials.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, "Failed to login! Check your credentials.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -218,11 +274,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount acc = completedTask.getResult(ApiException.class);
-            Toast.makeText(this, "Signed in successfully", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Signed in!", Toast.LENGTH_LONG).show();
             FirebaseGoogleAuth(acc);
         } catch (ApiException e) {
             e.printStackTrace();
-            Toast.makeText(this, "Sign in failed", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Failed to login!", Toast.LENGTH_LONG).show();
             FirebaseGoogleAuth(null);
         }
     }
@@ -239,7 +295,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     updateUI(user);
 
                 } else {
-                    Toast.makeText(LoginActivity.this, "Google login failed", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "Failed to login!", Toast.LENGTH_LONG).show();
                     updateUI(null);
                 }
             }
@@ -256,13 +312,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
 
-                            Toast.makeText(LoginActivity.this, "FB login successful", Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, "Signed in!", Toast.LENGTH_LONG).show();
 
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
 
                         } else {
-                            Toast.makeText(LoginActivity.this, "FB login failed", Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, "Failed to login!", Toast.LENGTH_LONG).show();
                             updateUI(null);
                         }
 
@@ -272,25 +328,35 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void updateUI(FirebaseUser user) {
 
-        if (user != null){
 
+        if (user != null) {
             // Get display name and email of the account
             String username = user.getDisplayName();
             String email = user.getEmail();
 
-            // Add to User object
-            User userInfo = new User(username, email);
-            FirebaseDatabase.getInstance().getReference("Users")
-                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                    .setValue(userInfo);
+            Map<String, Object> userProfile = new HashMap<>();
+            userProfile.put("username", username);
+            userProfile.put("email", email);
+
+            userID = mAuth.getCurrentUser().getUid();
+            userDocRef = fStore.collection("users").document(userID);
+
+            userDocRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                    UserModel userModel = value.toObject(UserModel.class);
+                    String imageUrl = userModel.imageUrl;
+
+                    userProfile.put("imageUrl", imageUrl);
+                }
+            });
+
+            userDocRef.set(userProfile, SetOptions.merge());
+            Log.d("CHECK_USER_LOGIN", "with online sign in, user: "+ userID);
 
             // Redirect to homepage
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
 
         }
     }
-
-
-
-
 }
