@@ -20,6 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:iss_title_background="@drawable/image_shadow"
+
         android:theme="@style/home_feature_banner"
         style="@style/home_feature_banner">
         <RelativeLayout

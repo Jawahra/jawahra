@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="280dp"
         android:fitsSystemWindows="true"
+        android:theme="@style/Theme.MaterialComponents.Light.DarkActionBar"
         android:background="@color/blue">
 
 
@@ -21,6 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
             app:title="Upcoming Place"
             >
@@ -29,7 +31,7 @@
                 android:id="@+id/up_details_img_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/rain_room">
+                >
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -45,6 +47,7 @@
                 android:id="@+id/up_details_toolbar"
                 app:navigationIcon="?attr/homeAsUpIndicator"
                 android:layout_width="match_parent"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark"
                 android:layout_height="50dp"
                 app:layout_collapseMode="pin"/>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -79,7 +82,6 @@
                 android:fontFamily="@font/quicksand"
                 android:lineHeight="30dp"
                 android:paddingTop="20dp"
-                android:text="@string/lorem_ipsum"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
         </LinearLayout>
