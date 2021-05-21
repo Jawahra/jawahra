@@ -29,6 +29,7 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
+    TextView tvFbTitle, tvFbEmirate;
     ImageSlider imageSlider;
     List<SlideModel> imageList;
     List<String> listFbId = new ArrayList<>(),
@@ -48,8 +49,11 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        imageSlider = requireView().findViewById(R.id.home_featured_banner);
-
+        if(getView() != null) {
+            imageSlider = requireView().findViewById(R.id.home_featured_banner);
+            tvFbTitle = requireView().findViewById(R.id.featured_banner_title);
+            tvFbEmirate = requireView().findViewById(R.id.featured_banner_emirate);
+        }
         getFeaturedPlaces();
     }
 
@@ -85,8 +89,7 @@ public class HomeFragment extends Fragment {
                             imageList.add(new SlideModel(fbUrl, ScaleTypes.CENTER_CROP));
                             imageSlider.setImageList(imageList);
 
-                            TextView tvFbTitle = requireView().findViewById(R.id.featured_banner_title);
-                            TextView tvFbEmirate = requireView().findViewById(R.id.featured_banner_emirate);
+
 
 
                             // Add data to list

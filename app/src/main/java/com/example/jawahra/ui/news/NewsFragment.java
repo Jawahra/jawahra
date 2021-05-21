@@ -148,22 +148,24 @@ public class NewsFragment extends Fragment implements UpcomingPlacesAdapter.OnCa
                     tvTitleFeaturedEvent.setText(eventName);
 
                     eventImg = doc.getString("eventImg");
-                    Glide.with(requireActivity())
-                            .load(eventImg)
-                            .into(new CustomTarget<Drawable>() {
-                                @Override
-                                public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                                    rlFeaturedImg.setBackground(resource);
-                                }
+                    if (getActivity() != null) {
+                        Glide.with(getActivity())
+                                .load(eventImg)
+                                .into(new CustomTarget<Drawable>() {
+                                    @Override
+                                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                                        rlFeaturedImg.setBackground(resource);
+                                    }
 
-                                @Override
-                                public void onLoadCleared(@Nullable Drawable placeholder) {
+                                    @Override
+                                    public void onLoadCleared(@Nullable Drawable placeholder) {
 
-                                }
-                            });
+                                    }
+                                });
 
-                } else {
-                    Log.d("Document", "No data");
+                    } else {
+                        Log.d("Document", "No data");
+                    }
                 }
             }
         });
