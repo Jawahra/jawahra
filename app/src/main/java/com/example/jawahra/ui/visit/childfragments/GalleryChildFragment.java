@@ -27,7 +27,6 @@ public class GalleryChildFragment extends Fragment {
     public CollectionReference mediaRef;
     public StorageReference mediaFile;
     public String ref;
-    private ArrayList<String> mediaLinks = new ArrayList<>(10);
     private RecyclerView galleryRecycler;
     /*private ScrollGalleryView galleryView;
     private List<String> mediaString;
@@ -65,8 +64,7 @@ public class GalleryChildFragment extends Fragment {
                             mediaFile.listAll()
                                     .addOnSuccessListener(listResult -> {
 
-                                        Log.d("MYGALLERY", "onCreateView: medialink size W capacity: " + mediaLinks.size());
-                                        ArrayList mediaUrls = new ArrayList<>();
+                                        ArrayList<GalleryUrl> mediaUrls = new ArrayList<>();
                                         for (StorageReference item : listResult.getItems()){
                                             String path = item.getName();
                                             GalleryAdapter galleryAdapter = new GalleryAdapter(getContext(),mediaUrls);
