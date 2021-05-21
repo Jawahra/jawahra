@@ -28,6 +28,6 @@
     <color name="gray_light">#EEF1EA</color>\
 
     <color name="gray_bg">#E5E5E5</color>
-
+    <color name="white">#fff</color>
 
 </resources>
