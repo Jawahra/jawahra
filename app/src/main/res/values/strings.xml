@@ -55,5 +55,12 @@
 
     <!--    ABOUT PAGE      -->
     <string name="subtitle_history">History</string>
+    
+    <!--    FAQs PAGE       -->
+    <string name="subtitle_prices">Prices</string>
+    <string name="subtitle_availability">Availability</string>
+    <string name="subtitle_activities">Activities</string>
+    <string name="subtitle_attire">What to wear</string>
+    <string name="subtitle_website">Website</string>
 
 </resources>

@@ -3,7 +3,7 @@
 
     <!-- BACKGROUND COLOR -->
     <color name="white_light">#EEF1EB</color>
-    
+
     <!-- GRADIENT BACKGROUND COLOR -->
 
     <!-- NAVIGATION THEME COLORS-->
@@ -13,8 +13,6 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
-
-    <color name="white">#FFFFFFFF</color>
 
     <color name="transparent">#00FFFFFF</color>
     <color name="transparent_light">#66EEF1EB</color>

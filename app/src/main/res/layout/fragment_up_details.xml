@@ -21,7 +21,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
-            app:contentScrim="@color/blue"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
             app:title="Upcoming Place"
             >
@@ -65,24 +64,24 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/up_details_emirate"
-                android:textSize="20sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_bold"
                 android:text="@string/emirate"
+                android:textAlignment="textEnd"
                 android:textColor="@color/black"
-                android:fontFamily="@font/playfair_display_bold"
-                android:textAlignment="textEnd"/>
+                android:textSize="20sp" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/up_details_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/playfair_display"
+                android:fontFamily="@font/quicksand"
                 android:lineHeight="30dp"
                 android:paddingTop="20dp"
                 android:text="@string/lorem_ipsum"
                 android:textColor="@color/black"
-                android:textSize="18sp"/>
+                android:textSize="18sp" />
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

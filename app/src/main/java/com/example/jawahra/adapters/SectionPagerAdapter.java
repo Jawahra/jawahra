@@ -29,9 +29,9 @@ public class SectionPagerAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return new AboutChildFragment();
             case 1:
-                return new FaqsChildFragment();
-            case 2:
                 return new ImagesChildFragment();
+            case 2:
+                return new FaqsChildFragment();
             default:
                 return new AboutChildFragment();
         }

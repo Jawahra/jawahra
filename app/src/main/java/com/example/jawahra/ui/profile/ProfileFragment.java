@@ -243,7 +243,7 @@ public class ProfileFragment extends Fragment {
         pd.setTitle("Uploading image...");
         pd.show();
 
-        final StorageReference imageRef = storageRef.child("images/" + imageUri.getLastPathSegment() + getFileExtension(uri));
+        final StorageReference imageRef = storageRef.child("profile/" + imageUri.getLastPathSegment() + getFileExtension(uri));
 
         imageRef.putFile(uri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
