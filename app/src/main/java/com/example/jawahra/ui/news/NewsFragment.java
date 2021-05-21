@@ -92,10 +92,10 @@ public class NewsFragment extends Fragment implements UpcomingPlacesAdapter.OnCa
         super.onViewCreated(view, savedInstanceState);
 
 
-
 //        Hook variable to Recycler view
         RecyclerView listUpcomingPlaces = requireView().findViewById(R.id.list_upcoming_places);
         RecyclerView listUpcomingEvents = requireView().findViewById(R.id.list_upcoming_events);
+
 
         TextView btnLearnMore = requireView().findViewById(R.id.btn_learn_more);
         tvTitleFeaturedEvent = requireView().findViewById(R.id.featured_title);
@@ -105,7 +105,6 @@ public class NewsFragment extends Fragment implements UpcomingPlacesAdapter.OnCa
         setFeaturedEvent();
 
         btnLearnMore.setOnClickListener(v -> onCardClickUE(featuredEventID, eventEmirate, eventName, eventImg));
-
 
 
 //        Set layout manager and adapter after view is created
