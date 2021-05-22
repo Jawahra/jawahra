@@ -23,7 +23,7 @@
             android:layout_height="150dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"
-            app:srcCompat="@drawable/com_facebook_profile_picture_blank_square" />
+            app:srcCompat="@drawable/placeholder_blank_image" />
 
         <TextView
             android:id="@+id/welcome_message"
