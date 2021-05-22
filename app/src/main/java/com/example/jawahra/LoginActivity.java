@@ -261,9 +261,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e);
             }
-        }
+        } else { //If not request code is RC_SIGN_IN it must be facebook
 
-        callbackManager.onActivityResult(requestCode, resultCode, data);
+            // Pass the activity result back to the Facebook SDK
+            callbackManager.onActivityResult(requestCode, resultCode, data);
+        }
 
     }
 
