@@ -19,11 +19,16 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import android.webkit.MimeTypeMap;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,22 +61,20 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements Toolbar.OnMenuItemClickListener {
 
     // Variables for switching layouts
-    private View layoutGuest, layoutLoggedIn, layoutSettings, layoutBlank;
+    private View layoutGuest, layoutLoggedIn, layoutBlank;
     private int screen;
     private static final int BLANK = 0;
     private static final int GUEST = 1;
     private static final int LOGGED = 2;
-    private static final int SETTINGS = 3;
 
     // Firebase database and storage
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseUser currentUser = mAuth.getCurrentUser();
     private FirebaseFirestore fStore = FirebaseFirestore.getInstance();
     private DocumentReference userDocRef;
-    private DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
     private StorageReference storageRef = FirebaseStorage.getInstance().getReference();
     private GoogleSignInClient gsi;
     
@@ -82,9 +85,8 @@ public class ProfileFragment extends Fragment {
     private Uri imageUri;
 
     // Cards and buttons
-    private CardView cardProtocol, cardFavorites;
-    private TextView btnLogout, btnGuestLogin, btnSettings;
-    private TextView btnChangePFP;
+    private CardView cardFavorites;
+    private TextView btnGuestLogin;
 
     // Toolbar
     private Toolbar toolbar;
@@ -97,7 +99,6 @@ public class ProfileFragment extends Fragment {
 
         layoutGuest = profile.findViewById(R.id.layout_guest);
         layoutLoggedIn = profile.findViewById(R.id.layout_logged_in);
-        layoutSettings = profile.findViewById(R.id.layout_user_settings);
         layoutBlank = profile.findViewById(R.id.layout_blank);
 
         if (currentUser == null) {
@@ -109,7 +110,7 @@ public class ProfileFragment extends Fragment {
         }
 
         renderScreen();
-
+        setHasOptionsMenu(true);
         return profile;
     }
 
@@ -129,50 +130,13 @@ public class ProfileFragment extends Fragment {
 
     // User logged in layout
     private void loggedIn(View profile) {
-        final TextView usernameText = profile.findViewById(R.id.profile_name);
-        final TextView emailText = profile.findViewById(R.id.profile_email);
-        final ImageView profileImg = profile.findViewById(R.id.profile_img);
+        usernameText = profile.findViewById(R.id.profile_name);
+        emailText = profile.findViewById(R.id.profile_email);
+        profileImg = profile.findViewById(R.id.profile_img);
 
         // Toolbar
-        toolbar = profile.findViewById(R.id.toolbar);
-        toolbar.setNavigationIcon(null);
-
-
-        // Configure Google Sign In
-        GoogleSignInOptions gso = new GoogleSignInOptions
-                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        // Initialize sign in client
-        gsi = GoogleSignIn.getClient(getActivity(), gso);
-
-
-        btnLogout = profile.findViewById(R.id.btn_logout);
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-
-            public void onClick(View v) {
-
-                FirebaseAuth.getInstance().signOut(); // Log out from email
-                gsi.signOut(); // Log out from Google
-                LoginManager.getInstance().logOut(); // Log out from Facebook
-
-                // Redirect to Login Activity
-                startActivity(new Intent(getActivity(), LoginActivity.class));
-            }
-        });
-
-        btnSettings = profile.findViewById(R.id.btn_settings);
-        btnSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                screen = SETTINGS;
-                userSettings(profile);
-                renderScreen();
-            }
-        });
+        toolbar = profile.findViewById(R.id.profile_toolbar);
+        toolbar.setOnMenuItemClickListener(this);
 
         cardFavorites = profile.findViewById(R.id.profile_fav);
         cardFavorites.setOnClickListener(new View.OnClickListener() {
@@ -198,30 +162,46 @@ public class ProfileFragment extends Fragment {
         updateUI(usernameText, emailText, profileImg);
     }
 
-    // User settings layout
-    private void userSettings(View profile) {
-        usernameText = profile.findViewById(R.id.profile_name2);
-        emailText = profile.findViewById(R.id.profile_email2);
-        profileImg = profile.findViewById(R.id.profile_img2);
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
 
-        updateUI(usernameText, emailText, profileImg);
+        switch (item.getItemId()) {
+            case R.id.option_settings:
+                return true;
 
-        // Toolbar
-        toolbar = profile.findViewById(R.id.toolbar1);
-        toolbar.setNavigationIcon(null);
-
-        // Select Image
-        btnChangePFP = profile.findViewById(R.id.btn_change_pfp);
-        btnChangePFP.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            case R.id.option_edit_image:
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(intent, 5);
-            }
-        });
+                return true;
 
+            case R.id.option_instructions:
+                Toast.makeText(getActivity(), "Instructions", Toast.LENGTH_SHORT).show();
+                return true;
+
+            case R.id.option_log_out:
+                Toast.makeText(getActivity(), "Logged out.", Toast.LENGTH_SHORT).show();
+
+                // Configure Google Sign In
+                GoogleSignInOptions gso = new GoogleSignInOptions
+                        .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestIdToken(getString(R.string.default_web_client_id))
+                        .requestEmail()
+                        .build();
+
+                // Initialize sign in client
+                gsi = GoogleSignIn.getClient(getActivity(), gso);
+
+                FirebaseAuth.getInstance().signOut(); // Log out from email
+                gsi.signOut(); // Log out from Google
+                LoginManager.getInstance().logOut(); // Log out from Facebook
+
+                // Redirect to Login Activity
+                startActivity(new Intent(getActivity(), LoginActivity.class));
+                return true;
+        }
+        return false;
     }
 
     // Uploading new profile picture
@@ -310,7 +290,7 @@ public class ProfileFragment extends Fragment {
 
                     Glide.with(getActivity())
                             .load(imageUrl).circleCrop()
-                            .placeholder(R.drawable.com_facebook_profile_picture_blank_square)
+                            .placeholder(R.drawable.placeholder_blank_image)
                             .into(profileImg);
                 }
             }
@@ -321,7 +301,6 @@ public class ProfileFragment extends Fragment {
     private void renderScreen() {
         layoutGuest.setVisibility(screen == GUEST ? View.VISIBLE : View.GONE);
         layoutLoggedIn.setVisibility(screen == LOGGED ? View.VISIBLE : View.GONE);
-        layoutSettings.setVisibility(screen == SETTINGS ? View.VISIBLE : View.GONE);
         layoutBlank.setVisibility(screen == BLANK ? View.VISIBLE : View.GONE);
 
     }
