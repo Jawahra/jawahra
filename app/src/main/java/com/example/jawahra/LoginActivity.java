@@ -334,7 +334,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     UserModel userModel = value.toObject(UserModel.class);
                     String imageUrl = userModel.imageUrl;
 
-                    userProfile.put("imageUrl", imageUrl);
+                    if(imageUrl != null) {
+                        userProfile.put("imageUrl", imageUrl);
+                    }
                 }
             });
 
