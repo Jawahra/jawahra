@@ -1,7 +1,6 @@
 package com.example.jawahra.ui;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -37,14 +36,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 public class UEDetailsFragment extends Fragment {
 
     String upcomingEventID, eventEmirate, eventName, eventImg, eventLocation, eventDetails;
-    Date eventDate;
-    TextView tvEventEmirate, tvEventDetails, tvEventDate, tvEventLocation;
+    Date eventFromDate, eventToDate;
+    TextView tvEventEmirate, tvEventDetails, tvEventFromDate,tvEventToDate, tvEventLocation;
     LinearLayout llEventImg;
     Button btnMarkCalendar;
 
@@ -68,7 +66,8 @@ public class UEDetailsFragment extends Fragment {
         llEventImg = requireView().findViewById(R.id.ue_details_img_layout);
         tvEventEmirate = requireView().findViewById(R.id.ue_details_emirate);
         tvEventDetails = requireView().findViewById(R.id.ue_details_content);
-        tvEventDate = requireView().findViewById(R.id.ue_details_date);
+        tvEventFromDate = requireView().findViewById(R.id.ue_details_from_date);
+        tvEventToDate = requireView().findViewById(R.id.ue_details_to_date);
         tvEventLocation = requireView().findViewById(R.id.ue_details_location);
 
         btnMarkCalendar = requireView().findViewById(R.id.ue_details_btn);
@@ -106,7 +105,7 @@ public class UEDetailsFragment extends Fragment {
         collapsingToolbar.setTitle(eventName);
         tvEventEmirate.setText(eventEmirate);
 
-        //                Get url string of image from document in Firestore and set ImageView to that image
+        //                Get url string of image from document in Firestore and set Linear layout's background to that image
         Glide.with(requireActivity())
                 .load(eventImg)
                 .into(new CustomTarget<Drawable>() {
@@ -131,10 +130,10 @@ public class UEDetailsFragment extends Fragment {
 //            intent.putExtra(CalendarContract.Events.EVENT_LOCATION, eventLocation);
             intent.putExtra(CalendarContract.Events.DESCRIPTION, eventDetails);
             intent.putExtra(CalendarContract.Events.ALL_DAY, false);
-            intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, eventDate.getTime());
-            intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, eventDate.getTime());
+            intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, eventFromDate.getTime());
+            intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, eventFromDate.getTime());
 
-            Log.d("DATE", eventDate.toString());
+            Log.d("DATE", eventFromDate.toString());
 
 
             if (intent.resolveActivity(getActivity().getPackageManager()) != null){
@@ -161,8 +160,14 @@ public class UEDetailsFragment extends Fragment {
                     eventDetails = doc.getString("eventDetails");
                     tvEventDetails.setText(eventDetails);
 
-                    eventDate = doc.getDate("eventDate");
-                    tvEventDate.setText("When:" + convertDateToString(eventDate));
+                    eventFromDate = doc.getDate("eventFromDate");
+                    tvEventFromDate.setText("From: " + convertDateToString(eventFromDate));
+
+                    eventToDate = doc.getDate("eventToDate");
+                    tvEventToDate.setText("To: " + convertDateToString(eventToDate));
+
+                    eventLocation = doc.getString("eventLocation");
+                    tvEventLocation.setText("Location: " + eventLocation);
                 } else{
                     Log.d("Document", "No data");
                 }
@@ -174,7 +179,7 @@ public class UEDetailsFragment extends Fragment {
 
     //    Function to convert date to string
     private String convertDateToString(Date date) {
-        DateFormat dateFormat = new SimpleDateFormat("E, dd MMM yyyy | hh:mm aa");
+        DateFormat dateFormat = new SimpleDateFormat("E, dd MMM yyyy");
         return dateFormat.format(date);
     }
 

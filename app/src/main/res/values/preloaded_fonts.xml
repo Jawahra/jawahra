@@ -4,5 +4,6 @@
         <item>@font/amiri</item>
         <item>@font/playfair_display</item>
         <item>@font/playfair_display_bold</item>
+        <item>@font/quicksand_bold</item>
     </array>
 </resources>
