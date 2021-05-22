@@ -256,10 +256,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
-                FirebaseGoogleAuth(account.getIdToken());
+                FirebaseGoogleAuth(account);
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e);
+                FirebaseGoogleAuth(null);
             }
         } else { //If not request code is RC_SIGN_IN it must be facebook
 
@@ -269,25 +270,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
-    private void FirebaseGoogleAuth(String idToken) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Failed to login!", Toast.LENGTH_LONG).show();
-                            updateUI(null);
-                        }
-                    }
-                });
+    private void FirebaseGoogleAuth(GoogleSignInAccount acc) {
+        AuthCredential authCredential = GoogleAuthProvider.getCredential(acc.getIdToken(), null);
+
+        mAuth.signInWithCredential(authCredential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "signInWithCredential:success");
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    updateUI(user);
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "signInWithCredential:failure", task.getException());
+                    Toast.makeText(LoginActivity.this, "Failed to login!", Toast.LENGTH_LONG).show();
+                    updateUI(null);
+                }
+            }
+        });
     }
 
     private void handleFacebookToken(AccessToken token) {
