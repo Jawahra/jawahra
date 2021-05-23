@@ -35,7 +35,8 @@ public class HomeFragment extends Fragment {
     List<String> listFbId = new ArrayList<>(),
         listFbUrl = new ArrayList<>(),
         listFbTitle = new ArrayList<>(),
-        listFbEmirate = new ArrayList<>();
+        listFbEmirate = new ArrayList<>(),
+        listFbEmirateId = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -84,6 +85,7 @@ public class HomeFragment extends Fragment {
                             String fbUrl = doc.getString("coverImg");
                             String fbTitle = doc.getString("name");
                             String fbEmirate = doc.getString("emirate");
+                            String fbEmirateId = doc.getString("emirateId");
                             // Display data to image slideshow for featured banner
 //                            imageList.add(new SlideModel(fbUrl,fbTitle + ", " + fbEmirate, ScaleTypes.CENTER_CROP));
                             imageList.add(new SlideModel(fbUrl, ScaleTypes.CENTER_CROP));
@@ -97,6 +99,7 @@ public class HomeFragment extends Fragment {
                             listFbUrl.add(fbUrl);
                             listFbTitle.add(fbTitle);
                             listFbEmirate.add(fbEmirate);
+                            listFbEmirateId.add(fbEmirateId);
 
 
                         Log.d("FEATURED_BANNER", fbEmirate + " item!");
@@ -117,7 +120,7 @@ public class HomeFragment extends Fragment {
                             public void onItemSelected(int i) {
                                 Log.d("FEATURED_BANNER", listFbEmirate.get(i) + " item clicked!");
                                 Bundle bundle = new Bundle();
-                                bundle.putString("emirateId", listFbEmirate.get(i));
+                                bundle.putString("emirateId", listFbEmirateId.get(i));
                                 bundle.putString("placeId", listFbId.get(i));
                                 bundle.putString("placeName",listFbTitle.get(i));
                                 bundle.putString("placeImg", listFbUrl.get(i));

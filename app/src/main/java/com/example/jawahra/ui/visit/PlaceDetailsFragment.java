@@ -62,8 +62,8 @@ public class PlaceDetailsFragment extends Fragment {
             placeImg = bundle.getString("placeImg");
         }
 
-        Log.d("ABTCHILD", "PlaceDetails onCreate: emiratesId" + emirateId);
-        Log.d("ABTCHILD", "PlaceDetails onCreate: placeId" + placeId);
+        Log.d("ABTCHILD", "PlaceDetails onCreate: emiratesId, " + emirateId);
+        Log.d("ABTCHILD", "PlaceDetails onCreate: placeId, " + placeId);
         //QUERY
         firebaseFirestore = FirebaseFirestore.getInstance();
         placeRef = firebaseFirestore.collection("emirates")
