@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/covProto"
-        android:textSize="48sp"
+        android:textSize="42sp"
         android:textColor="@color/black"
         android:textAlignment="center"
         android:fontFamily="@font/playfair_display_sc_bold"
@@ -39,8 +39,7 @@
         android:textColor="@color/black"
         android:textAlignment="center"
         android:fontFamily="@font/quicksand"
-        android:padding="20dp"
-        android:layout_marginBottom="10dp"/>
+        android:padding="20dp" />
 
     <Button
         android:id="@+id/covProtoBtn"
