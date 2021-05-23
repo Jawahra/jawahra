@@ -1,10 +1,12 @@
 package com.example.jawahra.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +20,7 @@ import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.interfaces.ItemChangeListener;
 import com.denzcoskun.imageslider.interfaces.ItemClickListener;
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.example.jawahra.CovidProtocolActivity;
 import com.example.jawahra.R;
 import com.example.jawahra.ui.visit.PlaceDetailsFragment;
 import com.google.firebase.firestore.DocumentReference;
@@ -29,6 +32,7 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
+    Button btnCovidProtocols;
     TextView tvFbTitle, tvFbEmirate;
     ImageSlider imageSlider;
     List<SlideModel> imageList;
@@ -53,7 +57,13 @@ public class HomeFragment extends Fragment {
             imageSlider = requireView().findViewById(R.id.home_featured_banner);
             tvFbTitle = requireView().findViewById(R.id.featured_banner_title);
             tvFbEmirate = requireView().findViewById(R.id.featured_banner_emirate);
+            btnCovidProtocols = requireView().findViewById(R.id.btn_covid_protocols);
         }
+
+        btnCovidProtocols.setOnClickListener(v -> {
+            startActivity(new Intent(getActivity(), CovidProtocolActivity.class));
+        });
+
         getFeaturedPlaces();
     }
 

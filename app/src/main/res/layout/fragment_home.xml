@@ -52,4 +52,28 @@
         </RelativeLayout>
     </com.denzcoskun.imageslider.ImageSlider>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_featured_banner">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_covid_protocols"
+            android:layout_gravity="center"
+            android:drawableLeft="@drawable/ic_covid_19"
+            android:drawableRight="@drawable/ic_covid_19"
+            android:drawableTint="@color/blue_dark"
+            android:text="Covid-19 Protocols"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@+id/home_featured_banner" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
