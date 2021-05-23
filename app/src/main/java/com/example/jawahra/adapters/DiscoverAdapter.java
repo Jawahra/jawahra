@@ -36,7 +36,7 @@ public class DiscoverAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-        return view.equals(object);
+         return view.equals(object);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class DiscoverAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        destroyItem(container, position, object);
+//        destroyItem(container, position, object);
     }
 
     @NonNull

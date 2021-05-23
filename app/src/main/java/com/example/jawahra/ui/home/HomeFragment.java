@@ -83,19 +83,12 @@ public class HomeFragment extends Fragment {
 
 
         getFeaturedPlaces();
-
-        listDiscoverPlaces.add(new DiscoverModel("https://firebasestorage.googleapis.com/v0/b/jawahra-ec2e2.appspot.com/o/images%2Fajman%2Fajman_heritage_district%2Fajmanheritagevillage_1.jpg?alt=media&token=0cf0b973-7ceb-4b32-a364-c9ce0ab50177",
-                "Ajman", "Heritage Village", "dfdsfdhjfJHJFDKsndjKN"));listDiscoverPlaces.add(new DiscoverModel("https://firebasestorage.googleapis.com/v0/b/jawahra-ec2e2.appspot.com/o/images%2Fajman%2Fajman_heritage_district%2Fajmanheritagevillage_1.jpg?alt=media&token=0cf0b973-7ceb-4b32-a364-c9ce0ab50177",
-                "Ajman", "Heritage Village", "dfdsfdhjfJHJFDKsndjKN"));
         discoverAdapter = new DiscoverAdapter(getContext(), listDiscoverPlaces);
         discoverViewPager.setAdapter(discoverAdapter);
 
 
     }
 
-    private void getDiscoverPlaces(){
-
-    }
 
     private void getFeaturedPlaces() {
         imageList = new ArrayList<>();
