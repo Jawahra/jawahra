@@ -113,7 +113,7 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
@@ -126,17 +126,13 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
                             userProfile.put("email", email);
                             userProfile.put("imageUrl", null);
 
-                            userDocRef.set(userProfile).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d("CHECK_USER", "onSuccess: user profile is created for "+ userID);
-                                }
-                            });
+                            userDocRef.set(userProfile).addOnSuccessListener(aVoid ->
+                                    Log.d("CHECK_USER", "onSuccess: user profile is created for "+ userID));
 
                             // Redirect to homepage
                             startActivity(new Intent(AuthActivity.this, MainActivity.class));
-                        }
-                        else {
+
+                        } else {
                             // If sign in fails, display a message to the user.
                             Log.w("CHECK_USER", "createUserWithEmail:failure", task.getException());
                             Toast.makeText(AuthActivity.this, "Authentication failed.",

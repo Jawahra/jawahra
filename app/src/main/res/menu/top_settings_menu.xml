@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/option_settings"
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:title="@string/title_settings"
+        app:showAsAction="always">
+
+        <menu>
+            <item android:id="@+id/option_edit_image"
+                android:icon="@drawable/ic_person_black_24dp"
+                android:title="@string/settings_change_pfp" />
+
+            <item android:id="@+id/option_instructions"
+                android:icon="@drawable/ic_help_black_24dp"
+                android:title="@string/settings_instructions"/>
+
+            <item android:id="@+id/option_log_out"
+                android:icon="@drawable/ic_logout_black_24dp"
+                android:title="@string/title_log_out"/>
+        </menu>
+
+    </item>
+
+
+</menu>

@@ -23,7 +23,7 @@
             android:layout_height="150dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"
-            app:srcCompat="@drawable/com_facebook_profile_picture_blank_square" />
+            app:srcCompat="@drawable/placeholder_blank_image" />
 
         <TextView
             android:id="@+id/welcome_back_message"
@@ -87,7 +87,8 @@
             android:layout_centerHorizontal="true"
             android:paddingHorizontal="10dp"
             android:text="or sign in with"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:fontFamily="@font/quicksand"/>
 
         <View
             android:id="@+id/view2"
@@ -119,25 +120,19 @@
 
         <EditText
             android:id="@+id/input_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/input_custom"
+            style="@style/sign_up_input"
             android:ems="10"
             android:hint="@string/title_email"
-            android:inputType="textEmailAddress"
-            android:padding="12dp" />
+            android:inputType="textEmailAddress"/>
 
         <EditText
             android:id="@+id/input_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/sign_up_input"
             android:layout_below="@id/input_email"
             android:layout_marginTop="10dp"
-            android:background="@drawable/input_custom"
             android:ems="10"
             android:hint="@string/title_pw"
-            android:inputType="textPassword"
-            android:padding="12dp" />
+            android:inputType="textPassword"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -168,10 +163,13 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/btn_new_acc"
             android:layout_centerHorizontal="true"
-            android:background="?android:attr/selectableItemBackground"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:padding="10dp"
             android:text="Continue as Guest"
+            android:textStyle="bold"
+            android:fontFamily="@font/quicksand"
             android:textAlignment="center" />
     </RelativeLayout>
 
