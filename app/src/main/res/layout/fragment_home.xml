@@ -114,18 +114,31 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-    <com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager
-        android:id="@+id/discover_view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:layout_marginTop="-20dp"
-        app:icvp_interpolator="@android:anim/accelerate_decelerate_interpolator"
-        app:icvp_max_page_scale="0.85"
-        app:icvp_medium_scaled="true"
-        app:icvp_min_page_scale="0.5"
-        app:icvp_min_page_scale_offset="1dp"
-        app:icvp_scroll_duration="350"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--                <com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager-->
+<!--                    android:id="@+id/discover_view_pager"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="500dp"-->
+<!--                    app:icvp_interpolator="@android:anim/accelerate_decelerate_interpolator"-->
+<!--                    app:icvp_max_page_scale="0.85"-->
+<!--                    app:icvp_medium_scaled="true"-->
+<!--                    app:icvp_min_page_scale="0.5"-->
+<!--                    app:icvp_min_page_scale_offset="1dp"-->
+<!--                    app:icvp_scroll_duration="350"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+                <com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager
+                    android:id="@+id/discover_view_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp"
+                    app:icvp_interpolator="@android:anim/accelerate_decelerate_interpolator"
+                    app:icvp_max_page_scale="0.85"
+                    app:icvp_medium_scaled="true"
+                    app:icvp_min_page_scale="0.5"
+                    app:icvp_min_page_scale_offset="1dp"
+                    app:icvp_scroll_duration="350"/>
+
+
+
 
             </LinearLayout>
         </LinearLayout>

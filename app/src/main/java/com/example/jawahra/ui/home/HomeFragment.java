@@ -84,8 +84,7 @@ public class HomeFragment extends Fragment {
 
         getFeaturedPlaces();
         discoverAdapter = new DiscoverAdapter(getContext(), listDiscoverPlaces);
-        discoverViewPager.setAdapter(discoverAdapter);
-
+        discoverViewPager.startAutoScroll(true);
 
     }
 
