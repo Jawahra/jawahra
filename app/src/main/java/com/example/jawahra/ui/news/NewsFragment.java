@@ -151,6 +151,7 @@ public class NewsFragment extends Fragment implements UpcomingPlacesAdapter.OnCa
                     if (getActivity() != null) {
                         Glide.with(getActivity())
                                 .load(eventImg)
+                                .thumbnail(.25f)
                                 .into(new CustomTarget<Drawable>() {
                                     @Override
                                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {

@@ -34,7 +34,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
 
     @Override
     public void onBindViewHolder(@NonNull GalleryViewHolder holder, int position) {
-        Glide.with(context).load(mediaLinks.get(position).getGalleryUrl()).into(holder.img);
+        Glide.with(context).load(mediaLinks.get(position).getGalleryUrl()).thumbnail(0.25f).into(holder.img);
         Log.d("MYGALLERY", "onBindViewHolder: THIS IS RUNNING");
     }
 

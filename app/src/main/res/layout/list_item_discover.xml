@@ -9,6 +9,7 @@
 
 
     <RelativeLayout
+        android:id="@+id/discover_relative_layout"
         android:layout_width="match_parent"
         android:layout_height="500dp"
         android:orientation="vertical">
@@ -24,7 +25,7 @@
             android:padding="15dp"
             android:background="@drawable/top_image_shadow">
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/discover_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

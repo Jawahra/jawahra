@@ -8,113 +8,126 @@
     android:background="@color/gray_light"
     android:id="@+id/fragment_home">
 
-    <com.denzcoskun.imageslider.ImageSlider
-        android:id="@+id/home_featured_banner"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="270dp"
-        app:iss_auto_cycle="true"
-        app:iss_corner_radius="25"
-        app:iss_delay="2"
-        app:iss_period="3000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:iss_title_background="@drawable/image_shadow"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        android:theme="@style/home_feature_banner"
-        style="@style/home_feature_banner">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/image_shadow"
-            android:padding="15dp"
-            >
-
-            <TextView
-                android:id="@+id/featured_banner_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Title"
-                android:textSize="28sp"
-                android:layout_above="@+id/featured_banner_emirate"
-               android:textColor="@color/white"
-             />
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/featured_banner_emirate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/quicksand"
-                android:text="Hidden Gem of the Week"
-                android:textColor="@color/white"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="20dp"
-                android:textSize="18sp" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/featured_banner_learn_more"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="2dp"
-                android:fontFamily="@font/quicksand"
-                android:text="@string/click_to_learn_more"
-                android:textAlignment="textEnd"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-        </RelativeLayout>
-    </com.denzcoskun.imageslider.ImageSlider>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/home_featured_banner">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_covid_protocols"
-            android:layout_gravity="center"
-            android:drawableLeft="@drawable/ic_covid_19"
-            android:drawableRight="@drawable/ic_covid_19"
-            android:drawableTint="@color/blue_dark"
-            android:text="Covid-19 Protocols"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:textSize="16sp"
-            android:fontFamily="@font/quicksand_bold"
-            app:layout_constraintTop_toBottomOf="@+id/home_featured_banner" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/title_upcoming_places"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/playfair_display_bold"
-            android:text="Discover"
-            android:textColor="@color/black"
-            android:textFontWeight="700"
-            android:textSize="28sp"
-            android:layout_marginTop="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <com.denzcoskun.imageslider.ImageSlider
+                android:id="@+id/home_featured_banner"
+                style="@style/home_feature_banner"
+                android:layout_width="match_parent"
+                android:layout_height="270dp"
+                android:theme="@style/home_feature_banner"
+                app:iss_auto_cycle="true"
+                app:iss_corner_radius="25"
+                app:iss_delay="2"
+                app:iss_period="3000"
+                app:iss_title_background="@drawable/image_shadow"
+                app:layout_constraintEnd_toEndOf="parent"
 
-<!--        <com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            app:icvp_interpolator="@android:anim/accelerate_decelerate_interpolator"-->
-<!--            app:icvp_center_page_scale_offset="30dp"-->
-<!--            android:visibility="invisible"-->
-<!--            app:icvp_max_page_scale="0.8"-->
-<!--            app:icvp_medium_scaled="false"-->
-<!--            app:icvp_min_page_scale="0.5"-->
-<!--            app:icvp_min_page_scale_offset="5dp"-->
-<!--            app:icvp_scroll_duration="250"/>-->
-    </LinearLayout>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/image_shadow"
+                    android:padding="15dp">
+
+                    <TextView
+                        android:id="@+id/featured_banner_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/featured_banner_emirate"
+                        android:text="Title"
+                        android:textColor="@color/white"
+                        android:textSize="28sp" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/featured_banner_emirate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="20dp"
+                        android:fontFamily="@font/quicksand"
+                        android:text="Hidden Gem of the Week"
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/featured_banner_learn_more"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="2dp"
+                        android:fontFamily="@font/quicksand"
+                        android:text="@string/click_to_learn_more"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+
+                </RelativeLayout>
+            </com.denzcoskun.imageslider.ImageSlider>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/home_featured_banner">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_covid_protocols"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawableLeft="@drawable/ic_covid_19"
+                    android:drawableRight="@drawable/ic_covid_19"
+                    android:drawableTint="@color/blue_dark"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:text="Covid-19 Protocols"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/home_featured_banner" />
+
+                <TextView
+                    android:id="@+id/title_upcoming_places"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/playfair_display_bold"
+                    android:text="Discover"
+                    android:textColor="@color/black"
+                    android:textFontWeight="700"
+                    android:textSize="28sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+    <com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager
+        android:id="@+id/discover_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        app:icvp_interpolator="@android:anim/accelerate_decelerate_interpolator"
+        app:icvp_max_page_scale="0.85"
+        app:icvp_medium_scaled="true"
+        app:icvp_min_page_scale="0.5"
+        app:icvp_min_page_scale_offset="1dp"
+        app:icvp_scroll_duration="500"
+        app:layout_constraintTop_toTopOf="parent" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
