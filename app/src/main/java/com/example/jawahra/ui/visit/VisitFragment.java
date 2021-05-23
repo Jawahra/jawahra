@@ -110,6 +110,7 @@ public class VisitFragment extends Fragment implements EmiratesAdapter.OnListIte
         bundle.putString("emirateName", emirateName);
 
         Log.d("CHECK_ID", "bundle, id received" + bundle.getString("docID"));
+        Log.d("CHECK_ID", "bundle, id received" + bundle.getString("emirateName"));
 
         PlacesFragment placesFragment = new PlacesFragment();
         placesFragment.setArguments(bundle);

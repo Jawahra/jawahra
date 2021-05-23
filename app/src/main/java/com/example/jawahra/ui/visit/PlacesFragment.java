@@ -55,7 +55,6 @@ public class PlacesFragment extends Fragment implements PlacesAdapter.OnListItem
 
         /*emirateTitle = root.findViewById(R.id.emirate_title);
         emirateTitle.setText(emirateName);*/
-
         firebaseFirestore = FirebaseFirestore.getInstance();
         listPlaces = root.findViewById(R.id.list_places);
 
@@ -84,6 +83,9 @@ public class PlacesFragment extends Fragment implements PlacesAdapter.OnListItem
     private void initToolBar(){
         Toolbar toolbar = root.findViewById(R.id.places_toolbar);
         ((AppCompatActivity) requireContext()).setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(view1 -> {
+            NavHostFragment.findNavController(this).popBackStack();
+        });
 
         if(((AppCompatActivity) requireContext()).getSupportActionBar() != null){
             Objects.requireNonNull(((AppCompatActivity) requireContext()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);

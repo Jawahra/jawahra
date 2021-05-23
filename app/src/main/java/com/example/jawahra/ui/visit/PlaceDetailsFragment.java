@@ -114,6 +114,9 @@ public class PlaceDetailsFragment extends Fragment {
     private void initToolBar(){
         Toolbar toolbar = root.findViewById(R.id.place_details_toolbar);
         ((AppCompatActivity) requireContext()).setSupportActionBar(toolbar);
+        /*toolbar.setNavigationOnClickListener(view1 -> {
+            NavHostFragment.findNavController(this).popBackStack();
+        });*/
 
         if(((AppCompatActivity) requireContext()).getSupportActionBar() != null){
             Objects.requireNonNull(((AppCompatActivity) requireContext()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
