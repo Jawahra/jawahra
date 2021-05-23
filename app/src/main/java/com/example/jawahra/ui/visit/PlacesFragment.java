@@ -11,8 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -48,9 +47,11 @@ public class PlacesFragment extends Fragment implements PlacesAdapter.OnListItem
 
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_places, container, false);
-        if (container != null) {
+        /*if (container != null) {
             container.removeAllViews();
-        }
+            Log.d("TEST_BACKPRESSED", "PLACESFRAGMENT.JAVA | onCreateView:" + "container.removeAllViews called");
+
+        }*/
 
         /*emirateTitle = root.findViewById(R.id.emirate_title);
         emirateTitle.setText(emirateName);*/
@@ -124,11 +125,13 @@ public class PlacesFragment extends Fragment implements PlacesAdapter.OnListItem
 
         PlaceDetailsFragment placeDetailsFragment = new PlaceDetailsFragment();
         placeDetailsFragment.setArguments(bundle);
-        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        NavHostFragment.findNavController(this).navigate(R.id.action_placesFragment_to_placeDetailsFragment,bundle);
+        /*FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_places,placeDetailsFragment,null);
+//        fragmentTransaction.replace(R.id.fragment_places,placeDetailsFragment,null);
+        fragmentTransaction.replace(R.id.nav_host_fragment, placeDetailsFragment, null);
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+        fragmentTransaction.commit();*/
     }
 }
