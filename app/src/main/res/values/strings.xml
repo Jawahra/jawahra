@@ -49,6 +49,7 @@
     <string name="message_to_guest">Log in to bookmark and<br /> download your favorite places!</string>
     <string name="settings_change_pfp">Edit profile image</string>
     <string name="settings_instructions">Instructions</string>
+    <string name="title_favorites">Favorites</string>
 
     <!--    PLACES DETAILS TITLES   -->
     <string name="title_about">About</string>

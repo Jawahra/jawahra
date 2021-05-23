@@ -5,9 +5,11 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -82,6 +84,7 @@ public class PlaceDetailsFragment extends Fragment {
             Log.d("TEST_BACKPRESSED", "PLACEDETAILSFRAGMENT.JAVA | onCreateView:" + "container.removeAllViews called");
 
         }*/
+        setHasOptionsMenu(true);
 
         //replace imageview with corresponding image
         imageView = root.findViewById(R.id.place_details_img);
@@ -116,6 +119,7 @@ public class PlaceDetailsFragment extends Fragment {
         return root;
     }
 
+
     private void initToolBar(Toolbar toolbar){
         ((AppCompatActivity) requireContext()).setSupportActionBar(toolbar);
 
@@ -141,5 +145,15 @@ public class PlaceDetailsFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_favorite) {
+            Toast toast = Toast.makeText(getContext(), "Added to Favorites", Toast.LENGTH_LONG);
+            toast.show();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
