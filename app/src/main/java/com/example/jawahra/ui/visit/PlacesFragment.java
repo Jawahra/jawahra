@@ -75,17 +75,17 @@ public class PlacesFragment extends Fragment implements PlacesAdapter.OnListItem
         listPlaces.setLayoutManager(new GridLayoutManager(root.getContext(),2));
         listPlaces.setAdapter(adapter);
 
-        initToolBar();
-        setCollapsingToolBar();
-        return root;
-    }
-
-    private void initToolBar(){
         Toolbar toolbar = root.findViewById(R.id.places_toolbar);
-        ((AppCompatActivity) requireContext()).setSupportActionBar(toolbar);
+        initToolBar(toolbar);
+        setCollapsingToolBar();
         toolbar.setNavigationOnClickListener(view1 -> {
             NavHostFragment.findNavController(this).popBackStack();
         });
+        return root;
+    }
+
+    private void initToolBar(Toolbar toolbar){
+        ((AppCompatActivity) requireContext()).setSupportActionBar(toolbar);
 
         if(((AppCompatActivity) requireContext()).getSupportActionBar() != null){
             Objects.requireNonNull(((AppCompatActivity) requireContext()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
