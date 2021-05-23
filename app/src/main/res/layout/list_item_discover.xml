@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="15dp"
+    android:layout_margin="20dp">
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/discover_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="15dp"
+            android:background="@drawable/top_image_shadow">
+
+            <TextView
+                android:id="@+id/discover_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Title"
+                android:textSize="28sp"
+                android:fontFamily="@font/playfair_display_bold"
+                android:layout_alignParentTop="true"
+                android:textColor="@color/white"
+                />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/discover_emirate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand"
+                android:text="Emirate"
+                android:textColor="@color/white"
+                android:layout_below="@id/discover_title"
+                android:layout_marginBottom="20dp"
+                android:textSize="18sp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/discover_learn_more"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="2dp"
+                android:fontFamily="@font/quicksand"
+                android:text="@string/click_to_learn_more"
+                android:textAlignment="textEnd"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

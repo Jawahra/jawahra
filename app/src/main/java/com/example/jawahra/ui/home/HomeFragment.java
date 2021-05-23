@@ -67,10 +67,14 @@ public class HomeFragment extends Fragment {
         getFeaturedPlaces();
     }
 
+    private void getDiscoverPlaces(){
+
+    }
+
     private void getFeaturedPlaces() {
         imageList = new ArrayList<>();
         List<String> fbEmirates = new ArrayList<>();
-//        fbEmirates.add("abu_dhabi");
+        fbEmirates.add("abu_dhabi");
         fbEmirates.add("ajman");
         fbEmirates.add("dubai");
         fbEmirates.add("fujairah");
@@ -78,6 +82,7 @@ public class HomeFragment extends Fragment {
         fbEmirates.add("sharjah");
         fbEmirates.add("umm_al_quwain");
 
+//        TODO do this for discover part instead
         // Iterate through array list containing emirate names to retrieve data from firestore
         for (int i = 0; i < fbEmirates.size(); i++){
             DocumentReference docRef = FirebaseFirestore.getInstance().collection("home")
@@ -95,12 +100,8 @@ public class HomeFragment extends Fragment {
                             String fbTitle = doc.getString("name");
                             String fbEmirate = doc.getString("emirate");
                             // Display data to image slideshow for featured banner
-//                            imageList.add(new SlideModel(fbUrl,fbTitle + ", " + fbEmirate, ScaleTypes.CENTER_CROP));
                             imageList.add(new SlideModel(fbUrl, ScaleTypes.CENTER_CROP));
                             imageSlider.setImageList(imageList);
-
-
-
 
                             // Add data to list
                             listFbId.add(fbId);

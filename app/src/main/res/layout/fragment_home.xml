@@ -44,11 +44,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/quicksand"
-                android:text="Emirate"
+                android:text="Hidden Gem of the Week"
                 android:textColor="@color/white"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="20dp"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/featured_banner_learn_more"
@@ -69,6 +69,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:padding="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/home_featured_banner">
@@ -82,12 +83,38 @@
             android:text="Covid-19 Protocols"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:textSize="16sp"
             android:fontFamily="@font/quicksand_bold"
             app:layout_constraintTop_toBottomOf="@+id/home_featured_banner" />
+
+        <TextView
+            android:id="@+id/title_upcoming_places"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/playfair_display_bold"
+            android:text="Discover"
+            android:textColor="@color/black"
+            android:textFontWeight="700"
+            android:textSize="28sp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+<!--        <com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            app:icvp_interpolator="@android:anim/accelerate_decelerate_interpolator"-->
+<!--            app:icvp_center_page_scale_offset="30dp"-->
+<!--            android:visibility="invisible"-->
+<!--            app:icvp_max_page_scale="0.8"-->
+<!--            app:icvp_medium_scaled="false"-->
+<!--            app:icvp_min_page_scale="0.5"-->
+<!--            app:icvp_min_page_scale_offset="5dp"-->
+<!--            app:icvp_scroll_duration="250"/>-->
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
