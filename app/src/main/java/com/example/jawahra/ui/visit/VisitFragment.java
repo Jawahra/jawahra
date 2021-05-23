@@ -12,8 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -111,14 +110,17 @@ public class VisitFragment extends Fragment implements EmiratesAdapter.OnListIte
         bundle.putString("emirateName", emirateName);
 
         Log.d("CHECK_ID", "bundle, id received" + bundle.getString("docID"));
+        Log.d("CHECK_ID", "bundle, id received" + bundle.getString("emirateName"));
 
         PlacesFragment placesFragment = new PlacesFragment();
         placesFragment.setArguments(bundle);
-        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        NavHostFragment.findNavController(this).navigate(R.id.action_navigation_visit_to_placesFragment,bundle);
+        /*FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_visit,placesFragment,null);
+//        fragmentTransaction.replace(R.id.fragment_visit,placesFragment,null);
+        fragmentTransaction.replace(R.id.nav_host_fragment, placesFragment, null);
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+        fragmentTransaction.commit();*/
     }
 }

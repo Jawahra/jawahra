@@ -23,8 +23,21 @@ public class MainActivity extends AppCompatActivity {
 //                R.id.navigation_home, R.id.navigation_visit, R.id.navigation_events, R.id.navigation_profile)
 //                .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-//      NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
         NavigationUI.setupWithNavController(navView, navController);
     }
+/*
+    @Override
+    public void onBackPressed() {
+        if(getSupportFragmentManager().getBackStackEntryCount() > 0){
+            getSupportFragmentManager().popBackStack();
+            Log.d("TEST_BACKPRESSED", "MAINACTIVITY.JAVA | onBackPressed: " + "TEST 1 PASSED");
+        }
+        else {
+            super.onBackPressed();
+            Log.d("TEST_BACKPRESSED", "MAINACTIVITY.JAVA | onBackPressed: " + "TEST 1.5 PASSED");
+        }
+        Log.d("TEST_BACKPRESSED", "MAINACTIVITY.JAVA | onBackPressed: " + "TEST 2 PASSED");
+    }*/
 }
