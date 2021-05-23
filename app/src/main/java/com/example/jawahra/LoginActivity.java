@@ -167,7 +167,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(new Intent(LoginActivity.this, AuthActivity.class));
                 break;
             case R.id.guest_login:
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                startActivity(new Intent(LoginActivity.this, CovidProtocolActivity.class));
                 break;
             case R.id.btn_login:
                 loginUser();
@@ -227,7 +227,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             // Go to homepage
-                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                            startActivity(new Intent(LoginActivity.this, CovidProtocolActivity.class));
 
                             userID = mAuth.getCurrentUser().getUid();
                             userDocRef = fStore.collection("users").document(userID);

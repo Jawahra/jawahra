@@ -63,4 +63,9 @@
     <string name="subtitle_attire">What to wear</string>
     <string name="subtitle_website">Website</string>
 
+    <!--    COVID-19 PROTOCOLS   -->
+    <string name="covProto">COVID-19 PROTOCOLS</string>
+    <string name="covDesc">For your safety and concerns, we advise you to thoroughly read the following.</string>
+    <string name="covBtn">I UNDERSTAND</string>
+
 </resources>

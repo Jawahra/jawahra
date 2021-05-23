@@ -133,8 +133,8 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
                                 }
                             });
 
-                            // Redirect to homepage
-                            startActivity(new Intent(AuthActivity.this, MainActivity.class));
+                            // Redirect to Protocols
+                            startActivity(new Intent(AuthActivity.this, CovidProtocolActivity.class));
                         }
                         else {
                             // If sign in fails, display a message to the user.
