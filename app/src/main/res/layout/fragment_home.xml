@@ -43,12 +43,25 @@
                 android:id="@+id/featured_banner_emirate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/playfair_display"
+                android:fontFamily="@font/quicksand"
                 android:text="Emirate"
                 android:textColor="@color/white"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="20dp"
                 android:textSize="20sp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/featured_banner_learn_more"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="2dp"
+                android:fontFamily="@font/quicksand"
+                android:text="@string/click_to_learn_more"
+                android:textAlignment="textEnd"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
         </RelativeLayout>
     </com.denzcoskun.imageslider.ImageSlider>
 
@@ -72,7 +85,8 @@
             android:layout_margin="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:textSize="18sp"
+            android:textSize="16sp"
+            android:fontFamily="@font/quicksand_bold"
             app:layout_constraintTop_toBottomOf="@+id/home_featured_banner" />
     </LinearLayout>
 
