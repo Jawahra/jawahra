@@ -22,8 +22,9 @@ public class FaqsChildFragment extends Fragment {
     private CollectionReference faqsRef;
 
     private TextView faqsPrices, faqsAttire, faqsAvailability, faqsActivities, faqsWebsite;
-    private String string_website, string_attire, string_prices, string_activities, string_availability;
-    private List<String> array_activities, array_prices, array_availability;
+    private String string_prices, string_activities, string_availability;
+    public String string_website, string_attire;
+    public List<String> array_activities, array_prices, array_availability;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

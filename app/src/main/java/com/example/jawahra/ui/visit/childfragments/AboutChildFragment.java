@@ -19,7 +19,7 @@ public class AboutChildFragment extends Fragment {
     private View root;
     private CollectionReference detailsRef;
 
-    private String desc, hist;
+    public String desc, hist;
     private TextView placeDesc, placeHist;
 
     @Override
