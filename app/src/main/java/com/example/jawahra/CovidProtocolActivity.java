@@ -44,8 +44,8 @@ public class CovidProtocolActivity extends AppCompatActivity {
 
         /*Animate Gradient Background*/
         animationDrawable = (AnimationDrawable) relativeLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(2000);
-        animationDrawable.setExitFadeDuration(2000);
+        animationDrawable.setEnterFadeDuration(4000);
+        animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
 
         /*Button*/

@@ -36,6 +36,7 @@
     <string name="title_log_in">Log In</string>
     <string name="title_log_out">Log Out</string>
     <string name="title_sign_up">Sign Up</string>
+    <string name="title_guest">Continue as Guest</string>
     <string name="title_new_user">New user? Create an account!</string>
     <string name="title_existing_user">Already have an account? Log in!</string>
     <string name="title_google_login">Sign in with Google</string>
@@ -55,7 +56,7 @@
 
     <!--    ABOUT PAGE      -->
     <string name="subtitle_history">History</string>
-    
+
     <!--    FAQs PAGE       -->
     <string name="subtitle_prices">Prices</string>
     <string name="subtitle_availability">Availability</string>
@@ -67,5 +68,11 @@
     <string name="covProto">COVID-19 PROTOCOLS</string>
     <string name="covDesc">For your safety and concerns, we advise you to thoroughly read the following.</string>
     <string name="covBtn">I UNDERSTAND</string>
+
+    <!--    ONBOARDING PAGE   -->
+    <string name="onbIntro">Let\'s Get Started!</string>
+    <string name="skip">SKIP</string>
+
+
 
 </resources>

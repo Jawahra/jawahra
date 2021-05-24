@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.jawahra.LoginActivity;
+import com.example.jawahra.MainAuth;
 import com.example.jawahra.R;
 import com.example.jawahra.models.UserModel;
 import com.example.jawahra.ui.FavoritesFragment;
@@ -160,7 +161,7 @@ public class ProfileFragment extends Fragment {
                 LoginManager.getInstance().logOut(); // Log out from Facebook
 
                 // Redirect to Login Activity
-                startActivity(new Intent(getActivity(), LoginActivity.class));
+                startActivity(new Intent(getActivity(), MainAuth.class));
             }
         });
 

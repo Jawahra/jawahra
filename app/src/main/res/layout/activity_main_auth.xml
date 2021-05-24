@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/mainAuthLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_main"
+    android:gravity="center"
+    tools:context=".MainAuth">
+
+    <ImageView
+        android:id="@+id/authLogo"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerInParent="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/placeholder_image"/>
+
+    <TextView
+        android:id="@+id/authAppName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textSize="36sp"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:fontFamily="@font/playfair_display_sc_bold"
+        android:layout_centerHorizontal="true"
+        android:padding="10dp"
+        android:layout_below="@+id/authLogo"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/authAppName"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/authLogBtn"
+            android:text="@string/title_log_in"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/quicksand"
+            android:layout_margin="5dp"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/authSignBtn"
+            android:text="@string/title_sign_up"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/quicksand"
+            android:layout_margin="5dp"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/authGuestBtn"
+            android:text="@string/title_guest"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/quicksand"
+            android:background="@android:color/transparent"
+            android:layout_margin="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+</RelativeLayout>
