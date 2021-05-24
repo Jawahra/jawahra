@@ -34,7 +34,6 @@ public class Favorite {
         this.activities = activities;
     }
 
-
     public int getId() {
         return id;
     }
