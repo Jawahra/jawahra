@@ -5,11 +5,12 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,6 +27,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.jawahra.R;
+import com.example.jawahra.adapters.FavoritesHandler;
 import com.example.jawahra.adapters.SectionPagerAdapter;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -40,6 +42,7 @@ public class PlaceDetailsFragment extends Fragment {
     //database
     private FirebaseFirestore firebaseFirestore;
     public static DocumentReference placeRef;
+    public static boolean isFav;
 
     private View root;
     private ViewPager viewPager;
@@ -79,12 +82,6 @@ public class PlaceDetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_place_details, container, false);
-        /*if (container != null) {
-            container.removeAllViews();
-            Log.d("TEST_BACKPRESSED", "PLACEDETAILSFRAGMENT.JAVA | onCreateView:" + "container.removeAllViews called");
-
-        }*/
-        setHasOptionsMenu(true);
 
         //replace imageview with corresponding image
         imageView = root.findViewById(R.id.place_details_img);
@@ -102,6 +99,7 @@ public class PlaceDetailsFragment extends Fragment {
                     }
                 });
 
+        setHasOptionsMenu(true);
         //set up tablayout
         Toolbar toolbar = root.findViewById(R.id.place_details_toolbar);
         initToolBar(toolbar);
@@ -116,6 +114,10 @@ public class PlaceDetailsFragment extends Fragment {
             NavHostFragment.findNavController(this).popBackStack();
         });
 //        GetValues();
+
+        FavoritesHandler favoritesHandler = new FavoritesHandler();
+
+        isFav = favoritesHandler.checkList();
         return root;
     }
 
@@ -148,10 +150,16 @@ public class PlaceDetailsFragment extends Fragment {
     }
 
     @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.place_details_toolbar_menu,menu);
+        super.onCreateOptionsMenu(menu,inflater);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_favorite) {
-            Toast toast = Toast.makeText(getContext(), "Added to Favorites", Toast.LENGTH_LONG);
-            toast.show();
+            FavoritesHandler favoritesHandler = new FavoritesHandler();
+            favoritesHandler.editFavorite(isFav);
             return true;
         }
         return super.onOptionsItemSelected(item);
