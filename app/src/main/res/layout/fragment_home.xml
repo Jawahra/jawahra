@@ -18,27 +18,29 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.denzcoskun.imageslider.ImageSlider
+            <androidx.cardview.widget.CardView
                 android:id="@+id/home_featured_banner"
-                style="@style/home_feature_banner"
                 android:layout_width="match_parent"
                 android:layout_height="270dp"
-                android:theme="@style/home_feature_banner"
-                app:iss_auto_cycle="true"
-                app:iss_corner_radius="25"
-                app:iss_delay="2"
-                app:iss_period="3000"
-                app:iss_title_background="@drawable/image_shadow"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
-
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="-15dp">
+
+                <RelativeLayout
+                    android:id="@+id/home_featured_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/image_shadow"
-                    android:padding="15dp">
+                    android:padding="15dp"
+                    >
 
                     <TextView
                         android:id="@+id/featured_banner_title"
@@ -46,6 +48,7 @@
                         android:layout_height="wrap_content"
                         android:layout_above="@+id/featured_banner_emirate"
                         android:text="Title"
+                        android:fontFamily="@font/playfair_display_bold"
                         android:textColor="@color/white"
                         android:textSize="28sp" />
 
@@ -73,13 +76,12 @@
                         android:textSize="16sp" />
 
                 </RelativeLayout>
-            </com.denzcoskun.imageslider.ImageSlider>
+            </androidx.cardview.widget.CardView>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/home_featured_banner">
@@ -92,6 +94,7 @@
                     android:drawableLeft="@drawable/ic_covid_19"
                     android:drawableRight="@drawable/ic_covid_19"
                     android:drawableTint="@color/blue_dark"
+                    android:layout_margin="15dp"
                     android:fontFamily="@font/quicksand_bold"
                     android:text="Covid-19 Protocols"
                     android:textSize="16sp"
@@ -106,6 +109,7 @@
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/playfair_display_bold"
                     android:text="Discover"
+                    android:layout_margin="15dp"
                     android:textColor="@color/black"
                     android:textFontWeight="700"
                     android:textSize="28sp"
@@ -114,32 +118,18 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-<!--                <com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager-->
-<!--                    android:id="@+id/discover_view_pager"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="500dp"-->
-<!--                    app:icvp_interpolator="@android:anim/accelerate_decelerate_interpolator"-->
-<!--                    app:icvp_max_page_scale="0.85"-->
-<!--                    app:icvp_medium_scaled="true"-->
-<!--                    app:icvp_min_page_scale="0.5"-->
-<!--                    app:icvp_min_page_scale_offset="1dp"-->
-<!--                    app:icvp_scroll_duration="350"-->
-<!--                    app:layout_constraintTop_toTopOf="parent" />-->
-
                 <com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager
                     android:id="@+id/discover_view_pager"
                     android:layout_width="match_parent"
                     android:layout_height="500dp"
                     app:icvp_interpolator="@android:anim/accelerate_decelerate_interpolator"
                     app:icvp_max_page_scale="0.85"
+                    app:icvp_center_page_scale_offset="5dp"
                     app:icvp_medium_scaled="true"
                     app:icvp_min_page_scale="0.5"
-                    app:icvp_min_page_scale_offset="1dp"
-                    app:icvp_scroll_duration="350"/>
-
-
-
-
+                    app:icvp_min_page_scale_offset="5dp"
+                    android:layout_marginTop="-20dp"
+                    app:icvp_scroll_duration="250"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
