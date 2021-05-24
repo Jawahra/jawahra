@@ -27,7 +27,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.jawahra.R;
-import com.example.jawahra.adapters.FavoritesHandler;
 import com.example.jawahra.adapters.SectionPagerAdapter;
 import com.example.jawahra.ui.visit.childfragments.AboutChildFragment;
 import com.example.jawahra.ui.visit.childfragments.FaqsChildFragment;
@@ -37,20 +36,15 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 public class PlaceDetailsFragment extends Fragment {
 
-    FavoritesHandler favoritesHandler;
     AboutChildFragment aboutChildFragment;
     FaqsChildFragment faqsChildFragment;
     //database
     private FirebaseFirestore firebaseFirestore;
     public static DocumentReference placeRef;
-    public static boolean isFav = true;
 
     private View root;
     private ViewPager viewPager;
@@ -74,13 +68,6 @@ public class PlaceDetailsFragment extends Fragment {
             placeTitle = bundle.getString("placeName");
             placeImg = bundle.getString("placeImg");
         }
-
-        Log.d("FAVORITES_FEATURE", "onCreate: isfav" + isFav);
-        Log.d("FAVORITES_FEATURE", "onCreate: placetitle" + placeTitle);
-
-        favoritesHandler = new FavoritesHandler();
-        isFav = favoritesHandler.checkList(placeTitle);
-
         Log.d("ABTCHILD", "PlaceDetails onCreate: emiratesId, " + emirateId);
         Log.d("ABTCHILD", "PlaceDetails onCreate: placeId, " + placeId);
         //QUERY
@@ -160,39 +147,6 @@ public class PlaceDetailsFragment extends Fragment {
         super.onStart();
     }
 
-    public String loadJSONFromAssets() {
-        String json = null;
-        Log.d("FAVORITES_FEATURE", "loadJSONFromAssets: test 1");
-        try {
-            Log.d("FAVORITES_FEATURE", "loadJSONFromAssets: test 2");
-            InputStream is = requireActivity().getAssets().open("user_favorites");
-            Log.d("FAVORITES_FEATURE", "loadJSONFromAssets: test 3");
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            json = new String(buffer, StandardCharsets.UTF_8);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return null;
-        }
-        return json;
-    }
-
-    public void editFavorite(boolean fav){
-        Log.d("FAVORITES_FEATURE", "editFavorite: fav " + fav);
-        if (!fav){
-            Log.d("FAVORITES_FEATURE", "editFavorite: FAV IS FALSE ===" + fav);
-
-            favoritesHandler.addFavorite(aboutChildFragment.desc, aboutChildFragment.hist, faqsChildFragment.string_website, faqsChildFragment.string_attire, faqsChildFragment.array_activities,faqsChildFragment.array_prices,faqsChildFragment.array_availability);
-        }
-        else{
-            Log.d("FAVORITES_FEATURE", "editFavorite: FAV IS TRUE === " + fav);
-
-            favoritesHandler.removeFavorite();
-        }
-    }
-
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.place_details_toolbar_menu,menu);
@@ -202,7 +156,6 @@ public class PlaceDetailsFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_favorite) {
-            editFavorite(isFav);
             return true;
         }
         return super.onOptionsItemSelected(item);
