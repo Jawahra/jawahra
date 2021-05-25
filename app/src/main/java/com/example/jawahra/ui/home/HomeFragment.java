@@ -17,7 +17,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -28,6 +31,7 @@ import com.example.jawahra.CovidProtocolActivity;
 import com.example.jawahra.R;
 import com.example.jawahra.adapters.DiscoverAdapter;
 import com.example.jawahra.models.DiscoverModel;
+import com.example.jawahra.ui.visit.PlaceDetailsFragment;
 import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -72,7 +76,6 @@ public class HomeFragment extends Fragment {
 
 
         getFeaturedBanner();
-
         getDiscoverPlaces();
         discoverAdapter = new DiscoverAdapter(getContext(), listDiscoverPlaces);
         discoverViewPager.setAdapter(discoverAdapter);
@@ -80,15 +83,14 @@ public class HomeFragment extends Fragment {
     }
 
     private void getFeaturedBanner() {
-        DocumentReference docRef = FirebaseFirestore.getInstance().collection("emirates")
-                .document("fujairah")
-                .collection("places")
-                .document("dnTpL704ybhyzp57BHS9");
+        DocumentReference docRef = FirebaseFirestore.getInstance().collection("home").document("featured_banner");
 
         docRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 DocumentSnapshot doc = task.getResult();
                 if (doc.exists()){
+                    String fbEmirateId = doc.getString("emirateId");
+                    String fbPlaceId = doc.getString("placeId");
                     String fbTitle = doc.getString("name");
                     String fbImg = doc.getString("coverImg");
 
@@ -109,9 +111,56 @@ public class HomeFragment extends Fragment {
                                 }
                             });
 
+
+
+                    rlFbImg.setOnClickListener(v -> {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("emirateId", fbEmirateId);
+                        bundle.putString("placeId", fbPlaceId);
+                        bundle.putString("placeName",fbTitle);
+                        bundle.putString("placeImg", fbImg);
+
+                        Log.d("VIEW_PAGER, EMIRATE", fbEmirateId + "");
+                        Log.d("VIEW_PAGER, PLACE ID", fbPlaceId + "");
+
+                        // Open another fragment
+                        PlaceDetailsFragment placeDetailsFragment = new PlaceDetailsFragment();
+                        placeDetailsFragment.setArguments(bundle);
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.fragment_home,placeDetailsFragment,null);
+                        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+                    });
+
+
                 }
             }
         });
+
+
+    }
+
+    private void callPlaceDetails(String emirateId, String placeId, String name, String placeImg) {
+        Bundle bundle = new Bundle();
+        bundle.putString("emirateId", emirateId);
+        bundle.putString("placeId", placeId);
+        bundle.putString("placeName", name);
+        bundle.putString("placeImg", placeImg);
+
+//        Log.d("VIEW_PAGER, EMIRATE", emirateId);
+//        Log.d("VIEW_PAGER, PLACE ID", placeId);
+
+        // Open another fragment
+        PlaceDetailsFragment placeDetailsFragment = new PlaceDetailsFragment();
+        placeDetailsFragment.setArguments(bundle);
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_home,placeDetailsFragment,null);
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
 
@@ -129,7 +178,7 @@ public class HomeFragment extends Fragment {
         // Iterate through array list containing emirate names to retrieve data from firestore
         for (int i = 0; i < DiscEmirates.size(); i++){
             DocumentReference docRef = FirebaseFirestore.getInstance().collection("home")
-                    .document("featured_banner")
+                    .document("discover")
                     .collection("featured_places")
                     .document(DiscEmirates.get(i));
 

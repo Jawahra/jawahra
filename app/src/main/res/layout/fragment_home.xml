@@ -86,21 +86,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/home_featured_banner">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_covid_protocols"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:drawableLeft="@drawable/ic_covid_19"
-                    android:drawableRight="@drawable/ic_covid_19"
-                    android:drawableTint="@color/blue_dark"
-                    android:layout_margin="15dp"
-                    android:fontFamily="@font/quicksand_bold"
-                    android:text="Covid-19 Protocols"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/home_featured_banner" />
+
 
                 <TextView
                     android:id="@+id/title_upcoming_places"
@@ -130,6 +116,22 @@
                     app:icvp_min_page_scale_offset="5dp"
                     android:layout_marginTop="-20dp"
                     app:icvp_scroll_duration="250"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_covid_protocols"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawableLeft="@drawable/ic_covid_19"
+                    android:drawableRight="@drawable/ic_covid_19"
+                    android:drawableTint="@color/blue_dark"
+                    android:layout_margin="15dp"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:text="Covid-19 Protocols"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/home_featured_banner" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

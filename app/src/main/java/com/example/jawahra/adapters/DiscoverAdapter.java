@@ -76,8 +76,8 @@ public class DiscoverAdapter extends PagerAdapter {
           bundle.putString("placeName",listDiscover.get(position).getName());
           bundle.putString("placeImg", listDiscover.get(position).getCoverImg());
 
-            Log.d("VIEW_PAGER, EMIRATE", listDiscover.get(position).getEmirateId());
-            Log.d("VIEW_PAGER, PLACE ID", listDiscover.get(position).getEmirateId());
+            Log.d("VIEW_PAGER, EMIRATE", listDiscover.get(position).getEmirateId() + "");
+            Log.d("VIEW_PAGER, PLACE ID", listDiscover.get(position).getPlaceId() + "");
 
             // Open another fragment
             PlaceDetailsFragment placeDetailsFragment = new PlaceDetailsFragment();
@@ -88,9 +88,6 @@ public class DiscoverAdapter extends PagerAdapter {
             fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
-
-
-
         });
 
         container.addView(view);
