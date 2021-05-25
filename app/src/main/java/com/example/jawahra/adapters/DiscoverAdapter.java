@@ -12,85 +12,106 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
 import com.example.jawahra.R;
 import com.example.jawahra.models.DiscoverModel;
 import com.example.jawahra.ui.visit.PlaceDetailsFragment;
+import com.makeramen.roundedimageview.RoundedImageView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DiscoverAdapter extends PagerAdapter {
+public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.SliderViewHolder>{
+
     private Context context;
     private List<DiscoverModel> listDiscover;
+    private ViewPager2 viewPager2;
 
-    public DiscoverAdapter(Context context, List<DiscoverModel> listDiscoverModel) {
+    public DiscoverAdapter(Context context, List<DiscoverModel> listDiscover, ViewPager2 viewPager2) {
         this.context = context;
-        this.listDiscover = listDiscoverModel;
+        this.listDiscover = listDiscover;
+        this.viewPager2 = viewPager2;
     }
-
-    @Override
-    public int getCount() {
-        return listDiscover.size();
-    }
-
-    @Override
-    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-//        destroyItem(container, position, object);
-        container.removeView((View)object);
-    }
-
-    @Override
-    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-         return view.equals(object);
-    }
-
-    @Override
-    public int getItemPosition(@NonNull Object object) {
-        return super.getItemPosition(object);
-    }
-
-
 
     @NonNull
     @Override
-    public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        View view = LayoutInflater.from(context).inflate(R.layout.list_item_discover, container, false);
+    public SliderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new SliderViewHolder(LayoutInflater.from((context)).inflate(R.layout.list_item_discover, parent, false));
+    }
 
-        ImageView ivDiscoverImg = view.findViewById(R.id.discover_img);
-        TextView tvDiscoverTitle = view.findViewById(R.id.discover_title);
-        TextView tvDiscoverEmirate = view.findViewById(R.id.discover_emirate);
+    @Override
+    public void onBindViewHolder(@NonNull SliderViewHolder holder, int position) {
+        holder.setData(listDiscover.get(position));
 
-        Glide.with(context).load(listDiscover.get(position).getCoverImg()).thumbnail(.25f).into(ivDiscoverImg);
-        tvDiscoverTitle.setText(listDiscover.get(position).getName());
-        tvDiscoverEmirate.setText(listDiscover.get(position).getEmirate());
+        if (position == listDiscover.size() - 2){
+            viewPager2.post(holder.runnable);
+        }
 
-        view.setOnClickListener(v ->{
-            Bundle bundle = new Bundle();
-          bundle.putString("emirateId", listDiscover.get(position).getEmirateId());
-          bundle.putString("placeId", listDiscover.get(position).getPlaceId());
-          bundle.putString("placeName",listDiscover.get(position).getName());
-          bundle.putString("placeImg", listDiscover.get(position).getCoverImg());
+    }
 
-            Log.d("VIEW_PAGER, EMIRATE", listDiscover.get(position).getEmirateId() + "");
-            Log.d("VIEW_PAGER, PLACE ID", listDiscover.get(position).getPlaceId() + "");
+    @Override
+    public int getItemCount() {
+        return listDiscover.size();
+    }
 
-            // Open another fragment
-            PlaceDetailsFragment placeDetailsFragment = new PlaceDetailsFragment();
-            placeDetailsFragment.setArguments(bundle);
-            FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_home,placeDetailsFragment,null);
-            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
-        });
+    class SliderViewHolder extends RecyclerView.ViewHolder {
+        TextView emirate, name, emirateId, placeId;
+        ImageView coverImg;
 
-        container.addView(view);
-        return view;
+        public SliderViewHolder(@NonNull View itemView) {
+            super(itemView);
+            coverImg = itemView.findViewById(R.id.discover_img);
+            name = itemView.findViewById(R.id.discover_title);
+            emirate = itemView.findViewById(R.id.discover_emirate);
+
+        }
+
+        void setData (DiscoverModel listDiscover){
+            Glide.with(context).load(listDiscover.getCoverImg()).thumbnail(.25f).into(coverImg);
+            name.setText(listDiscover.getName());
+            emirate.setText(listDiscover.getEmirate());
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("emirateId", listDiscover.getEmirateId());
+                    bundle.putString("placeId", listDiscover.getPlaceId());
+                    bundle.putString("placeName",listDiscover.getName());
+                    bundle.putString("placeImg", listDiscover.getCoverImg());
+
+                    Log.d("VIEW_PAGER, EMIRATE", listDiscover.getEmirateId() + "");
+                    Log.d("VIEW_PAGER, PLACE ID", listDiscover.getPlaceId() + "");
+
+                    // Open another fragment
+                    PlaceDetailsFragment placeDetailsFragment = new PlaceDetailsFragment();
+                    placeDetailsFragment.setArguments(bundle);
+                    FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragment_home,placeDetailsFragment,null);
+                    fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                }
+            });
+        }
+
+        private Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                listDiscover.addAll(listDiscover);
+                notifyDataSetChanged();
+            }
+        };
+
     }
 }

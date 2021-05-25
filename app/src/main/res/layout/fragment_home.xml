@@ -89,33 +89,37 @@
 
 
                 <TextView
-                    android:id="@+id/title_upcoming_places"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
                     android:fontFamily="@font/playfair_display_bold"
                     android:text="Discover"
                     android:layout_margin="15dp"
                     android:textColor="@color/black"
                     android:textFontWeight="700"
-                    android:textSize="28sp"
+                    android:textSize="36sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager
+<!--                <com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager-->
+<!--                    android:id="@+id/discover_view_pager"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="500dp"-->
+<!--                    app:icvp_interpolator="@android:anim/accelerate_decelerate_interpolator"-->
+<!--                    app:icvp_max_page_scale="0.85"-->
+<!--                    app:icvp_center_page_scale_offset="5dp"-->
+<!--                    app:icvp_medium_scaled="true"-->
+<!--                    app:icvp_min_page_scale="0.5"-->
+<!--                    app:icvp_min_page_scale_offset="5dp"-->
+<!--                    android:layout_marginTop="-20dp"-->
+<!--                    app:icvp_scroll_duration="250"/>      -->
+<!--                -->
+                <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/discover_view_pager"
                     android:layout_width="match_parent"
-                    android:layout_height="500dp"
-                    app:icvp_interpolator="@android:anim/accelerate_decelerate_interpolator"
-                    app:icvp_max_page_scale="0.85"
-                    app:icvp_center_page_scale_offset="5dp"
-                    app:icvp_medium_scaled="true"
-                    app:icvp_min_page_scale="0.5"
-                    app:icvp_min_page_scale_offset="5dp"
-                    android:layout_marginTop="-20dp"
-                    app:icvp_scroll_duration="250"/>
+                    android:layout_height="300dp"
+                    android:paddingHorizontal="30dp"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_covid_protocols"

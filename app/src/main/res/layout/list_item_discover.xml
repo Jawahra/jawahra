@@ -4,14 +4,14 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="15dp"
-    android:layout_margin="20dp">
+    android:id="@+id/discover_card">
 
 
 
     <RelativeLayout
         android:id="@+id/discover_relative_layout"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="match_parent"
         android:orientation="vertical">
         <ImageView
             android:id="@+id/discover_img"
