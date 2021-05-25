@@ -1,67 +1,53 @@
 package com.example.jawahra.ui.profile;
 
-import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
-
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-
-import android.webkit.MimeTypeMap;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.PopupMenu;
-import android.widget.TextView;
-import android.widget.Toast;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.example.jawahra.LoginActivity;
 import com.example.jawahra.R;
 import com.example.jawahra.models.UserModel;
 import com.example.jawahra.ui.FavoritesFragment;
-
 import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.imageview.ShapeableImageView;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-public class ProfileFragment extends Fragment implements Toolbar.OnMenuItemClickListener {
+public class ProfileFragment extends Fragment {
 
     // Variables for switching layouts
     private View layoutGuest, layoutLoggedIn, layoutBlank;
@@ -87,9 +73,7 @@ public class ProfileFragment extends Fragment implements Toolbar.OnMenuItemClick
     // Cards and buttons
     private CardView cardFavorites;
     private TextView btnGuestLogin;
-
-    // Toolbar
-    private Toolbar toolbar;
+    private Button btnSetting;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -134,10 +118,6 @@ public class ProfileFragment extends Fragment implements Toolbar.OnMenuItemClick
         emailText = profile.findViewById(R.id.profile_email);
         profileImg = profile.findViewById(R.id.profile_img);
 
-        // Toolbar
-        toolbar = profile.findViewById(R.id.profile_toolbar);
-        toolbar.setOnMenuItemClickListener(this);
-
         cardFavorites = profile.findViewById(R.id.profile_fav);
         cardFavorites.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,49 +139,62 @@ public class ProfileFragment extends Fragment implements Toolbar.OnMenuItemClick
             }
         });
 
+        btnSetting = profile.findViewById(R.id.btn_setting);
+        btnSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSettingDialog();
+            }
+        });
+
         updateUI(usernameText, emailText, profileImg);
     }
 
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
+    private void showSettingDialog() {
 
-        switch (item.getItemId()) {
-            case R.id.option_settings:
-                return true;
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getActivity(), R.style.BottomSheetDialogTheme);
+        bottomSheetDialog.setContentView(R.layout.bottom_sheet_settings);
 
-            case R.id.option_edit_image:
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(intent, 5);
-                return true;
+        LinearLayout optionEditImage = bottomSheetDialog.findViewById(R.id.option_edit_image);
+        LinearLayout optionInstructions = bottomSheetDialog.findViewById(R.id.option_instruct);
+        LinearLayout optionLogOut = bottomSheetDialog.findViewById(R.id.option_logout);
 
-            case R.id.option_instructions:
-                Toast.makeText(getActivity(), "Instructions", Toast.LENGTH_SHORT).show();
-                return true;
+        optionEditImage.setOnClickListener(v -> {
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(intent, 5);
+            bottomSheetDialog.dismiss();
+        });
 
-            case R.id.option_log_out:
-                Toast.makeText(getActivity(), "Logged out.", Toast.LENGTH_SHORT).show();
+        optionInstructions.setOnClickListener(v -> {
+            Toast.makeText(getContext(), "Instructions", Toast.LENGTH_SHORT).show();
+            bottomSheetDialog.dismiss();
+        });
 
-                // Configure Google Sign In
-                GoogleSignInOptions gso = new GoogleSignInOptions
-                        .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                        .requestIdToken(getString(R.string.default_web_client_id))
-                        .requestEmail()
-                        .build();
+        optionLogOut.setOnClickListener(v -> {
+            Toast.makeText(getActivity(), "Logged out.", Toast.LENGTH_SHORT).show();
 
-                // Initialize sign in client
-                gsi = GoogleSignIn.getClient(getActivity(), gso);
+            // Configure Google Sign In
+            GoogleSignInOptions gso = new GoogleSignInOptions
+                    .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestIdToken(getString(R.string.default_web_client_id))
+                    .requestEmail()
+                    .build();
 
-                FirebaseAuth.getInstance().signOut(); // Log out from email
-                gsi.signOut(); // Log out from Google
-                LoginManager.getInstance().logOut(); // Log out from Facebook
+            // Initialize sign in client
+            gsi = GoogleSignIn.getClient(getActivity(), gso);
 
-                // Redirect to Login Activity
-                startActivity(new Intent(getActivity(), LoginActivity.class));
-                return true;
-        }
-        return false;
+            FirebaseAuth.getInstance().signOut(); // Log out from email
+            gsi.signOut(); // Log out from Google
+            LoginManager.getInstance().logOut(); // Log out from Facebook
+
+            // Redirect to Login Activity
+            startActivity(new Intent(getActivity(), LoginActivity.class));
+            bottomSheetDialog.dismiss();
+        });
+
+        bottomSheetDialog.show();
     }
 
     // Uploading new profile picture
