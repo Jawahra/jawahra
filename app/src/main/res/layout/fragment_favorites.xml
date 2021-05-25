@@ -19,9 +19,9 @@
         app:title="Favorites"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list_places"
+        android:id="@+id/list_favorites"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="10dp"/>
+        tools:listitem="@layout/list_item_favorite"/>
 
 </LinearLayout>

@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = Favorite.class, version = 1)
+@Database(entities = Favorite.class, version = 2)
 public abstract class FavoriteDatabase extends RoomDatabase {
 
     //is singleton (cannot be made into multiple instance, but used the same instance everytime)

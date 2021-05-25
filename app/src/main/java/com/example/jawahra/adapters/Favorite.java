@@ -3,8 +3,6 @@ package com.example.jawahra.adapters;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.util.List;
-
 //these are called "annotations" that reduce the amount of code to write, ty to Room Wrapper
 @Entity(tableName = "favorite_table")
 
@@ -15,16 +13,18 @@ public class Favorite {
     private int id;
     //these represent the columns
     private String title;
+    private String emirate;
     private String description;
     private String history;
     private String website;
     private String attire;
-    private List<String> availability;
-    private List<String> prices;
-    private List<String> activities;
+    private String availability;
+    private String prices;
+    private String activities;
 
-    public Favorite(String title, String description, String history, String website, String attire, List<String> availability, List<String> prices, List<String> activities) {
+    public Favorite(String title, String emirate, String description, String history, String website, String attire, String availability, String prices, String activities) {
         this.title = title;
+        this.emirate = emirate;
         this.description = description;
         this.history = history;
         this.website = website;
@@ -32,6 +32,7 @@ public class Favorite {
         this.availability = availability;
         this.prices = prices;
         this.activities = activities;
+
     }
 
     public int getId() {
@@ -82,28 +83,35 @@ public class Favorite {
         this.attire = attire;
     }
 
-    public List<String> getAvailability() {
+    public String getAvailability() {
         return availability;
     }
 
-    public void setAvailability(List<String> availability) {
+    public void setAvailability(String availability) {
         this.availability = availability;
     }
 
-    public List<String> getPrices() {
+    public String getPrices() {
         return prices;
     }
 
-    public void setPrices(List<String> prices) {
+    public void setPrices(String prices) {
         this.prices = prices;
     }
 
-    public List<String> getActivities() {
+    public String getActivities() {
         return activities;
     }
 
-    public void setActivities(List<String> activities) {
+    public void setActivities(String activities) {
         this.activities = activities;
     }
 
+    public String getEmirate() {
+        return emirate;
+    }
+
+    public void setEmirate(String emirate) {
+        this.emirate = emirate;
+    }
 }

@@ -2,6 +2,7 @@ package com.example.jawahra.ui.visit;
 
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,7 +20,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewpager.widget.ViewPager;
@@ -27,9 +28,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.jawahra.R;
+import com.example.jawahra.adapters.Favorite;
+import com.example.jawahra.adapters.FavoriteDatabase;
 import com.example.jawahra.adapters.SectionPagerAdapter;
-import com.example.jawahra.ui.visit.childfragments.AboutChildFragment;
-import com.example.jawahra.ui.visit.childfragments.FaqsChildFragment;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
@@ -40,17 +41,12 @@ import java.util.Objects;
 
 public class PlaceDetailsFragment extends Fragment {
 
-    AboutChildFragment aboutChildFragment;
-    FaqsChildFragment faqsChildFragment;
-    //database
-    private FirebaseFirestore firebaseFirestore;
+    public static final String EXTRA_TITLE = "com.example.jawahra.ui.visit.EXTRA_TITLE";
+    public static final String EXTRA_EMIRATE = "com.example.jawahra.ui.visit.EXTRA_EMIRATE";
+
     public static DocumentReference placeRef;
 
     private View root;
-    private ViewPager viewPager;
-    private TabLayout tabLayout;
-    private SectionPagerAdapter sectionPagerAdapter;
-    private FragmentManager fragmentManager;
     private FloatingActionButton locationButton;
 
     private ImageView imageView;
@@ -71,11 +67,13 @@ public class PlaceDetailsFragment extends Fragment {
         Log.d("ABTCHILD", "PlaceDetails onCreate: emiratesId, " + emirateId);
         Log.d("ABTCHILD", "PlaceDetails onCreate: placeId, " + placeId);
         //QUERY
-        firebaseFirestore = FirebaseFirestore.getInstance();
+        //database
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         placeRef = firebaseFirestore.collection("emirates")
                 .document(emirateId)
                 .collection("places")
                 .document(placeId);
+
     }
 
     @Override
@@ -105,9 +103,9 @@ public class PlaceDetailsFragment extends Fragment {
         Toolbar toolbar = root.findViewById(R.id.place_details_toolbar);
         initToolBar(toolbar);
         SetTabLayoutAnim();
-        viewPager = root.findViewById(R.id.view_pager);
-        tabLayout = root.findViewById(R.id.tab_layout);
-        sectionPagerAdapter = new SectionPagerAdapter(((AppCompatActivity) requireContext()).getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        ViewPager viewPager = root.findViewById(R.id.view_pager);
+        TabLayout tabLayout = root.findViewById(R.id.tab_layout);
+        SectionPagerAdapter sectionPagerAdapter = new SectionPagerAdapter(((AppCompatActivity) requireContext()).getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager.setAdapter(sectionPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
@@ -147,6 +145,22 @@ public class PlaceDetailsFragment extends Fragment {
         super.onStart();
     }
 
+//    private void saveFavorite(Bundle bundle){
+//        if (placeTitle.isEmpty()){
+//            Toast.makeText(getContext(),"Dumb bitch", Toast.LENGTH_LONG).show();
+//            return;
+//        }
+////        Intent data = new Intent();
+////        data.putExtra(EXTRA_TITLE, placeTitle);
+////        data.putExtra(EXTRA_EMIRATE, emirateId);
+////        favoritesFragment.saveFav(data);
+//        String a = "1", b = "2", c = "3", d = "4", e = "5", f = "6", g = "7";
+//
+//        Favorite favorite = new Favorite(placeTitle,emirateId,a,b,c,d,e,f,g);
+//        FavoritesFragment.favoriteViewModel.insert(favorite);
+//
+//    }
+
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.place_details_toolbar_menu,menu);
@@ -156,6 +170,12 @@ public class PlaceDetailsFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_favorite) {
+            AsyncTask.execute(() -> {
+                String a = "1", b = "2", c = "3", d = "4", e = "5", f = "6", g = "7";
+                Favorite favorite = new Favorite(placeTitle,emirateId,a,b,c,d,e,f,g);
+                FavoriteDatabase.getInstance(getContext()).favoriteDao().insert(favorite);
+            });
+            Toast.makeText(getContext(),"Added to Favorites", Toast.LENGTH_LONG).show();
             return true;
         }
         return super.onOptionsItemSelected(item);
