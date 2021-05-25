@@ -89,6 +89,7 @@ public class HomeFragment extends Fragment {
         initDiscPlaces();
         int noOfDiscoverPlaces = 7;
 
+//      Iterate through array to add data into card views
         Log.d("ARRAY_SIZE", listDiscEmirate.size() + "");
         for (int i = 0; i < noOfDiscoverPlaces; i++){
             listDiscover.add(new DiscoverModel(listDiscUrl.get(i), listDiscEmirate.get(i), listDiscTitle.get(i),listDiscEmirateId.get(i), listDiscPlaceId.get(i)));
@@ -97,20 +98,20 @@ public class HomeFragment extends Fragment {
 
         }
 
+//        Initialise view pager settings
         discoverViewPager.setAdapter(new DiscoverAdapter(getContext(), listDiscover, discoverViewPager));
-
         discoverViewPager.setClipToPadding(false);
         discoverViewPager.setClipChildren(false);
         discoverViewPager.setOffscreenPageLimit(3);
         discoverViewPager.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
 
         CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
-        compositePageTransformer.addTransformer(new MarginPageTransformer(40));
+        compositePageTransformer.addTransformer(new MarginPageTransformer(25));
         compositePageTransformer.addTransformer((page, position) -> {
             float r = 1 - Math.abs(position);
             page.setScaleY(0.85f + r*0.15f);
         });
-
+//        Auto-scroll card views
         discoverViewPager.setPageTransformer(compositePageTransformer);
         discoverViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
