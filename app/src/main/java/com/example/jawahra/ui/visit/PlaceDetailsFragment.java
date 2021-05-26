@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,6 +35,7 @@ import com.example.jawahra.models.FaqsModel;
 import com.example.jawahra.models.PlaceDetailsModel;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -165,8 +165,7 @@ public class PlaceDetailsFragment extends Fragment {
         if (item.getItemId() == R.id.action_favorite) {
             FavoriteGetData();
             new Handler().postDelayed(this::SaveFavorite, 5000);
-
-            Toast.makeText(getContext(),"Added to Favorites", Toast.LENGTH_LONG).show();
+            Snackbar.make(root,"Added to Favorites", Snackbar.LENGTH_LONG).show();
             return true;
         }
         return super.onOptionsItemSelected(item);
