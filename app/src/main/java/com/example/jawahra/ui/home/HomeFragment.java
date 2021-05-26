@@ -47,6 +47,7 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
+    Button btnLearnMore;
     Button btnCovidProtocols;
     RelativeLayout rlFbImg;
     TextView tvFbTitle;
@@ -94,6 +95,7 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 //        Create hooks for variables
         if(getView() != null) {
+            btnLearnMore = requireView().findViewById(R.id.featured_banner_learn_more);
             tvFbTitle = requireView().findViewById(R.id.featured_banner_title);
             rlFbImg = requireView().findViewById(R.id.home_featured_img);
             btnCovidProtocols = requireView().findViewById(R.id.btn_covid_protocols);
@@ -169,7 +171,7 @@ public class HomeFragment extends Fragment {
                     }
 
 //                    Open Place Details Fragment and pass relevant values
-                    rlFbImg.setOnClickListener(v -> {
+                    btnLearnMore.setOnClickListener(v -> {
                         Bundle bundle = new Bundle();
                         bundle.putString("emirateId", fbEmirateId);
                         bundle.putString("placeId", fbPlaceId);

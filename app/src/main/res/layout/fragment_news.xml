@@ -15,139 +15,142 @@
 
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
-
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="match_parent"
-        android:layout_height="270dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="-15dp">
-
-        <RelativeLayout
-            android:id="@+id/featured_img"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             >
 
 
-            <RelativeLayout
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/image_shadow"
-                android:padding="15dp"
+                android:layout_height="270dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:translationY="-15dp"
                 >
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/featured_title"
+                <RelativeLayout
+                    android:id="@+id/featured_img"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_above="@id/featured_text"
-                    android:fontFamily="@font/playfair_display_bold"
-                    android:text="Featured Event"
-                    android:textColor="@color/white"
-                    android:textSize="28sp" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/featured_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_above="@id/btn_learn_more"
-                    android:fontFamily="@font/quicksand"
-                    android:text="Featured event of the week"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/btn_learn_more"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="2dp"
-                    android:fontFamily="@font/quicksand"
-                    android:text="@string/click_to_learn_more"
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:layout_height="match_parent"
+                    >
 
 
-            </RelativeLayout>
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/image_shadow"
+                        >
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/featured_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_above="@id/featured_text"
+                            android:paddingHorizontal="15dp"
+                            android:fontFamily="@font/playfair_display_bold"
+                            android:text="Featured Event"
+                            android:textColor="@color/white"
+                            android:textSize="28sp" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/featured_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_above="@id/btn_learn_more"
+                            android:fontFamily="@font/quicksand"
+                            android:paddingHorizontal="15dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="Featured event of the Week"
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_learn_more"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginRight="10dp"
+                            app:cornerRadius="10dp"
+                            android:fontFamily="@font/quicksand_bold"
+                            android:text="Learn More..."
+                            android:textSize="12sp"/>
 
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            android:paddingTop="5dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView">
+                    </RelativeLayout>
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
 
-            <TextView
-                android:id="@+id/title_upcoming_places"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/playfair_display_bold"
-                android:text="@string/title_upcoming_places"
-                android:textColor="@color/black"
-                android:textFontWeight="700"
-                android:textSize="28sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/list_upcoming_places"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"/>
 
-            <TextView
-                android:id="@+id/title_upcoming_events"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:textColor="@color/black"
-                android:fontFamily="@font/playfair_display_bold"
-                android:text="@string/title_upcoming_events"
-                android:textFontWeight="700"
-                android:textSize="28sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/list_upcoming_events"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
-                android:layout_marginBottom="20dp"/>
+                android:orientation="vertical"
+                android:paddingTop="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView">
+
+                <TextView
+                    android:id="@+id/title_upcoming_places"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/playfair_display_bold"
+                    android:text="@string/title_upcoming_places"
+                    android:textColor="@color/black"
+                    android:textFontWeight="700"
+                    android:paddingTop="7dp"
+                    android:paddingHorizontal="15dp"
+                    android:textSize="28sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/list_upcoming_places"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:background="@color/gray_light"/>
+
+                <TextView
+                    android:id="@+id/title_upcoming_events"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:paddingHorizontal="15dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/playfair_display_bold"
+                    android:text="@string/title_upcoming_events"
+                    android:textFontWeight="700"
+                    android:textSize="28sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/list_upcoming_events"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="7dp"
+                    android:clipToPadding="false"
+                    android:background="@color/gray_light"
+                    android:layout_marginBottom="20dp"/>
+            </LinearLayout>
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
-    </LinearLayout>
 
     </ScrollView>
 

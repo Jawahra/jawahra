@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="15dp"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
     android:id="@+id/discover_card">
 
 
