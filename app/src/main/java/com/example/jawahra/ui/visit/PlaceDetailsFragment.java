@@ -90,6 +90,7 @@ public class PlaceDetailsFragment extends Fragment {
         imageView = root.findViewById(R.id.place_details_img);
         Glide.with(requireActivity())
                 .load(placeImg)
+                .thumbnail(0.25f)
                 .into(new CustomTarget<Drawable>() {
                     @Override
                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {

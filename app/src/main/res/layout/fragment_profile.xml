@@ -15,39 +15,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!-- BLANK -->
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_blank"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
         <!-- Profile: LOGGED IN -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_logged_in"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/profile_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:theme="@style/ThemeOverlay.AppCompat.Light"
-                app:subtitleTextAppearance="@font/quicksand"
-                app:layout_collapseMode="pin"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:menu="@menu/top_settings_menu"
-                app:popupTheme="@style/PopupMenuStyle" />
-
             <RelativeLayout
                 android:id="@+id/profile_user"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
+                android:paddingTop="30dp"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profile_toolbar">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:id="@+id/profile_img"
@@ -123,6 +106,20 @@
 
             </androidx.cardview.widget.CardView>
 
+            <Button
+                android:id="@+id/btn_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_settings"
+                android:textColor="@color/black"
+                android:textAllCaps="false"
+                android:fontFamily="@font/quicksand"
+                android:background="@color/transparent_light"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!-- Profile: AS GUEST -->
@@ -154,5 +151,12 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView2" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+      <!-- BLANK -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_blank"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

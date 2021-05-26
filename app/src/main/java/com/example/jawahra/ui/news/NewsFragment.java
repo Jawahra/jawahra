@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -92,7 +93,7 @@ public class NewsFragment extends Fragment implements UpcomingPlacesAdapter.OnCa
         RecyclerView listUpcomingEvents = requireView().findViewById(R.id.list_upcoming_events);
 
 
-        TextView btnLearnMore = requireView().findViewById(R.id.btn_learn_more);
+        Button btnLearnMore = requireView().findViewById(R.id.btn_learn_more);
         tvTitleFeaturedEvent = requireView().findViewById(R.id.featured_title);
         rlFeaturedImg = requireView().findViewById(R.id.featured_img);
 
@@ -132,7 +133,7 @@ public class NewsFragment extends Fragment implements UpcomingPlacesAdapter.OnCa
     }
 
     private void setFeaturedEvent() {
-        featuredEventID = "eFXwRsAO5wxJSUt206P0";
+        featuredEventID = "HuZ7ruLjER0WXEYKyhyg";
         DocumentReference docRef = FirebaseFirestore.getInstance().collection("upcoming_events").document(featuredEventID);
         docRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -146,6 +147,7 @@ public class NewsFragment extends Fragment implements UpcomingPlacesAdapter.OnCa
                     if (getActivity() != null) {
                         Glide.with(getActivity())
                                 .load(eventImg)
+                                .thumbnail(.25f)
                                 .into(new CustomTarget<Drawable>() {
                                     @Override
                                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {

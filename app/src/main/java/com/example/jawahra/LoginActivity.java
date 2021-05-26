@@ -80,6 +80,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText inputEmail, inputPassword;
     private AppCompatButton btnLogin, btnNewAcc;
     private TextView guestLogin;
+    private boolean isOnlineLogin;
 
     private CallbackManager callbackManager;
     private AppCompatButton btnFbLogin;
@@ -88,7 +89,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private static final String EMAIL = "email";
 
     private AppCompatButton btnGoogleLogin;
-
     private GoogleSignInClient gsi;
     private int RC_SIGN_IN = 1;
 
@@ -145,7 +145,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         // Check if user is signed in (non-null) and update UI accordingly.
         if(currentUser != null) {
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
             updateUI(currentUser);
         }
     }
@@ -208,39 +207,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
 
         mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            // Go to homepage
-                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                .addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
 
-                            userID = mAuth.getCurrentUser().getUid();
-                            userDocRef = fStore.collection("users").document(userID);
-                            userDocRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                                @Override
-                                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                                    UserModel userModel = value.toObject(UserModel.class);
-                                    String username = userModel.username;
-                                    String email = userModel.email;
-                                    String imageUrl = userModel.imageUrl;
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        userID = user.getUid();
 
-                                    Map<String, Object> userProfile = new HashMap<>();
-                                    userProfile.put("username", username);
-                                    userProfile.put("email", email);
-                                    userProfile.put("imageUrl", imageUrl);
+                        userDocRef = fStore.collection("users").document(userID);
+                        userDocRef.addSnapshotListener((value, error) -> updateUI(user));
 
-                                    userDocRef.set(userProfile, SetOptions.merge());
-                                }
-                            });
-
-                            Toast.makeText(LoginActivity.this, "Signed in!", Toast.LENGTH_SHORT).show();
-                            Log.d("CHECK_USER", "with custom email and password, user: "+ userID);
-
-                        } else {
-                            // Display text
-                            Toast.makeText(LoginActivity.this, "Failed to login! Check your credentials.", Toast.LENGTH_SHORT).show();
-                        }
+                    } else {
+                        // Display text
+                        Toast.makeText(LoginActivity.this, "Failed to login! Check your credentials.", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -280,6 +258,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success");
                     FirebaseUser user = mAuth.getCurrentUser();
+                    isOnlineLogin = true;
                     updateUI(user);
                 } else {
                     // If sign in fails, display a message to the user.
@@ -303,6 +282,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            isOnlineLogin = true;
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -318,30 +298,46 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void updateUI(FirebaseUser user) {
 
         if (user != null) {
-            // Get display name and email of the account
-            String username = user.getDisplayName();
-            String email = user.getEmail();
-
-            Map<String, Object> userProfile = new HashMap<>();
-            userProfile.put("username", username);
-            userProfile.put("email", email);
 
             userID = mAuth.getCurrentUser().getUid();
             userDocRef = fStore.collection("users").document(userID);
+            Map<String, Object> userProfile = new HashMap<>();
 
-            userDocRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                @Override
-                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+            if(isOnlineLogin) {
+
+                // Get display name and email of the account
+                String username = user.getDisplayName();
+                String email = user.getEmail();
+
+                userProfile.put("username", username);
+                userProfile.put("email", email);
+
+                userDocRef.addSnapshotListener((value, error) -> {
                     UserModel userModel = value.toObject(UserModel.class);
                     String imageUrl = userModel.imageUrl;
 
-                    if(imageUrl != null) {
+                    if (imageUrl != null) {
                         userProfile.put("imageUrl", imageUrl);
                     }
-                }
-            });
+                });
 
-            userDocRef.set(userProfile, SetOptions.merge());
+                userDocRef.set(userProfile, SetOptions.merge());
+
+            } else {
+
+                userDocRef.addSnapshotListener((value, error) -> {
+                    UserModel userModel = value.toObject(UserModel.class);
+                    String username = userModel.username;
+                    String email = userModel.email;
+                    String imageUrl = userModel.imageUrl;
+
+                    userProfile.put("username", username);
+                    userProfile.put("email", email);
+                    userProfile.put("imageUrl", imageUrl);
+
+                    userDocRef.set(userProfile, SetOptions.merge());
+                });
+            }
 
             Toast.makeText(this, "Signed in!", Toast.LENGTH_SHORT).show();
 

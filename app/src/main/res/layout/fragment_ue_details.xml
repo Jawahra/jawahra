@@ -70,42 +70,42 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/ue_details_emirate"
-                android:textSize="20sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/emirate"
-                android:textColor="@color/black"
                 android:fontFamily="@font/quicksand_bold"
-                android:textAlignment="textEnd"/>
+                android:text="@string/emirate"
+                android:textAlignment="textEnd"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/ue_details_from_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:text="From: "
-                android:textColor="@color/black"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/quicksand"
-                />
+                android:text="From: "
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
             <TextView
                 android:id="@+id/ue_details_to_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:fontFamily="@font/quicksand"
                 android:text="To: "
                 android:textColor="@color/black"
-                android:fontFamily="@font/quicksand"
-                />
+                android:textSize="18sp" />
+
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/ue_details_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:text="Where: eventLocation"
                 android:layout_marginTop="10dp"
+                android:fontFamily="@font/quicksand"
+                android:text="Where: eventLocation"
                 android:textColor="@color/black"
-                android:fontFamily="@font/quicksand"/>
+                android:textSize="18sp" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/ue_details_content"
@@ -115,13 +115,16 @@
                 android:lineHeight="30dp"
                 android:paddingTop="20dp"
                 android:textColor="@color/black"
-                android:textSize="18sp"/>
+                android:textSize="18sp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/ue_details_btn"
+                android:drawableLeft="@drawable/ic_calendar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                app:cornerRadius="10dp"
+                android:textSize="16sp"
                 android:fontFamily="@font/quicksand_bold"
                 android:text="@string/mark_event_to_calendar" />
 
@@ -129,7 +132,6 @@
 
 
     </androidx.core.widget.NestedScrollView>
-
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
