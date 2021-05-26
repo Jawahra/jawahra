@@ -13,8 +13,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,22 +40,17 @@ public class NewsFragment extends Fragment implements UpcomingPlacesAdapter.OnCa
     TextView tvTitleFeaturedEvent;
     RelativeLayout rlFeaturedImg;
 
-    private FirebaseFirestore firebaseFirestore;
-
     private UpcomingPlacesAdapter adapterUP;
     FirestoreRecyclerOptions<UpcomingPlacesModel> optionsUP;
 
     private UpcomingEventsAdapter adapterUE;
     FirestoreRecyclerOptions<UpcomingEventsModel> optionsUE;
 
-    FragmentManager fragmentManager;
-    FragmentTransaction fragmentTransaction;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_news, container, false);
-        firebaseFirestore = FirebaseFirestore.getInstance();
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
 
 
@@ -124,12 +117,6 @@ public class NewsFragment extends Fragment implements UpcomingPlacesAdapter.OnCa
         UPDetailsFragment upDetailsFragment = new UPDetailsFragment();
         upDetailsFragment.setArguments(bundle);
         NavHostFragment.findNavController(this).navigate(R.id.action_navigation_events_to_UPDetailsFragment,bundle);
-        /*fragmentManager = getActivity().getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_news, upDetailsFragment);
-        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        fragmentTransaction.show(upDetailsFragment);
-        fragmentTransaction.commit();*/
     }
 
     private void setFeaturedEvent() {
@@ -182,13 +169,6 @@ public class NewsFragment extends Fragment implements UpcomingPlacesAdapter.OnCa
         UEDetailsFragment ueDetailsFragment = new UEDetailsFragment();
         ueDetailsFragment.setArguments(bundle);
         NavHostFragment.findNavController(this).navigate(R.id.action_navigation_events_to_UEDetailsFragment,bundle);
-        /*fragmentManager = getActivity().getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_news, ueDetailsFragment);
-        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        fragmentTransaction.show(ueDetailsFragment);
-        fragmentTransaction.commit();*/
-
     }
 
     @Override
