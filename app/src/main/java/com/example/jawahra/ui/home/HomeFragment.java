@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,14 +30,17 @@ import com.example.jawahra.R;
 import com.example.jawahra.adapters.DiscoverAdapter;
 import com.example.jawahra.models.DiscoverModel;
 import com.example.jawahra.ui.visit.PlaceDetailsFragment;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,9 +50,9 @@ public class HomeFragment extends Fragment {
     RelativeLayout rlFbImg;
     TextView tvFbTitle;
 
+    // Variables for Discover Cards
     ViewPager2 discoverViewPager;
     Handler discoverHandler = new Handler();
-    DiscoverAdapter discoverAdapter;
     List<DiscoverModel> listDiscover = new ArrayList<>();
     List<String> listDiscUrl = new ArrayList<>(),
             listDiscTitle = new ArrayList<>(),
@@ -62,12 +64,33 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+//        Load Data for Discover Cards
+        try{
+            JSONObject obj = new JSONObject(loadJSONFromAsset());
+            JSONArray discPlacesArray = obj.getJSONArray("discoverPlaces");
+
+//            Iterate through array to get each value and add to another array which will be displayed in each discover card
+            for (int i = 0; i < discPlacesArray.length(); i++){
+                JSONObject discDetail = discPlacesArray.getJSONObject(i);
+                listDiscUrl.add(discDetail.getString("coverImg"));
+                listDiscEmirate.add(discDetail.getString("emirate"));
+                listDiscTitle.add(discDetail.getString("name"));
+                listDiscEmirateId.add(discDetail.getString("emirateId"));
+                listDiscPlaceId.add(discDetail.getString("placeId"));
+                listDiscover.add(new DiscoverModel(listDiscUrl.get(i), listDiscEmirateId.get(i), listDiscTitle.get(i), listDiscEmirateId.get(i), listDiscPlaceId.get(i)));
+            }
+        } catch(JSONException e){
+            e.printStackTrace();
+        }
+
+
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+//        Create hooks for variables
         if(getView() != null) {
             tvFbTitle = requireView().findViewById(R.id.featured_banner_title);
             rlFbImg = requireView().findViewById(R.id.home_featured_img);
@@ -75,41 +98,15 @@ public class HomeFragment extends Fragment {
             discoverViewPager = requireView().findViewById(R.id.discover_view_pager);
         }
 
-        btnCovidProtocols.setOnClickListener(v -> {
-            startActivity(new Intent(getActivity(), CovidProtocolActivity.class));
-        });
+//        Open Covid Protocols Activity when button is pressed
+        btnCovidProtocols.setOnClickListener(v -> startActivity(new Intent(getActivity(), CovidProtocolActivity.class)));
 
         getFeaturedBanner();
         setDiscoverPager();
     }
 
+//    Initialise settings, add infinite scroll and animations for Discover Cards
     private void setDiscoverPager() {
-        listDiscover.add(new DiscoverModel("", "", "","",""));
-//        initDiscPlaces();
-        int noOfDiscoverPlaces = 7;
-
-        getDiscoverPlaces(data -> {
-            if (data == 7) {
-                int sizeOfArray = listDiscEmirate.size() - 1;
-                    listDiscover.add(new DiscoverModel(listDiscUrl.get(sizeOfArray),
-                            listDiscEmirate.get(sizeOfArray),
-                            listDiscTitle.get(sizeOfArray),
-                            listDiscEmirateId.get(sizeOfArray),
-                            listDiscPlaceId.get(sizeOfArray)));
-
-
-                Toast.makeText(getContext(), "SIZE OF ARRAY: " + listDiscEmirateId.size(), Toast.LENGTH_SHORT).show();
-                Log.d("DISC_URL", "Size is: " + listDiscUrl.size());
-                Log.d("DISC_EMIRATE", "Size is: " + listDiscEmirate.size());
-                Log.d("DISC_TITLE", "Size is: " + listDiscTitle.size());
-                Log.d("DISC_EMIRATE_ID", "Size is: " + listDiscEmirateId.size());
-                Log.d("DISC_PLACE_ID", "Size is: " + listDiscPlaceId.size());
-            }
-            else {
-                Toast.makeText(getContext(), "ARRAYS ARE EMPTY", Toast.LENGTH_SHORT).show();
-            }
-        });
-
 //        Initialise view pager settings
         discoverViewPager.setAdapter(new DiscoverAdapter(getContext(), listDiscover, discoverViewPager));
         discoverViewPager.setClipToPadding(false);
@@ -117,6 +114,7 @@ public class HomeFragment extends Fragment {
         discoverViewPager.setOffscreenPageLimit(3);
         discoverViewPager.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
 
+//        Size of each card
         CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
         compositePageTransformer.addTransformer(new MarginPageTransformer(25));
         compositePageTransformer.addTransformer((page, position) -> {
@@ -135,50 +133,7 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void initDiscPlaces() {
-        listDiscUrl.add("https://firebasestorage.googleapis.com/v0/b/jawahra-ec2e2.appspot.com/o/images%2Fabu_dhabi%2Fforever_rose_cafe%2Fforeverrosecafe_2.jpg?alt=media&token=037c4a3d-201d-4612-ab7b-633bfac5664d");
-        listDiscEmirate.add("Abu Dhabi");
-        listDiscTitle.add("Forever Rose Cafe");
-        listDiscEmirateId.add("abu_dhabi");
-        listDiscPlaceId.add("0Cv0FjnvT1KdVVYWRmdm");
-
-        listDiscUrl.add("https://firebasestorage.googleapis.com/v0/b/jawahra-ec2e2.appspot.com/o/images%2Fajman%2Fclay_corner_studio%2Fclaycornerstudio_1.jpg?alt=media&token=3926f531-4e89-49e8-ad5d-c982f3e50130");
-        listDiscEmirate.add("Ajman");
-        listDiscTitle.add("Clay Corner Studio");
-        listDiscEmirateId.add("ajman");
-        listDiscPlaceId.add("Idi7pikJyvy5KQkqcz0O");
-
-        listDiscUrl.add("https://firebasestorage.googleapis.com/v0/b/jawahra-ec2e2.appspot.com/o/images%2Fdubai%2Fhive_board_game_cafe%2Fhiveboardgamecafe_4.jpg?alt=media&token=2ae140c9-9a44-4715-a1ea-7a0fb49d362a");
-        listDiscEmirate.add("Dubai");
-        listDiscTitle.add("Hive Board Game Cafe");
-        listDiscEmirateId.add("dubai");
-        listDiscPlaceId.add("vo3V74KvrnIyv7Wnfvra");
-
-        listDiscUrl.add("https://firebasestorage.googleapis.com/v0/b/jawahra-ec2e2.appspot.com/o/images%2Ffujairah%2Fwadi_abadilah%2Fwadialabadilah_3.jpg?alt=media&token=1b2ff2b4-c213-4b22-80bc-751e1a16f5ff");
-        listDiscEmirate.add("Fujairah");
-        listDiscTitle.add("Wadi Abadilah");
-        listDiscEmirateId.add("fujairah");
-        listDiscPlaceId.add("nQkQmi2AyJG4R79oiSzk");
-
-        listDiscUrl.add("https://firebasestorage.googleapis.com/v0/b/jawahra-ec2e2.appspot.com/o/images%2Fras_al_khaimah%2Fcrescent_moon_lake%2Fcrescentmoonlake_3.jpg?alt=media&token=12f25fce-64b9-473a-9be8-73c62a8e80b2");
-        listDiscEmirate.add("Ras Al Khaimah");
-        listDiscTitle.add("Crescent Moon Lake");
-        listDiscEmirateId.add("ras_al_khaimah");
-        listDiscPlaceId.add("3Q9xqQH5p8jDbP3PMqh9");
-
-        listDiscUrl.add("https://firebasestorage.googleapis.com/v0/b/jawahra-ec2e2.appspot.com/o/images%2Fsharjah%2Fhouse_of_wisdom%2Fhouseofwisdom_5.jpg?alt=media&token=976451fd-f210-4849-a30d-ef7e5a3e409a");
-        listDiscEmirate.add("Sharjah");
-        listDiscTitle.add("House of Wisdom");
-        listDiscEmirateId.add("sharjah");
-        listDiscPlaceId.add("nmOdVA53mBlVsvowrpvm");
-
-        listDiscUrl.add("https://firebasestorage.googleapis.com/v0/b/jawahra-ec2e2.appspot.com/o/images%2Fumm_al_quwain%2Fkite_beach_center%2Fkitebeachcenter_1.jpg?alt=media&token=dc72fba0-421b-4da1-8580-ee3da027b7c2");
-        listDiscEmirate.add("Umm AL Quwain");
-        listDiscTitle.add("Kite Beach Center");
-        listDiscEmirateId.add("umm_al_quwain");
-        listDiscPlaceId.add("VospVKGtM8G37aehiM1A");
-    }
-
+//    Get data for featured hidden gem from Firestore Database
     private void getFeaturedBanner() {
         DocumentReference docRef = FirebaseFirestore.getInstance().collection("home").document("featured_banner");
 
@@ -193,6 +148,7 @@ public class HomeFragment extends Fragment {
 
                     tvFbTitle.setText(fbTitle);
 
+//                    Load image from a url string
                     if(getActivity() != null) {
                         Glide.with(getActivity())
                                 .load(fbImg)
@@ -210,7 +166,7 @@ public class HomeFragment extends Fragment {
                                 });
                     }
 
-
+//                    Open Place Details Fragment and pass relevant values
                     rlFbImg.setOnClickListener(v -> {
                         Bundle bundle = new Bundle();
                         bundle.putString("emirateId", fbEmirateId);
@@ -240,64 +196,26 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private void getDiscoverPlaces(SimpleCallback<Integer> finishedCallback ) {
-        List<String> discEmirates = new ArrayList<>();
-        discEmirates.add("abu_dhabi");
-        discEmirates.add("ajman");
-        discEmirates.add("dubai");
-        discEmirates.add("fujairah");
-        discEmirates.add("ras_al_khaimah");
-        discEmirates.add("sharjah");
-        discEmirates.add("umm_al_quwain");
-
-//        TODO do this for discover part instead
-        // Iterate through array list containing emirate names to retrieve data from firestore
-        for (int i = 0; i < discEmirates.size(); i++){
-            DocumentReference docRef = FirebaseFirestore.getInstance().collection("home")
-                    .document("discover")
-                    .collection("featured_places")
-                    .document(discEmirates.get(i));
-
-            docRef.get().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot doc = task.getResult();
-
-                    if(doc.exists()){
-                        // Get data fields from firestore database
-                            String discUrl = doc.getString("coverImg");
-                            String discTitle = doc.getString("name");
-                            String discEmirate = doc.getString("emirate");
-                            String discEmirateId = doc.getString("emirateId");
-                            String discPlaceId = doc.getString("placeId");
-
-                        Log.d("FEATURED_BANNER", discEmirate + " item!");
-                        Log.d("CHECK_ID", "PLACE ID : " + discPlaceId);
-                        listDiscUrl.add(discUrl);
-                        listDiscTitle.add(discTitle);
-                        listDiscEmirate.add(discEmirate);
-                        listDiscEmirateId.add(discEmirateId);
-                        listDiscPlaceId.add(discPlaceId);
-                        finishedCallback.callback(listDiscEmirate.size());
-
-                    } else{
-                        Log.d("Document", "No data");
-                    }
-                } else {
-                    Log.d("FETCH_ERROR", task.getException() + "");
-                }
-
-            });
+    public String loadJSONFromAsset() {
+        String json;
+        try {
+            InputStream is = getContext().getAssets().open("discover_places.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, StandardCharsets.UTF_8);
+        } catch (IOException ex){
+            ex.printStackTrace();
+            return null;
         }
+        return json;
     }
 
-    private Runnable discoverRunnable = new Runnable() {
+    private final Runnable discoverRunnable = new Runnable() {
         @Override
         public void run() {
             discoverViewPager.setCurrentItem(discoverViewPager.getCurrentItem() + 1);
         }
     };
-
-    public interface SimpleCallback<Boolean> {
-        void callback(int data);
-    }
 }
