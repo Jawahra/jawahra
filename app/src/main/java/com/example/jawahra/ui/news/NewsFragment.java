@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -15,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,16 +28,11 @@ import com.example.jawahra.models.UpcomingEventsModel;
 import com.example.jawahra.models.UpcomingPlacesModel;
 import com.example.jawahra.ui.UEDetailsFragment;
 import com.example.jawahra.ui.UPDetailsFragment;
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class NewsFragment extends Fragment implements UpcomingPlacesAdapter.OnCardsClickUP, UpcomingEventsAdapter.onCardsClickUE{
 
@@ -127,13 +122,13 @@ public class NewsFragment extends Fragment implements UpcomingPlacesAdapter.OnCa
 
         UPDetailsFragment upDetailsFragment = new UPDetailsFragment();
         upDetailsFragment.setArguments(bundle);
-        fragmentManager = getActivity().getSupportFragmentManager();
+        NavHostFragment.findNavController(this).navigate(R.id.action_navigation_events_to_UPDetailsFragment,bundle);
+        /*fragmentManager = getActivity().getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_news, upDetailsFragment);
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         fragmentTransaction.show(upDetailsFragment);
-        fragmentTransaction.commit();
-
+        fragmentTransaction.commit();*/
     }
 
     private void setFeaturedEvent() {
@@ -185,12 +180,13 @@ public class NewsFragment extends Fragment implements UpcomingPlacesAdapter.OnCa
 
         UEDetailsFragment ueDetailsFragment = new UEDetailsFragment();
         ueDetailsFragment.setArguments(bundle);
-        fragmentManager = getActivity().getSupportFragmentManager();
+        NavHostFragment.findNavController(this).navigate(R.id.action_navigation_events_to_UEDetailsFragment,bundle);
+        /*fragmentManager = getActivity().getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_news, ueDetailsFragment);
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         fragmentTransaction.show(ueDetailsFragment);
-        fragmentTransaction.commit();
+        fragmentTransaction.commit();*/
 
     }
 

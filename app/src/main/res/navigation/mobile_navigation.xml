@@ -15,18 +15,52 @@
         android:id="@+id/navigation_visit"
         android:name="com.example.jawahra.ui.visit.VisitFragment"
         android:label="@string/title_visit"
-        tools:layout="@layout/fragment_visit" />
+        tools:layout="@layout/fragment_visit" >
+        <action
+            android:id="@+id/action_navigation_visit_to_placesFragment"
+            app:destination="@id/placesFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_events"
         android:name="com.example.jawahra.ui.news.NewsFragment"
         android:label="@string/title_news"
-        tools:layout="@layout/fragment_news" />
+        tools:layout="@layout/fragment_news" >
+        <action
+            android:id="@+id/action_navigation_events_to_UEDetailsFragment"
+            app:destination="@id/UEDetailsFragment" />
+        <action
+            android:id="@+id/action_navigation_events_to_UPDetailsFragment"
+            app:destination="@id/UPDetailsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.example.jawahra.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile"/>
+    <fragment
+        android:id="@+id/placesFragment"
+        android:name="com.example.jawahra.ui.visit.PlacesFragment"
+        android:label="fragment_places"
+        tools:layout="@layout/fragment_places" >
+        <action
+            android:id="@+id/action_placesFragment_to_placeDetailsFragment"
+            app:destination="@id/placeDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/placeDetailsFragment"
+        android:name="com.example.jawahra.ui.visit.PlaceDetailsFragment"
+        android:label="fragment_place_details"
+        tools:layout="@layout/fragment_place_details" />
+    <fragment
+        android:id="@+id/UPDetailsFragment"
+        android:name="com.example.jawahra.ui.UPDetailsFragment"
+        android:label="fragment_ue_details"
+        tools:layout="@layout/fragment_ue_details" />
+    <fragment
+        android:id="@+id/UEDetailsFragment"
+        android:name="com.example.jawahra.ui.UEDetailsFragment"
+        android:label="UEDetailsFragment" />
 
 </navigation>

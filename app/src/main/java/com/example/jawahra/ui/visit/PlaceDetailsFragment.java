@@ -17,6 +17,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
@@ -61,8 +62,8 @@ public class PlaceDetailsFragment extends Fragment {
             placeImg = bundle.getString("placeImg");
         }
 
-        Log.d("ABTCHILD", "PlaceDetails onCreate: emiratesId" + emirateId);
-        Log.d("ABTCHILD", "PlaceDetails onCreate: placeId" + placeId);
+        Log.d("ABTCHILD", "PlaceDetails onCreate: emiratesId, " + emirateId);
+        Log.d("ABTCHILD", "PlaceDetails onCreate: placeId, " + placeId);
         //QUERY
         firebaseFirestore = FirebaseFirestore.getInstance();
         placeRef = firebaseFirestore.collection("emirates")
@@ -76,18 +77,11 @@ public class PlaceDetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_place_details, container, false);
-        if (container != null) {
+        /*if (container != null) {
             container.removeAllViews();
-        }
+            Log.d("TEST_BACKPRESSED", "PLACEDETAILSFRAGMENT.JAVA | onCreateView:" + "container.removeAllViews called");
 
-        //set up tablayout
-        initToolBar();
-        SetTabLayoutAnim();
-        viewPager = root.findViewById(R.id.view_pager);
-        tabLayout = root.findViewById(R.id.tab_layout);
-        sectionPagerAdapter = new SectionPagerAdapter(((AppCompatActivity) requireContext()).getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        viewPager.setAdapter(sectionPagerAdapter);
-        tabLayout.setupWithViewPager(viewPager);
+        }*/
 
         //replace imageview with corresponding image
         imageView = root.findViewById(R.id.place_details_img);
@@ -106,12 +100,24 @@ public class PlaceDetailsFragment extends Fragment {
                     }
                 });
 
+        //set up tablayout
+        Toolbar toolbar = root.findViewById(R.id.place_details_toolbar);
+        initToolBar(toolbar);
+        SetTabLayoutAnim();
+        viewPager = root.findViewById(R.id.view_pager);
+        tabLayout = root.findViewById(R.id.tab_layout);
+        sectionPagerAdapter = new SectionPagerAdapter(((AppCompatActivity) requireContext()).getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        viewPager.setAdapter(sectionPagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
+
+        toolbar.setNavigationOnClickListener(view1 -> {
+            NavHostFragment.findNavController(this).popBackStack();
+        });
 //        GetValues();
         return root;
     }
 
-    private void initToolBar(){
-        Toolbar toolbar = root.findViewById(R.id.place_details_toolbar);
+    private void initToolBar(Toolbar toolbar){
         ((AppCompatActivity) requireContext()).setSupportActionBar(toolbar);
 
         if(((AppCompatActivity) requireContext()).getSupportActionBar() != null){

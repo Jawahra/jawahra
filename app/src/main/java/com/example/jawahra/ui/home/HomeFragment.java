@@ -60,6 +60,7 @@ public class HomeFragment extends Fragment {
             listDiscEmirateId = new ArrayList<>(),
             listDiscPlaceId = new ArrayList<>();
 
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
