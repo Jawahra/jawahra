@@ -18,8 +18,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -119,24 +121,11 @@ public class ProfileFragment extends Fragment {
         profileImg = profile.findViewById(R.id.profile_img);
 
         cardFavorites = profile.findViewById(R.id.profile_fav);
-        cardFavorites.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        cardFavorites.setOnClickListener(v -> {
+            NavHostFragment.findNavController(this).navigate(R.id.action_navigation_profile_to_favoritesFragment);
+            screen = BLANK;
+            renderScreen();
 
-                FavoritesFragment favoritesFragment = new FavoritesFragment();
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_profile, favoritesFragment);
-
-                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-
-                screen = BLANK;
-                renderScreen();
-
-            }
         });
 
         btnSetting = profile.findViewById(R.id.btn_setting);

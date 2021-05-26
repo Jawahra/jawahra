@@ -43,7 +43,11 @@
         android:id="@+id/navigation_profile"
         android:name="com.example.jawahra.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
-        tools:layout="@layout/fragment_profile"/>
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_navigation_profile_to_favoritesFragment"
+            app:destination="@id/favoritesFragment" />
+    </fragment>
     <fragment
         android:id="@+id/placesFragment"
         android:name="com.example.jawahra.ui.visit.PlacesFragment"
@@ -67,5 +71,18 @@
         android:id="@+id/UEDetailsFragment"
         android:name="com.example.jawahra.ui.UEDetailsFragment"
         android:label="UEDetailsFragment" />
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.example.jawahra.ui.favorites.FavoritesFragment"
+        android:label="fragment_favorites"
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/action_favoritesFragment_to_favoriteDetailsFragment"
+            app:destination="@id/favoriteDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoriteDetailsFragment"
+        android:name="com.example.jawahra.ui.favorites.FavoriteDetailsFragment"
+        android:label="FavoriteDetailsFragment" />
 
 </navigation>
