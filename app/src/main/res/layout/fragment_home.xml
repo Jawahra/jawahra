@@ -89,14 +89,14 @@
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/discover_view_pager"
         android:layout_width="0dp"
-        android:layout_height="350dp"
+        android:layout_height="0dp"
         android:clipToPadding="false"
         android:paddingHorizontal="70dp"
         app:layout_constrainedHeight="true"
-        app:layout_constraintBottom_toBottomOf="@+id/textView7"
+        app:layout_constraintBottom_toTopOf="@+id/btn_covid_protocols"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btn_covid_protocols" />
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_covid_protocols"

@@ -133,7 +133,7 @@ public class NewsFragment extends Fragment implements UpcomingPlacesAdapter.OnCa
     }
 
     private void setFeaturedEvent() {
-        featuredEventID = "eFXwRsAO5wxJSUt206P0";
+        featuredEventID = "HuZ7ruLjER0WXEYKyhyg";
         DocumentReference docRef = FirebaseFirestore.getInstance().collection("upcoming_events").document(featuredEventID);
         docRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
