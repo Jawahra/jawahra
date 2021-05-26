@@ -17,6 +17,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavHost;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
@@ -25,7 +27,6 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.example.jawahra.CovidProtocolActivity;
 import com.example.jawahra.R;
 import com.example.jawahra.adapters.DiscoverAdapter;
 import com.example.jawahra.models.DiscoverModel;
@@ -78,7 +79,7 @@ public class HomeFragment extends Fragment {
                 listDiscTitle.add(discDetail.getString("name"));
                 listDiscEmirateId.add(discDetail.getString("emirateId"));
                 listDiscPlaceId.add(discDetail.getString("placeId"));
-                listDiscover.add(new DiscoverModel(listDiscUrl.get(i), listDiscEmirateId.get(i), listDiscTitle.get(i), listDiscEmirateId.get(i), listDiscPlaceId.get(i)));
+                listDiscover.add(new DiscoverModel(listDiscUrl.get(i), listDiscEmirate.get(i), listDiscTitle.get(i), listDiscEmirateId.get(i), listDiscPlaceId.get(i)));
             }
         } catch(JSONException e){
             e.printStackTrace();
@@ -100,7 +101,7 @@ public class HomeFragment extends Fragment {
         }
 
 //        Open Covid Protocols Activity when button is pressed
-        btnCovidProtocols.setOnClickListener(v -> startActivity(new Intent(getActivity(), CovidProtocolActivity.class)));
+//        btnCovidProtocols.setOnClickListener(v -> startActivity(new Intent(getActivity(), CovidProtocolActivity.class)));
 
         getFeaturedBanner();
         setDiscoverPager();
@@ -181,12 +182,12 @@ public class HomeFragment extends Fragment {
                         // Open another fragment
                         PlaceDetailsFragment placeDetailsFragment = new PlaceDetailsFragment();
                         placeDetailsFragment.setArguments(bundle);
-                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        fragmentTransaction.replace(R.id.fragment_home,placeDetailsFragment,null);
-                        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                        fragmentTransaction.addToBackStack(null);
-                        fragmentTransaction.commit();
+                        NavHostFragment.findNavController(this).navigate(R.id.action_homeFragment_to_placeDetailsFragment,bundle);
+//                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                        fragmentTransaction.replace(R.id.fragment_home,placeDetailsFragment);
+//                        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+//                        fragmentTransaction.commit();
                     });
 
 
