@@ -24,8 +24,11 @@ public interface FavoriteDao {
     @Query("SELECT * FROM favorite_table ORDER BY id DESC")
     LiveData<List<Favorite>> getAllFavorites();
 
-//    @Query("SELECT * FROM favorite_table WHERE id = :position")
+    @Query("SELECT * FROM favorite_table WHERE id = :position")
+    LiveData<List<Favorite>> getCurrentFavorite(int position);
 //    List<Favorite> getCurrentFavorite(int position);
-//    LiveData<List<Favorite>> getCurrentFavorite(int position);
+
+    @Query("SELECT title, emirate, id FROM favorite_table ORDER BY id DESC")
+    LiveData<List<Favorite>> getFavoritesCardData();
 
 }

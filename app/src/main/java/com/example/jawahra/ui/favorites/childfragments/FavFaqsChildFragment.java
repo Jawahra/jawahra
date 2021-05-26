@@ -1,6 +1,8 @@
 package com.example.jawahra.ui.favorites.childfragments;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,28 +35,35 @@ public class FavFaqsChildFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_faqs_child, container, false);
 
         position = FavoriteDetailsFragment.position;
-
         favoriteViewModel = new ViewModelProvider(this).get(FavoriteViewModel.class);
-//        favoriteViewModel.getCurrentFavorite(position).observe(getViewLifecycleOwner(), favorites -> {
-//            currentFavorite = favorites;
-//        });
-        favoriteViewModel.getAllFavorites().observe(getViewLifecycleOwner(), favorites -> {
+        favoriteViewModel.getCurrentFavorite(position).observe(getViewLifecycleOwner(), favorites -> {
             //update RecyclerView
             currentFavorite = favorites;
         });
-
+//
         faqsWebsite = root.findViewById(R.id.faqs_website);
         faqsActivities = root.findViewById(R.id.faqs_activities);
         faqsAttire = root.findViewById(R.id.faqs_attire);
         faqsAvailability = root.findViewById(R.id.faqs_availability);
         faqsPrices = root.findViewById(R.id.faqs_prices);
 
-//        faqsWebsite.setText(currentFavorite.get(position).getWebsite());
-//        faqsActivities.setText(currentFavorite.get(position).getActivities());
-//        faqsAttire.setText(currentFavorite.get(position).getAttire());
-//        faqsAvailability.setText(currentFavorite.get(position).getAvailability());
-//        faqsPrices.setText(currentFavorite.get(position).getPrices());
+        if (currentFavorite.isEmpty()){
+            Log.d("check_fav", "onViewCreated: currentFavorites is empty");
+            new Handler().postDelayed(this::setText,1500);
+        }
+        else{
+            Log.d("check_fav", "onViewCreated: currentFavorites is initiated");
+            setText();
+        }
 
         return root;
+    }
+
+    public void setText(){
+        faqsWebsite.setText(currentFavorite.get(0).getWebsite());
+        faqsActivities.setText(currentFavorite.get(0).getActivities());
+        faqsAttire.setText(currentFavorite.get(0).getAttire());
+        faqsAvailability.setText(currentFavorite.get(0).getAvailability());
+        faqsPrices.setText(currentFavorite.get(0).getPrices());
     }
 }

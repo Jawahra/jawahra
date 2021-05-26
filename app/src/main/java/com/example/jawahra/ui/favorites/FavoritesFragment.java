@@ -48,7 +48,7 @@ public class FavoritesFragment extends Fragment implements FavoriteAdapter.OnLis
         favoriteViewModel = new ViewModelProvider(this).get(FavoriteViewModel.class);
 
 //        favoriteViewModel = new ViewModelProvider(this, new FavoriteViewModelFactory(requireActivity().getApplication(),0)).get(FavoriteViewModel.class);
-        favoriteViewModel.getAllFavorites().observe(getViewLifecycleOwner(), favorites -> {
+        favoriteViewModel.getFavoritesCardData().observe(getViewLifecycleOwner(), favorites -> {
             //update RecyclerView
             adapter.setFavorites(favorites);
         });
@@ -58,9 +58,10 @@ public class FavoritesFragment extends Fragment implements FavoriteAdapter.OnLis
 
 
     @Override
-    public void OnItemClick(int position) {
+    public void OnItemClick(int position, String title) {
         Bundle bundle = new Bundle();
         bundle.putInt("position", position);
+        bundle.putString("title",title);
         Log.d("CHECK_POSITION", "OnItemClick: CHECK POSITION favfrag" + position);
         NavHostFragment.findNavController(this).navigate(R.id.action_favoritesFragment_to_favoriteDetailsFragment,bundle);
     }

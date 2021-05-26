@@ -28,6 +28,7 @@ public class FavoriteDetailsFragment extends Fragment {
     private ImageView imageView;
     private FavoriteViewModel favoriteViewModel;
     public static int position;
+    private String title;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,7 @@ public class FavoriteDetailsFragment extends Fragment {
         Bundle bundle = getArguments();
         if(bundle != null){
             position = bundle.getInt("position");
+            title = bundle.getString("title");
             Log.d("CHECK_POSITION", "onCreate: favdetailfrag" + position);
         }
     }
@@ -79,5 +81,6 @@ public class FavoriteDetailsFragment extends Fragment {
         final Typeface fontPlayFairBold = ResourcesCompat.getFont(requireContext(), R.font.playfair_display_bold);
         collapsingToolbar.setCollapsedTitleTypeface(fontPlayFairBold);
         collapsingToolbar.setExpandedTitleTextAppearance(R.style.ExpandedAppBar);
+        collapsingToolbar.setTitle(title);
     }
 }

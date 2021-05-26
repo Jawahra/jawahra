@@ -35,10 +35,8 @@ public class FavAboutChildFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_about_child, container, false);
         position = FavoriteDetailsFragment.position;
-        Log.d("CHECK_POSITION", "onCreateView: position" + position);
-        Log.d("CHECK_POSITION", "onCreateView: raaawwwwwwwwwwwww" + FavoriteDetailsFragment.position);
         favoriteViewModel = new ViewModelProvider(this).get(FavoriteViewModel.class);
-        favoriteViewModel.getAllFavorites().observe(getViewLifecycleOwner(), favorites -> {
+        favoriteViewModel.getCurrentFavorite(position).observe(getViewLifecycleOwner(), favorites -> {
             //update RecyclerView
             currentFavorite = favorites;
         });
@@ -54,7 +52,7 @@ public class FavAboutChildFragment extends Fragment {
 
         if (currentFavorite.isEmpty()){
             Log.d("check_fav", "onViewCreated: currentFavorites is empty");
-            new Handler().postDelayed(this::setText,500);
+            new Handler().postDelayed(this::setText,1500);
         }
         else{
             Log.d("check_fav", "onViewCreated: currentFavorites is initiated");
@@ -63,7 +61,7 @@ public class FavAboutChildFragment extends Fragment {
     }
 
     public void setText(){
-        placeDesc.setText(currentFavorite.get(position).getDescription());
-        placeHist.setText(currentFavorite.get(position).getHistory());
+        placeDesc.setText(currentFavorite.get(0).getDescription());
+        placeHist.setText(currentFavorite.get(0).getHistory());
     }
 }

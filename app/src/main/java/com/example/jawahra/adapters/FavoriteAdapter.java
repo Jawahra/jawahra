@@ -35,6 +35,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
         Favorite currentFav = favorites.get(position);
         Log.d("SAVE_FAV", "onBindViewHolder: getID" + currentFav.getId());
         holder.position = currentFav.getId();
+        holder.title = currentFav.getTitle();
         holder.textViewName.setText(currentFav.getTitle());
         holder.textViewEmirate.setText(currentFav.getEmirate());
     }
@@ -54,7 +55,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
         private TextView textViewName;
         private TextView textViewEmirate;
         private int position;
-
+        private String title;
 
         public FavoriteHolder(@NonNull View itemView) {
             super(itemView);
@@ -65,11 +66,11 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
 
         @Override
         public void onClick(View v) {
-           onListItemClick.OnItemClick(position);
+           onListItemClick.OnItemClick(position, title);
         }
     }
 
     public interface OnListItemClick{
-        void OnItemClick(int position);
+        void OnItemClick(int position, String title);
     }
 }

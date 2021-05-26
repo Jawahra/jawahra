@@ -12,15 +12,16 @@ import java.util.List;
 public class FavoriteRepository {
     private FavoriteDao favoriteDao;
     private LiveData<List<Favorite>> allFavorites;
+    private LiveData<List<Favorite>> favoritesCardData;
 //    private List<Favorite> currentFavorite;
 //    private LiveData<List<Favorite>> currentFavorite;
-    private int position;
+//    private int position;
 
     public FavoriteRepository(Application application){
         FavoriteDatabase database = FavoriteDatabase.getInstance(application);
         favoriteDao = database.favoriteDao();
         allFavorites = favoriteDao.getAllFavorites();
-//        currentFavorite = favoriteDao.getCurrentFavorite(position);
+        favoritesCardData = favoriteDao.getFavoritesCardData();
     }
 
     public void insert(Favorite favorite){
@@ -39,8 +40,10 @@ public class FavoriteRepository {
         return allFavorites;
     }
 
+    public LiveData<List<Favorite>> getFavoritesCardData(){ return favoritesCardData; }
+
 //    public List<Favorite> getCurrentFavorite(int position){return currentFavorite;}
-//    public LiveData<List<Favorite>> getCurrentFavorite(int position){return currentFavorite;}
+    public LiveData<List<Favorite>> getCurrentFavorite(int position){return favoriteDao.getCurrentFavorite(position);}
 
     private  static class InsertFavAsyncTask extends AsyncTask<Favorite, Void, Void>{
 
