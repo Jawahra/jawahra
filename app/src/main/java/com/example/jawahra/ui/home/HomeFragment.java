@@ -110,7 +110,7 @@ public class HomeFragment extends Fragment {
 //    Initialise settings, add infinite scroll and animations for Discover Cards
     private void setDiscoverPager() {
 //        Initialise view pager settings
-        discoverViewPager.setAdapter(new DiscoverAdapter(getContext(), listDiscover, discoverViewPager));
+        discoverViewPager.setAdapter(new DiscoverAdapter(getContext(), this, listDiscover, discoverViewPager));
         discoverViewPager.setClipToPadding(false);
         discoverViewPager.setClipChildren(false);
         discoverViewPager.setOffscreenPageLimit(3);
@@ -183,11 +183,6 @@ public class HomeFragment extends Fragment {
                         PlaceDetailsFragment placeDetailsFragment = new PlaceDetailsFragment();
                         placeDetailsFragment.setArguments(bundle);
                         NavHostFragment.findNavController(this).navigate(R.id.action_homeFragment_to_placeDetailsFragment,bundle);
-//                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-//                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                        fragmentTransaction.replace(R.id.fragment_home,placeDetailsFragment);
-//                        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-//                        fragmentTransaction.commit();
                     });
 
 

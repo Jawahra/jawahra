@@ -13,12 +13,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
 import com.example.jawahra.R;
 import com.example.jawahra.models.DiscoverModel;
+import com.example.jawahra.ui.home.HomeFragment;
 import com.example.jawahra.ui.visit.PlaceDetailsFragment;
 
 import java.util.List;
@@ -28,9 +30,11 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.Slider
     private Context context;
     private List<DiscoverModel> listDiscover;
     private ViewPager2 viewPager2;
+    private HomeFragment homeFragment;
 
-    public DiscoverAdapter(Context context, List<DiscoverModel> listDiscover, ViewPager2 viewPager2) {
+    public DiscoverAdapter(Context context, HomeFragment homeFragment, List<DiscoverModel> listDiscover, ViewPager2 viewPager2) {
         this.context = context;
+        this.homeFragment = homeFragment;
         this.listDiscover = listDiscover;
         this.viewPager2 = viewPager2;
     }
@@ -56,7 +60,7 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.Slider
     }
 
     class SliderViewHolder extends RecyclerView.ViewHolder {
-        TextView emirate, name, emirateId, placeId;
+        TextView emirate, name;
         ImageView coverImg;
 
         public SliderViewHolder(@NonNull View itemView) {
@@ -87,12 +91,7 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.Slider
                     // Open another fragment
                     PlaceDetailsFragment placeDetailsFragment = new PlaceDetailsFragment();
                     placeDetailsFragment.setArguments(bundle);
-                    FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.fragment_home,placeDetailsFragment,null);
-                    fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
+                    NavHostFragment.findNavController(homeFragment).navigate(R.id.action_homeFragment_to_placeDetailsFragment,bundle);
                 }
             });
         }
