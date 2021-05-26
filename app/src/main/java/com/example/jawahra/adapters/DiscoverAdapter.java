@@ -43,8 +43,7 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.Slider
 
     @Override
     public void onBindViewHolder(@NonNull SliderViewHolder holder, int position) {
-        holder.setData(listDiscover.get(position));
-
+            holder.setData(listDiscover.get(position));
         if (position == listDiscover.size() - 2){
             viewPager2.post(holder.runnable);
         }

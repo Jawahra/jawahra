@@ -32,10 +32,12 @@ import com.example.jawahra.adapters.DiscoverAdapter;
 import com.example.jawahra.models.DiscoverModel;
 import com.example.jawahra.ui.visit.PlaceDetailsFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,8 +62,6 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-//        discoverAdapter = new DiscoverAdapter(getContext(), listDiscover);
-//        discoverViewPager.setAdapter(discoverAdapter);
         return view;
     }
 
@@ -80,23 +80,35 @@ public class HomeFragment extends Fragment {
         });
 
         getFeaturedBanner();
-        getDiscoverPlaces();
         setDiscoverPager();
     }
 
     private void setDiscoverPager() {
-//        listDiscover.add(new DiscoverModel("", "", "","",""));
-        initDiscPlaces();
+        listDiscover.add(new DiscoverModel("", "", "","",""));
+//        initDiscPlaces();
         int noOfDiscoverPlaces = 7;
 
-//      Iterate through array to add data into card views
-        Log.d("ARRAY_SIZE", listDiscEmirate.size() + "");
-        for (int i = 0; i < noOfDiscoverPlaces; i++){
-            listDiscover.add(new DiscoverModel(listDiscUrl.get(i), listDiscEmirate.get(i), listDiscTitle.get(i),listDiscEmirateId.get(i), listDiscPlaceId.get(i)));
-            Log.d("DISCOVER_PAGER", listDiscTitle.get(i));
-            Log.d("DISCOVER_PAGER", listDiscEmirate.get(i));
+        getDiscoverPlaces(data -> {
+            if (data == 7) {
+                int sizeOfArray = listDiscEmirate.size() - 1;
+                    listDiscover.add(new DiscoverModel(listDiscUrl.get(sizeOfArray),
+                            listDiscEmirate.get(sizeOfArray),
+                            listDiscTitle.get(sizeOfArray),
+                            listDiscEmirateId.get(sizeOfArray),
+                            listDiscPlaceId.get(sizeOfArray)));
 
-        }
+
+                Toast.makeText(getContext(), "SIZE OF ARRAY: " + listDiscEmirateId.size(), Toast.LENGTH_SHORT).show();
+                Log.d("DISC_URL", "Size is: " + listDiscUrl.size());
+                Log.d("DISC_EMIRATE", "Size is: " + listDiscEmirate.size());
+                Log.d("DISC_TITLE", "Size is: " + listDiscTitle.size());
+                Log.d("DISC_EMIRATE_ID", "Size is: " + listDiscEmirateId.size());
+                Log.d("DISC_PLACE_ID", "Size is: " + listDiscPlaceId.size());
+            }
+            else {
+                Toast.makeText(getContext(), "ARRAYS ARE EMPTY", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 //        Initialise view pager settings
         discoverViewPager.setAdapter(new DiscoverAdapter(getContext(), listDiscover, discoverViewPager));
@@ -167,19 +179,6 @@ public class HomeFragment extends Fragment {
         listDiscPlaceId.add("VospVKGtM8G37aehiM1A");
     }
 
-    private Runnable discoverRunnable = new Runnable() {
-        @Override
-        public void run() {
-            discoverViewPager.setCurrentItem(discoverViewPager.getCurrentItem() + 1);
-        }
-    };
-
-
-
-
-
-
-
     private void getFeaturedBanner() {
         DocumentReference docRef = FirebaseFirestore.getInstance().collection("home").document("featured_banner");
 
@@ -241,29 +240,7 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private void callPlaceDetails(String emirateId, String placeId, String name, String placeImg) {
-        Bundle bundle = new Bundle();
-        bundle.putString("emirateId", emirateId);
-        bundle.putString("placeId", placeId);
-        bundle.putString("placeName", name);
-        bundle.putString("placeImg", placeImg);
-
-//        Log.d("VIEW_PAGER, EMIRATE", emirateId);
-//        Log.d("VIEW_PAGER, PLACE ID", placeId);
-
-        // Open another fragment
-        PlaceDetailsFragment placeDetailsFragment = new PlaceDetailsFragment();
-        placeDetailsFragment.setArguments(bundle);
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_home,placeDetailsFragment,null);
-        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-    }
-
-
-    private void getDiscoverPlaces() {
+    private void getDiscoverPlaces(SimpleCallback<Integer> finishedCallback ) {
         List<String> discEmirates = new ArrayList<>();
         discEmirates.add("abu_dhabi");
         discEmirates.add("ajman");
@@ -284,6 +261,7 @@ public class HomeFragment extends Fragment {
             docRef.get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     DocumentSnapshot doc = task.getResult();
+
                     if(doc.exists()){
                         // Get data fields from firestore database
                             String discUrl = doc.getString("coverImg");
@@ -299,15 +277,27 @@ public class HomeFragment extends Fragment {
                         listDiscEmirate.add(discEmirate);
                         listDiscEmirateId.add(discEmirateId);
                         listDiscPlaceId.add(discPlaceId);
-
-
+                        finishedCallback.callback(listDiscEmirate.size());
 
                     } else{
                         Log.d("Document", "No data");
                     }
+                } else {
+                    Log.d("FETCH_ERROR", task.getException() + "");
                 }
+
             });
         }
-        int noOfDiscoverPlaces = 7;
+    }
+
+    private Runnable discoverRunnable = new Runnable() {
+        @Override
+        public void run() {
+            discoverViewPager.setCurrentItem(discoverViewPager.getCurrentItem() + 1);
+        }
+    };
+
+    public interface SimpleCallback<Boolean> {
+        void callback(int data);
     }
 }
