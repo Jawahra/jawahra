@@ -194,21 +194,22 @@ public class HomeFragment extends Fragment {
 
                     tvFbTitle.setText(fbTitle);
 
-                    Glide.with(getActivity())
-                            .load(fbImg)
-                            .thumbnail(.25f)
-                            .into(new CustomTarget<Drawable>() {
-                                @Override
-                                public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                                    rlFbImg.setBackground(resource);
-                                }
+                    if(getActivity() != null) {
+                        Glide.with(getActivity())
+                                .load(fbImg)
+                                .thumbnail(.25f)
+                                .into(new CustomTarget<Drawable>() {
+                                    @Override
+                                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                                        rlFbImg.setBackground(resource);
+                                    }
 
-                                @Override
-                                public void onLoadCleared(@Nullable Drawable placeholder) {
+                                    @Override
+                                    public void onLoadCleared(@Nullable Drawable placeholder) {
 
-                                }
-                            });
-
+                                    }
+                                });
+                    }
 
 
                     rlFbImg.setOnClickListener(v -> {
