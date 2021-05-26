@@ -48,6 +48,7 @@ public class UpcomingPlacesAdapter extends FirestoreRecyclerAdapter<UpcomingPlac
         //                Get url string of image from document in Firestore and set ImageView to that image
         Glide.with(context)
                 .load(model.getPlaceImg())
+                .thumbnail(.25f)
                 .apply(repOpt)
                 .into(holder.placeImg);
     }
