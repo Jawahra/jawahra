@@ -38,7 +38,6 @@ public class FaqsChildFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_faqs_child, container, false);
 
         faqsWebsite = root.findViewById(R.id.faqs_website);
-
         faqsActivities = root.findViewById(R.id.faqs_activities);
         faqsAttire = root.findViewById(R.id.faqs_attire);
         faqsAvailability = root.findViewById(R.id.faqs_availability);
@@ -57,11 +56,6 @@ public class FaqsChildFragment extends Fragment {
                         array_availability = faqsModel.getAvailability();
                         array_prices = faqsModel.getPrices();
 
-                        Log.d("faqs", "ATTIRE: " + string_attire);
-                        Log.d("faqs", "WEBSITE: " + string_website);
-                        Log.d("faqs", "ARRAY_PRICES" + array_prices);
-                        Log.d("faqs", "ARRAY SIZE: " + array_prices.size());
-
                         if(array_prices != null){
                             for (int i = 0; i < array_prices.size(); i++) {
                                 if (i == 0){
@@ -71,7 +65,6 @@ public class FaqsChildFragment extends Fragment {
                                 }
                                 string_prices += "\n";
                             }
-                            Log.d("faqs", "STRING_PRICES: " + string_prices);
                         }
 
                         if (array_availability != null){
@@ -83,7 +76,6 @@ public class FaqsChildFragment extends Fragment {
                                 }
                                 string_availability += "\n";
                             }
-                            Log.d("faqs", "STRING_AVAILABILITY: " + string_availability);
                         }
 
                         if (array_activities != null) {
@@ -95,7 +87,6 @@ public class FaqsChildFragment extends Fragment {
                                 }
                                 string_activities += "\n";
                             }
-                            Log.d("faqs", "STRING_ACTIVITIES: " + string_activities);
                         }
 
                         faqsAttire.setText(string_attire);

@@ -1,6 +1,7 @@
-package com.example.jawahra.ui.profile.childfragments;
+package com.example.jawahra.ui.favorites;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,8 +18,7 @@ import com.example.jawahra.R;
 import com.example.jawahra.adapters.FavoriteAdapter;
 import com.example.jawahra.adapters.FavoriteViewModel;
 
-public class FavoritesFragment extends Fragment {
-    public static final int SAVE_FAV_REQUEST = 1;
+public class FavoritesFragment extends Fragment implements FavoriteAdapter.OnListItemClick {
 
     private FavoriteViewModel favoriteViewModel;
 
@@ -39,7 +40,7 @@ public class FavoritesFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
 
-        FavoriteAdapter adapter = new FavoriteAdapter();
+        FavoriteAdapter adapter = new FavoriteAdapter(this);
         recyclerView.setAdapter(adapter);
 
         favoriteViewModel = new ViewModelProvider(this).get(FavoriteViewModel.class);
@@ -49,5 +50,14 @@ public class FavoritesFragment extends Fragment {
         });
 
         return root;
+    }
+
+
+    @Override
+    public void OnItemClick(int position) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("position", position);
+        Log.d("CHECK_POSITION", "OnItemClick: CHECK POSITION favfrag" + position);
+        NavHostFragment.findNavController(this).navigate(R.id.action_favoritesFragment_to_favoriteDetailsFragment,bundle);
     }
 }

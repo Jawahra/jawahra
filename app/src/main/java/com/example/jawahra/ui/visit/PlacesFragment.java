@@ -119,6 +119,7 @@ public class PlacesFragment extends Fragment implements PlacesAdapter.OnListItem
     public void OnItemClick(String placeId, String placeName, String placeImg) {
         Bundle bundle = new Bundle();
         bundle.putString("emirateId", emirateId);
+        bundle.putString("emirateName", emirateName);
         bundle.putString("placeId", placeId);
         bundle.putString("placeName",placeName);
         bundle.putString("placeImg", placeImg);

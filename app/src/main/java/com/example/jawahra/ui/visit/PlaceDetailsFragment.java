@@ -31,18 +31,20 @@ import com.example.jawahra.R;
 import com.example.jawahra.adapters.Favorite;
 import com.example.jawahra.adapters.FavoriteDatabase;
 import com.example.jawahra.adapters.SectionPagerAdapter;
+import com.example.jawahra.models.FaqsModel;
+import com.example.jawahra.models.PlaceDetailsModel;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.util.List;
 import java.util.Objects;
 
 public class PlaceDetailsFragment extends Fragment {
-
-    public static final String EXTRA_TITLE = "com.example.jawahra.ui.visit.EXTRA_TITLE";
-    public static final String EXTRA_EMIRATE = "com.example.jawahra.ui.visit.EXTRA_EMIRATE";
 
     public static DocumentReference placeRef;
 
@@ -50,7 +52,7 @@ public class PlaceDetailsFragment extends Fragment {
     private FloatingActionButton locationButton;
 
     private ImageView imageView;
-    public static String emirateId, placeId, placeTitle, placeImg;
+    private String emirateId, placeId, placeTitle, placeImg, emirateName;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,6 +62,7 @@ public class PlaceDetailsFragment extends Fragment {
         Bundle bundle = getArguments();
         if(bundle != null){
             emirateId = bundle.getString("emirateId");
+            emirateName = bundle.getString("emirateName");
             placeId = bundle.getString("placeId");
             placeTitle = bundle.getString("placeName");
             placeImg = bundle.getString("placeImg");
@@ -145,39 +148,114 @@ public class PlaceDetailsFragment extends Fragment {
         super.onStart();
     }
 
-//    private void saveFavorite(Bundle bundle){
-//        if (placeTitle.isEmpty()){
-//            Toast.makeText(getContext(),"Dumb bitch", Toast.LENGTH_LONG).show();
-//            return;
-//        }
-////        Intent data = new Intent();
-////        data.putExtra(EXTRA_TITLE, placeTitle);
-////        data.putExtra(EXTRA_EMIRATE, emirateId);
-////        favoritesFragment.saveFav(data);
-//        String a = "1", b = "2", c = "3", d = "4", e = "5", f = "6", g = "7";
-//
-//        Favorite favorite = new Favorite(placeTitle,emirateId,a,b,c,d,e,f,g);
-//        FavoritesFragment.favoriteViewModel.insert(favorite);
-//
-//    }
-
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.place_details_toolbar_menu,menu);
         super.onCreateOptionsMenu(menu,inflater);
     }
 
+    private CollectionReference detailsRef, faqsRef;
+    public String desc, hist, string_website, string_attire;;
+    private String string_prices, string_activities, string_availability;
+    public List<String> array_activities, array_prices, array_availability;
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_favorite) {
-            AsyncTask.execute(() -> {
-                String a = "1", b = "2", c = "3", d = "4", e = "5", f = "6", g = "7";
-                Favorite favorite = new Favorite(placeTitle,emirateId,a,b,c,d,e,f,g);
-                FavoriteDatabase.getInstance(getContext()).favoriteDao().insert(favorite);
-            });
+            if(FavoriteGetData()){
+                SaveFavorite();
+            }
+
             Toast.makeText(getContext(),"Added to Favorites", Toast.LENGTH_LONG).show();
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void SaveFavorite(){
+        Log.d("SAVE_FAV", "SaveFavorite: CALLED");
+        AsyncTask.execute(() -> {
+//            String a = "1", b = "2", c = "3", d = "4", e = "5", f = "6", g = "7";
+            Favorite favorite = new Favorite(placeTitle,emirateName,desc,hist,string_website,string_attire,string_availability,string_prices,string_activities);
+            FavoriteDatabase.getInstance(getContext()).favoriteDao().insert(favorite);
+            Log.d("SAVE_FAV", "SaveFavorite: RUNNING");
+        });
+        Log.d("SAVE_FAV", "SaveFavorite: END");
+    }
+
+    public boolean FavoriteGetData(){
+        Log.d("SAVE_FAV", "FavoriteGetData: CALLED");
+        detailsRef = placeRef.collection("details");
+        detailsRef.get()
+                .addOnSuccessListener(snapshot -> {
+                    Log.d("SAVE_FAV", "FavoriteGetData: detailsRef CALLED");
+                    for (QueryDocumentSnapshot snapshots : snapshot){
+                        PlaceDetailsModel placeDetailsModel = snapshots.toObject(PlaceDetailsModel.class);
+                        desc = placeDetailsModel.getDesc();
+                        hist = placeDetailsModel.getHistory();
+                        Log.d("SAVE_FAV", "FavoriteGetData: detailsRef RUNNING");
+                    }
+                    Log.d("SAVE_FAV", "FavoriteGetData: detailsRef DONE");
+                })
+                .addOnFailureListener(e -> Log.d("CHECK_ID", "Document does not Exist" ));
+
+        faqsRef = placeRef.collection("faqs");
+
+        faqsRef.get()
+                .addOnSuccessListener(snapshot -> {
+                    Log.d("SAVE_FAV", "FavoriteGetData: faqsRef CALLED");
+                    for (QueryDocumentSnapshot snapshots : snapshot) {
+                        Log.d("SAVE_FAV", "FavoriteGetData: faqsRef RUNNING");
+                        FaqsModel faqsModel = snapshots.toObject(FaqsModel.class);
+                        string_attire = faqsModel.getAttire();
+                        string_website = faqsModel.getWebsite();
+                        array_activities = faqsModel.getActivities();
+                        array_availability = faqsModel.getAvailability();
+                        array_prices = faqsModel.getPrices();
+
+                        Log.d("faqs", "ATTIRE: " + string_attire);
+                        Log.d("faqs", "WEBSITE: " + string_website);
+                        Log.d("faqs", "ARRAY_PRICES" + array_prices);
+                        Log.d("faqs", "ARRAY SIZE: " + array_prices.size());
+
+                        if(array_prices != null){
+                            for (int i = 0; i < array_prices.size(); i++) {
+                                if (i == 0){
+                                    string_prices = array_prices.get(i);
+                                }else {
+                                    string_prices += array_prices.get(i);
+                                }
+                                string_prices += "\n";
+                            }
+                        }
+
+                        if (array_availability != null){
+                            for (int i = 0; i < array_availability.size(); i++){
+                                if (i == 0){
+                                    string_availability = array_availability.get(i);
+                                }else{
+                                    string_availability += array_availability.get(i);
+                                }
+                                string_availability += "\n";
+                            }
+                        }
+
+                        if (array_activities != null) {
+                            for (int i = 0; i < array_activities.size(); i++) {
+                                if (i == 0) {
+                                    string_activities = "\u2022 " + array_activities.get(i);
+                                }else{
+                                    string_activities += "\u2022 " + array_activities.get(i);
+                                }
+                                string_activities += "\n";
+                            }
+                        }
+                    }
+                    Log.d("SAVE_FAV", "FavoriteGetData: faqsRef DONE");
+                })
+                .addOnFailureListener(e -> Log.d("CHECK_ID", "Document does not Exist"));
+
+        Log.d("SAVE_FAV", "FavoriteGetData: DONE");
+        return true;
     }
 }

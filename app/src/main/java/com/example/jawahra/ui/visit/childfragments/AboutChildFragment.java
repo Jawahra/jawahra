@@ -45,8 +45,6 @@ public class AboutChildFragment extends Fragment {
                         hist = placeDetailsModel.getHistory();
                         placeDesc.setText(desc);
                         placeHist.setText(hist);
-                        Log.d("ABTCHILD", "onCreate: desc" + desc);
-                        Log.d("ABTCHILD", "onCreate: hist" + hist);
                     }
                 })
                 .addOnFailureListener(e -> Log.d("CHECK_ID", "Document does not Exist" ));

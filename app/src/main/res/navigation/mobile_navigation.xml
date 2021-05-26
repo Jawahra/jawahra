@@ -68,8 +68,16 @@
         android:label="UEDetailsFragment" />
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.example.jawahra.ui.profile.childfragments.FavoritesFragment"
+        android:name="com.example.jawahra.ui.favorites.FavoritesFragment"
         android:label="fragment_favorites"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/action_favoritesFragment_to_favoriteDetailsFragment"
+            app:destination="@id/favoriteDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoriteDetailsFragment"
+        android:name="com.example.jawahra.ui.favorites.FavoriteDetailsFragment"
+        android:label="FavoriteDetailsFragment" />
 
 </navigation>

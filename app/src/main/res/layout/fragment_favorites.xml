@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".ui.profile.childfragments.FavoritesFragment"
+    tools:context=".ui.favorites.FavoritesFragment"
     android:id="@+id/fragment_favorites"
     android:orientation="vertical">
 
