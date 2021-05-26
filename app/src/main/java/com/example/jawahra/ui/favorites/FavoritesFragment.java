@@ -43,7 +43,11 @@ public class FavoritesFragment extends Fragment implements FavoriteAdapter.OnLis
         FavoriteAdapter adapter = new FavoriteAdapter(this);
         recyclerView.setAdapter(adapter);
 
+//        ViewModelProvider.AndroidViewModelFactory factory = new ViewModelProvider.AndroidViewModelFactory(requireActivity().getApplication());
+//        favoriteViewModel = new ViewModelProvider(this,factory).get(FavoriteViewModel.class);
         favoriteViewModel = new ViewModelProvider(this).get(FavoriteViewModel.class);
+
+//        favoriteViewModel = new ViewModelProvider(this, new FavoriteViewModelFactory(requireActivity().getApplication(),0)).get(FavoriteViewModel.class);
         favoriteViewModel.getAllFavorites().observe(getViewLifecycleOwner(), favorites -> {
             //update RecyclerView
             adapter.setFavorites(favorites);

@@ -49,11 +49,11 @@ public class FavFaqsChildFragment extends Fragment {
         faqsAvailability = root.findViewById(R.id.faqs_availability);
         faqsPrices = root.findViewById(R.id.faqs_prices);
 
-        faqsWebsite.setText(currentFavorite.get(position).getWebsite());
-        faqsActivities.setText(currentFavorite.get(position).getActivities());
-        faqsAttire.setText(currentFavorite.get(position).getAttire());
-        faqsAvailability.setText(currentFavorite.get(position).getAvailability());
-        faqsPrices.setText(currentFavorite.get(position).getPrices());
+//        faqsWebsite.setText(currentFavorite.get(position).getWebsite());
+//        faqsActivities.setText(currentFavorite.get(position).getActivities());
+//        faqsAttire.setText(currentFavorite.get(position).getAttire());
+//        faqsAvailability.setText(currentFavorite.get(position).getAvailability());
+//        faqsPrices.setText(currentFavorite.get(position).getPrices());
 
         return root;
     }

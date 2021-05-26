@@ -4,6 +4,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -162,9 +163,8 @@ public class PlaceDetailsFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_favorite) {
-            if(FavoriteGetData()){
-                SaveFavorite();
-            }
+            FavoriteGetData();
+            new Handler().postDelayed(this::SaveFavorite, 5000);
 
             Toast.makeText(getContext(),"Added to Favorites", Toast.LENGTH_LONG).show();
             return true;
@@ -175,17 +175,26 @@ public class PlaceDetailsFragment extends Fragment {
     public void SaveFavorite(){
         Log.d("SAVE_FAV", "SaveFavorite: CALLED");
         AsyncTask.execute(() -> {
-//            String a = "1", b = "2", c = "3", d = "4", e = "5", f = "6", g = "7";
+            Log.d("SAVE_FAV", "SaveFavorite: RUNNING, DESC: " + desc);
+            Log.d("SAVE_FAV", "SaveFavorite: RUNNING, HIST" + hist );
+            Log.d("SAVE_FAV", "SaveFavorite: RUNNING, ACTIVITIES: " + string_activities);
+            Log.d("SAVE_FAV", "SaveFavorite: RUNNING, AVAILABILITY: " + string_availability);
+            Log.d("SAVE_FAV", "SaveFavorite: RUNNING, PRICES: " + string_prices);
+
             Favorite favorite = new Favorite(placeTitle,emirateName,desc,hist,string_website,string_attire,string_availability,string_prices,string_activities);
+            Log.d("SAVE_FAV", "SaveFavorite: " + favorite.toString());
+            Log.d("SAVE_FAV", "SaveFavorite: " + favorite.getId() + favorite.getTitle() + favorite.getEmirate() + favorite.getDescription() + favorite.getHistory() + favorite.getActivities() + favorite.getAttire() + favorite.getWebsite() + favorite.getAvailability() + favorite.getPrices());
             FavoriteDatabase.getInstance(getContext()).favoriteDao().insert(favorite);
             Log.d("SAVE_FAV", "SaveFavorite: RUNNING");
         });
         Log.d("SAVE_FAV", "SaveFavorite: END");
     }
 
-    public boolean FavoriteGetData(){
+    public void FavoriteGetData(){
         Log.d("SAVE_FAV", "FavoriteGetData: CALLED");
         detailsRef = placeRef.collection("details");
+        faqsRef = placeRef.collection("faqs");
+
         detailsRef.get()
                 .addOnSuccessListener(snapshot -> {
                     Log.d("SAVE_FAV", "FavoriteGetData: detailsRef CALLED");
@@ -193,13 +202,15 @@ public class PlaceDetailsFragment extends Fragment {
                         PlaceDetailsModel placeDetailsModel = snapshots.toObject(PlaceDetailsModel.class);
                         desc = placeDetailsModel.getDesc();
                         hist = placeDetailsModel.getHistory();
+
                         Log.d("SAVE_FAV", "FavoriteGetData: detailsRef RUNNING");
+                        Log.d("SAVE_FAV", "FavoriteGetData: detailsRef RUNNING, DESC: " + desc);
+                        Log.d("SAVE_FAV", "FavoriteGetData: detailsRef RUNNING, HIST" + hist );
                     }
                     Log.d("SAVE_FAV", "FavoriteGetData: detailsRef DONE");
+
                 })
                 .addOnFailureListener(e -> Log.d("CHECK_ID", "Document does not Exist" ));
-
-        faqsRef = placeRef.collection("faqs");
 
         faqsRef.get()
                 .addOnSuccessListener(snapshot -> {
@@ -250,12 +261,22 @@ public class PlaceDetailsFragment extends Fragment {
                                 string_activities += "\n";
                             }
                         }
+                        Log.d("SAVE_FAV", "FavoriteGetData: faqsRef RUNNING, ACTIVITIES: " + string_activities);
+                        Log.d("SAVE_FAV", "FavoriteGetData: faqsRef RUNNING, AVAILABILITY: " + string_availability);
+                        Log.d("SAVE_FAV", "FavoriteGetData: faqsRef RUNNING, PRICES: " + string_prices);
                     }
                     Log.d("SAVE_FAV", "FavoriteGetData: faqsRef DONE");
                 })
                 .addOnFailureListener(e -> Log.d("CHECK_ID", "Document does not Exist"));
 
+//            AsyncTask.execute(() -> {
+//                Favorite favorite = new Favorite(placeTitle,emirateName,desc,hist,string_website,string_attire,string_availability,string_prices,string_activities);
+//                Log.d("SAVE_FAV", "SaveFavorite: " + favorite.toString());
+//                Log.d("SAVE_FAV", "SaveFavorite: " + favorite.getId() + favorite.getTitle() + favorite.getEmirate() + favorite.getDescription() + favorite.getHistory() + favorite.getActivities() + favorite.getAttire() + favorite.getWebsite() + favorite.getAvailability() + favorite.getPrices());
+//                FavoriteDatabase.getInstance(getContext()).favoriteDao().insert(favorite);
+//                Log.d("SAVE_FAV", "SaveFavorite: RUNNING");
+//            });
+
         Log.d("SAVE_FAV", "FavoriteGetData: DONE");
-        return true;
     }
 }

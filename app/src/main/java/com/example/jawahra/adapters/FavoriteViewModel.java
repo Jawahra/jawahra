@@ -12,14 +12,15 @@ public class FavoriteViewModel extends AndroidViewModel {
     private FavoriteRepository repository;
     private LiveData<List<Favorite>> allFavorites;
 //    private LiveData<List<Favorite>> currentFavorite;
-    private List<Favorite> currentFavorite;
-    private int position;
+//    private List<Favorite> currentFavorite;
+//    private int position;
 
     public FavoriteViewModel(@NonNull Application application) {
         super(application);
         repository = new FavoriteRepository(application);
+//        this.position = position;
         allFavorites = repository.getAllFavorites();
-        currentFavorite = repository.getCurrentFavorite(position);
+//        currentFavorite = repository.getCurrentFavorite(position);
     }
 
     public void insert(Favorite favorite){
@@ -38,5 +39,5 @@ public class FavoriteViewModel extends AndroidViewModel {
         return allFavorites;
     }
 
-    public List<Favorite> getCurrentFavorite(int position){ return currentFavorite; }
+//    public List<Favorite> getCurrentFavorite(int position){ return currentFavorite; }
 }
