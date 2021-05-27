@@ -13,10 +13,6 @@ public class MainAuth extends AppCompatActivity {
 
     Button logBtn, signBtn, guestBtn;
 
-    /*For Animated Gradient Background*/
-    RelativeLayout relativeLayout;
-    AnimationDrawable animationDrawable;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,13 +21,6 @@ public class MainAuth extends AppCompatActivity {
         logBtn = findViewById(R.id.authLogBtn);
         signBtn = findViewById(R.id.authSignBtn);
         guestBtn = findViewById(R.id.authGuestBtn);
-        relativeLayout = findViewById(R.id.mainAuthLayout);
-
-        /*Animate Gradient Background*/
-        animationDrawable = (AnimationDrawable) relativeLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(4000);
-        animationDrawable.setExitFadeDuration(4000);
-        animationDrawable.start();
 
         logBtn.setOnClickListener(new View.OnClickListener() {
             @Override

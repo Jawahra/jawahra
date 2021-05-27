@@ -7,16 +7,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:background="@drawable/gradient_main"
+    android:background="@color/white"
     tools:context=".OnboardingIntro">
 
     <ImageView
         android:id="@+id/onbLogo"
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="200dp"
         android:layout_centerInParent="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/placeholder_image"/>
+        android:src="@drawable/logo_trans_noname"/>
 
     <TextView
         android:id="@+id/onbAppName"
@@ -35,10 +35,12 @@
         android:id="@+id/onbIntroBtn"
         android:text="@string/onbIntro"
         android:textSize="24sp"
-        android:textColor="@color/black"
-        android:fontFamily="@font/quicksand"
+        android:textColor="@color/white"
+        android:fontFamily="@font/quicksand_bold"
         android:paddingLeft="30dp"
         android:paddingRight="30dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"

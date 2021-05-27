@@ -6,17 +6,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_main"
+    android:background="@color/white"
     android:gravity="center"
     tools:context=".MainAuth">
 
     <ImageView
         android:id="@+id/authLogo"
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="200dp"
         android:layout_centerInParent="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/placeholder_image"/>
+        android:src="@drawable/logo_trans_noname"/>
 
     <TextView
         android:id="@+id/authAppName"
@@ -42,8 +42,8 @@
             android:id="@+id/authLogBtn"
             android:text="@string/title_log_in"
             android:textSize="24sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/quicksand"
+            android:textColor="@color/white"
+            android:fontFamily="@font/quicksand_bold"
             android:layout_margin="5dp"
             android:layout_width="200dp"
             android:layout_height="wrap_content"/>
@@ -52,8 +52,8 @@
             android:id="@+id/authSignBtn"
             android:text="@string/title_sign_up"
             android:textSize="24sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/quicksand"
+            android:textColor="@color/white"
+            android:fontFamily="@font/quicksand_bold"
             android:layout_margin="5dp"
             android:layout_width="200dp"
             android:layout_height="wrap_content"/>
