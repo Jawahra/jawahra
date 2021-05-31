@@ -153,13 +153,12 @@ public class PlaceDetailsFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.place_details_toolbar_menu,menu);
+        inflater.inflate(R.menu.favorite_menu,menu);
         super.onCreateOptionsMenu(menu,inflater);
     }
 
     private CollectionReference detailsRef, faqsRef;
-    public String desc, hist, string_website, string_attire;;
-    private String string_prices, string_activities, string_availability;
+    private String desc, hist, string_website, string_attire, string_prices, string_activities, string_availability, mediaRef;
     public List<String> array_activities, array_prices, array_availability;
 
     @Override
@@ -176,9 +175,8 @@ public class PlaceDetailsFragment extends Fragment {
     public void SaveFavorite(){
         Log.d("SAVE_FAV", "SaveFavorite: CALLED");
         AsyncTask.execute(() -> {
-            Favorite favorite = new Favorite(placeTitle,emirateName,desc,hist,string_website,string_attire,string_availability,string_prices,string_activities);
+            Favorite favorite = new Favorite(placeTitle,emirateName,desc,hist,string_website,string_attire,string_availability,string_prices,string_activities, mediaRef);
             FavoriteDatabase.getInstance(getContext()).favoriteDao().insert(favorite);
-//            FavoriteDatabase.getInstance(requireActivity().getApplicationContext()).favoriteDao().insert(favorite);
             Log.d("SAVE_FAV", "SaveFavorite: RUNNING");
 
         });
@@ -197,9 +195,9 @@ public class PlaceDetailsFragment extends Fragment {
                         PlaceDetailsModel placeDetailsModel = snapshots.toObject(PlaceDetailsModel.class);
                         desc = placeDetailsModel.getDesc();
                         hist = placeDetailsModel.getHistory();
+                        mediaRef = placeDetailsModel.getMedia();
                     }
                     Log.d("SAVE_FAV", "FavoriteGetData: detailsRef DONE");
-
                 })
                 .addOnFailureListener(e -> Log.d("CHECK_ID", "Document does not Exist" ));
 

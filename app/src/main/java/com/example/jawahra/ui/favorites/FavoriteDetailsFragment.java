@@ -46,7 +46,7 @@ public class FavoriteDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        root = inflater.inflate(R.layout.fragment_place_details, container, false);
+        root = inflater.inflate(R.layout.fragment_favorites_details, container, false);
 
         Log.d("SAVE_FAV", "onCreateView: IS THIS BITCH WORKING");
 
@@ -64,8 +64,28 @@ public class FavoriteDetailsFragment extends Fragment {
             NavHostFragment.findNavController(this).popBackStack();
         });
 
+//        checkInternet();
         return root;
     }
+
+//    private void checkInternet(){
+//        ConnectivityManager cm =
+//                (ConnectivityManager) requireContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+//
+//        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+//        boolean isConnected = activeNetwork != null && activeNetwork.isConnected();
+//
+//        if (isConnected){
+//            showGallery();
+//            Log.d("CHECK_WIFI", "checkInternet: CONNECTED");
+//        }else{
+//            Log.d("CHECK_WIFI", "checkInternet: DISCONNECTED");
+//        }
+//    }
+//
+//    private void showGallery(){
+//        Log.d("CHECK_WIFI", "showGallery: called");
+//    }
 
     private void initToolBar(Toolbar toolbar){
         ((AppCompatActivity) requireContext()).setSupportActionBar(toolbar);
