@@ -35,6 +35,9 @@ public class FavoritesFragment extends Fragment implements FavoriteAdapter.OnLis
 
         Toolbar toolbar = root.findViewById(R.id.favorites_toolbar);
         ((AppCompatActivity) requireContext()).setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(view1 -> {
+            NavHostFragment.findNavController(this).popBackStack();
+        });
 
         RecyclerView recyclerView = root.findViewById(R.id.list_favorites);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
