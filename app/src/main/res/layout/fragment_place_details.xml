@@ -44,6 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark"
+                app:menu="@menu/place_details_toolbar_menu"
                 app:layout_collapseMode="pin" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -64,12 +65,15 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/location_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                app:layout_anchor="@+id/place_details_collapsing_toolbar"
-                app:layout_anchorGravity="bottom|end"
-                app:srcCompat="@drawable/ic_location_black_24dp"/>
+        android:id="@+id/location_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/blue_light"
+        android:elevation="4dp"
+        app:fabSize="auto"
+        android:layout_gravity="bottom|end"
+        app:srcCompat="@drawable/ic_location_black_24dp" />
+    <!--        app:layout_anchor="@+id/place_details_collapsing_toolbar"-->
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

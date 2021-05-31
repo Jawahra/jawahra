@@ -6,15 +6,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,16 +27,11 @@ import com.example.jawahra.models.UpcomingEventsModel;
 import com.example.jawahra.models.UpcomingPlacesModel;
 import com.example.jawahra.ui.UEDetailsFragment;
 import com.example.jawahra.ui.UPDetailsFragment;
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class NewsFragment extends Fragment implements UpcomingPlacesAdapter.OnCardsClickUP, UpcomingEventsAdapter.onCardsClickUE{
 
@@ -46,22 +40,17 @@ public class NewsFragment extends Fragment implements UpcomingPlacesAdapter.OnCa
     TextView tvTitleFeaturedEvent;
     RelativeLayout rlFeaturedImg;
 
-    private FirebaseFirestore firebaseFirestore;
-
     private UpcomingPlacesAdapter adapterUP;
     FirestoreRecyclerOptions<UpcomingPlacesModel> optionsUP;
 
     private UpcomingEventsAdapter adapterUE;
     FirestoreRecyclerOptions<UpcomingEventsModel> optionsUE;
 
-    FragmentManager fragmentManager;
-    FragmentTransaction fragmentTransaction;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_news, container, false);
-        firebaseFirestore = FirebaseFirestore.getInstance();
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
 
 
@@ -92,12 +81,12 @@ public class NewsFragment extends Fragment implements UpcomingPlacesAdapter.OnCa
         super.onViewCreated(view, savedInstanceState);
 
 
-
 //        Hook variable to Recycler view
         RecyclerView listUpcomingPlaces = requireView().findViewById(R.id.list_upcoming_places);
         RecyclerView listUpcomingEvents = requireView().findViewById(R.id.list_upcoming_events);
 
-        TextView btnLearnMore = requireView().findViewById(R.id.btn_learn_more);
+
+        Button btnLearnMore = requireView().findViewById(R.id.btn_learn_more);
         tvTitleFeaturedEvent = requireView().findViewById(R.id.featured_title);
         rlFeaturedImg = requireView().findViewById(R.id.featured_img);
 
@@ -105,7 +94,6 @@ public class NewsFragment extends Fragment implements UpcomingPlacesAdapter.OnCa
         setFeaturedEvent();
 
         btnLearnMore.setOnClickListener(v -> onCardClickUE(featuredEventID, eventEmirate, eventName, eventImg));
-
 
 
 //        Set layout manager and adapter after view is created
@@ -128,17 +116,11 @@ public class NewsFragment extends Fragment implements UpcomingPlacesAdapter.OnCa
 
         UPDetailsFragment upDetailsFragment = new UPDetailsFragment();
         upDetailsFragment.setArguments(bundle);
-        fragmentManager = getActivity().getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_news, upDetailsFragment);
-        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        fragmentTransaction.show(upDetailsFragment);
-        fragmentTransaction.commit();
-
+        NavHostFragment.findNavController(this).navigate(R.id.action_navigation_events_to_UPDetailsFragment,bundle);
     }
 
     private void setFeaturedEvent() {
-        featuredEventID = "eFXwRsAO5wxJSUt206P0";
+        featuredEventID = "HuZ7ruLjER0WXEYKyhyg";
         DocumentReference docRef = FirebaseFirestore.getInstance().collection("upcoming_events").document(featuredEventID);
         docRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -149,22 +131,25 @@ public class NewsFragment extends Fragment implements UpcomingPlacesAdapter.OnCa
                     tvTitleFeaturedEvent.setText(eventName);
 
                     eventImg = doc.getString("eventImg");
-                    Glide.with(requireActivity())
-                            .load(eventImg)
-                            .into(new CustomTarget<Drawable>() {
-                                @Override
-                                public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                                    rlFeaturedImg.setBackground(resource);
-                                }
+                    if (getActivity() != null) {
+                        Glide.with(getActivity())
+                                .load(eventImg)
+                                .thumbnail(.25f)
+                                .into(new CustomTarget<Drawable>() {
+                                    @Override
+                                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                                        rlFeaturedImg.setBackground(resource);
+                                    }
 
-                                @Override
-                                public void onLoadCleared(@Nullable Drawable placeholder) {
+                                    @Override
+                                    public void onLoadCleared(@Nullable Drawable placeholder) {
 
-                                }
-                            });
+                                    }
+                                });
 
-                } else {
-                    Log.d("Document", "No data");
+                    } else {
+                        Log.d("Document", "No data");
+                    }
                 }
             }
         });
@@ -183,13 +168,7 @@ public class NewsFragment extends Fragment implements UpcomingPlacesAdapter.OnCa
 
         UEDetailsFragment ueDetailsFragment = new UEDetailsFragment();
         ueDetailsFragment.setArguments(bundle);
-        fragmentManager = getActivity().getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_news, ueDetailsFragment);
-        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        fragmentTransaction.show(ueDetailsFragment);
-        fragmentTransaction.commit();
-
+        NavHostFragment.findNavController(this).navigate(R.id.action_navigation_events_to_UEDetailsFragment,bundle);
     }
 
     @Override

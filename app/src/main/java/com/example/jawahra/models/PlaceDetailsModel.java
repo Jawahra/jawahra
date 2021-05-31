@@ -4,14 +4,14 @@ public class PlaceDetailsModel {
 
     private String desc;
     private String history;
-    private String map;
+    private String media;
 
     private PlaceDetailsModel(){}
 
-    private PlaceDetailsModel(String desc, String map, String history){
+    private PlaceDetailsModel(String desc, String media, String history){
         this.history = history;
         this.desc = desc;
-        this.map = map;
+        this.media = media;
     }
 
     public String getDesc() {
@@ -22,19 +22,19 @@ public class PlaceDetailsModel {
         this.desc = desc;
     }
 
-    public String getMap() {
-        return map;
-    }
-
-    public void setMap(String map) {
-        this.map = map;
-    }
-
     public String getHistory() {
         return history;
     }
 
     public void setHistory(String history) {
         this.history = history;
+    }
+
+    public String getMedia() {
+        return media;
+    }
+
+    public void setMedia(String media) {
+        this.media = media;
     }
 }

@@ -1,0 +1,60 @@
+{
+    "discoverPlaces": [
+        {
+            "coverImg" : "https://firebasestorage.googleapis.com/v0/b/jawahra-ec2e2.appspot.com/o/images%2Fabu_dhabi%2Fforever_rose_cafe%2Fforeverrosecafe_2.jpg?alt=media&token=037c4a3d-201d-4612-ab7b-633bfac5664d",
+            "emirate" : "Abu Dhabi",
+            "emirateId" : "abu_dhabi",
+            "name" : "Forever Rose Cafe",
+            "placeId": "0Cv0FjnvT1KdVVYWRmdm"
+
+        },
+        {
+            "coverImg" : "https://firebasestorage.googleapis.com/v0/b/jawahra-ec2e2.appspot.com/o/images%2Fajman%2Fclay_corner_studio%2Fclaycornerstudio_1.jpg?alt=media&token=3926f531-4e89-49e8-ad5d-c982f3e50130",
+            "emirate" : "Ajman",
+            "emirateId" : "ajman",
+            "name" : "Clay Corner Studio",
+            "placeId": "Idi7pikJyvy5KQkqcz0O"
+
+        },
+        {
+            "coverImg" : "https://firebasestorage.googleapis.com/v0/b/jawahra-ec2e2.appspot.com/o/images%2Fdubai%2Fhive_board_game_cafe%2Fhiveboardgamecafe_4.jpg?alt=media&token=2ae140c9-9a44-4715-a1ea-7a0fb49d362a",
+            "emirate" : "Dubai",
+            "emirateId" : "dubai",
+            "name" : "Hive Board Game Cafe",
+            "placeId": "vo3V74KvrnIyv7Wnfvra"
+
+        },
+        {
+            "coverImg" : "https://firebasestorage.googleapis.com/v0/b/jawahra-ec2e2.appspot.com/o/images%2Ffujairah%2Fwadi_abadilah%2Fwadialabadilah_3.jpg?alt=media&token=1b2ff2b4-c213-4b22-80bc-751e1a16f5ff",
+            "emirate" : "Fujairah",
+            "emirateId" : "fujairah",
+            "name" : "Wadi Abadilah",
+            "placeId": "nQkQmi2AyJG4R79oiSzk"
+
+        },
+        {
+            "coverImg" : "https://firebasestorage.googleapis.com/v0/b/jawahra-ec2e2.appspot.com/o/images%2Fras_al_khaimah%2Fcrescent_moon_lake%2Fcrescentmoonlake_3.jpg?alt=media&token=12f25fce-64b9-473a-9be8-73c62a8e80b2",
+            "emirate" : "Ras Al Khaimah",
+            "emirateId" : "ras_al_khaimah",
+            "name" : "Crescent Moon Lake",
+            "placeId": "3Q9xqQH5p8jDbP3PMqh9"
+
+        },
+        {
+            "coverImg" : "https://firebasestorage.googleapis.com/v0/b/jawahra-ec2e2.appspot.com/o/images%2Fsharjah%2Fhouse_of_wisdom%2Fhouseofwisdom_5.jpg?alt=media&token=976451fd-f210-4849-a30d-ef7e5a3e409a",
+            "emirate" : "Sharjah",
+            "emirateId" : "sharjah",
+            "name" : "House of Wisdom",
+            "placeId": "nmOdVA53mBlVsvowrpvm"
+
+        },
+        {
+            "coverImg" : "https://firebasestorage.googleapis.com/v0/b/jawahra-ec2e2.appspot.com/o/images%2Fumm_al_quwain%2Fkite_beach_center%2Fkitebeachcenter_1.jpg?alt=media&token=dc72fba0-421b-4da1-8580-ee3da027b7c2",
+            "emirate" : "Umm Al Quwain",
+            "emirateId" : "umm_al_quwain",
+            "name" : "Kite Beach Center",
+            "placeId": "VospVKGtM8G37aehiM1A"
+
+        }
+    ]
+}

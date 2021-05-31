@@ -33,7 +33,7 @@ public class EmiratesAdapter extends FirestoreRecyclerAdapter<EmiratesModel, Emi
     @Override
     protected void onBindViewHolder(@NonNull EmiratesViewHolder holder, int position, @NonNull EmiratesModel model) {
         holder.listName.setText(model.getEmirateName());
-        Glide.with(context).load(model.getCoverImg()).into(holder.cardImage);
+        Glide.with(context).load(model.getCoverImg()).thumbnail(0.25f).into(holder.cardImage);
     }
 
     @NonNull

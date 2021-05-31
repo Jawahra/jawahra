@@ -47,6 +47,9 @@
     <!-- PROFILE -->
     <string name="title_settings">Settings</string>
     <string name="message_to_guest">Log in to bookmark and<br /> download your favorite places!</string>
+    <string name="settings_change_pfp">Edit profile image</string>
+    <string name="settings_instructions">Instructions</string>
+    <string name="title_favorites">Favorites</string>
 
     <!--    PLACES DETAILS TITLES   -->
     <string name="title_about">About</string>
@@ -55,12 +58,13 @@
 
     <!--    ABOUT PAGE      -->
     <string name="subtitle_history">History</string>
-    
+
     <!--    FAQs PAGE       -->
     <string name="subtitle_prices">Prices</string>
     <string name="subtitle_availability">Availability</string>
     <string name="subtitle_activities">Activities</string>
     <string name="subtitle_attire">What to wear</string>
     <string name="subtitle_website">Website</string>
+    <string name="click_to_learn_more">Click to learn more</string>
 
 </resources>

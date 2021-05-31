@@ -43,7 +43,7 @@ public class UpcomingEventsAdapter extends FirestoreRecyclerAdapter<UpcomingEven
         }
 
 //                Get url string of image from document in Firestore and set ImageView to that image
-        Glide.with(context).load(model.getEventImg()).into(holder.eventImg);
+        Glide.with(context).load(model.getEventImg()).thumbnail(.25f).into(holder.eventImg);
 
     }
 
