@@ -20,7 +20,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewpager.widget.ViewPager;
 
@@ -31,6 +33,7 @@ import com.example.jawahra.R;
 import com.example.jawahra.adapters.Favorite;
 import com.example.jawahra.adapters.FavoriteDatabase;
 import com.example.jawahra.adapters.SectionPagerAdapter;
+import com.example.jawahra.ui.MapsFragment;
 import com.example.jawahra.models.FaqsModel;
 import com.example.jawahra.models.PlaceDetailsModel;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -103,6 +106,27 @@ public class PlaceDetailsFragment extends Fragment {
                     }
                 });
 
+        locationButton = root.findViewById(R.id.location_button);
+        locationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("emirateId", emirateId);
+                bundle.putString("placeId", placeId);
+                bundle.putString("placeName", String.valueOf(placeTitle));
+
+                MapsFragment mapsFragment = new MapsFragment();
+                mapsFragment.setArguments(bundle);
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_places,mapsFragment);
+                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+
+            }
+        });
+
         setHasOptionsMenu(true);
         //set up tablayout
         Toolbar toolbar = root.findViewById(R.id.place_details_toolbar);
@@ -139,7 +163,6 @@ public class PlaceDetailsFragment extends Fragment {
         collapsingToolbar.setExpandedTitleTextAppearance(R.style.ExpandedAppBar);
         collapsingToolbar.setTitle(placeTitle);
     }
-
     @Override
     public void onStop() {
         super.onStop();
@@ -268,15 +291,6 @@ public class PlaceDetailsFragment extends Fragment {
                     Log.d("SAVE_FAV", "FavoriteGetData: faqsRef DONE");
                 })
                 .addOnFailureListener(e -> Log.d("CHECK_ID", "Document does not Exist"));
-
-//            AsyncTask.execute(() -> {
-//                Favorite favorite = new Favorite(placeTitle,emirateName,desc,hist,string_website,string_attire,string_availability,string_prices,string_activities);
-//                Log.d("SAVE_FAV", "SaveFavorite: " + favorite.toString());
-//                Log.d("SAVE_FAV", "SaveFavorite: " + favorite.getId() + favorite.getTitle() + favorite.getEmirate() + favorite.getDescription() + favorite.getHistory() + favorite.getActivities() + favorite.getAttire() + favorite.getWebsite() + favorite.getAvailability() + favorite.getPrices());
-//                FavoriteDatabase.getInstance(getContext()).favoriteDao().insert(favorite);
-//                Log.d("SAVE_FAV", "SaveFavorite: RUNNING");
-//            });
-
         Log.d("SAVE_FAV", "FavoriteGetData: DONE");
     }
 }
