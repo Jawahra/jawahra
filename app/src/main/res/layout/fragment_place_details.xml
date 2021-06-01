@@ -69,11 +69,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:backgroundTint="@color/blue_light"
+        android:backgroundTint="@color/blue"
         android:elevation="4dp"
         app:fabSize="auto"
         android:layout_gravity="bottom|end"
-        app:srcCompat="@drawable/ic_location_black_24dp" />
+        app:srcCompat="@drawable/ic_location_black_24dp"
+        />
     <!--        app:layout_anchor="@+id/place_details_collapsing_toolbar"-->
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
