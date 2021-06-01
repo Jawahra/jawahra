@@ -22,7 +22,9 @@ public class Favorite {
     private String prices;
     private String activities;
 
-    public Favorite(String title, String emirate, String description, String history, String website, String attire, String availability, String prices, String activities) {
+    private String mediaReference;
+
+    public Favorite(String title, String emirate, String description, String history, String website, String attire, String availability, String prices, String activities, String mediaReference) {
         this.title = title;
         this.emirate = emirate;
         this.description = description;
@@ -32,7 +34,16 @@ public class Favorite {
         this.availability = availability;
         this.prices = prices;
         this.activities = activities;
+        this.mediaReference = mediaReference;
+    }
 
+
+    public String getMediaReference() {
+        return mediaReference;
+    }
+
+    public void setMediaReference(String mediaReference) {
+        this.mediaReference = mediaReference;
     }
 
     public int getId() {

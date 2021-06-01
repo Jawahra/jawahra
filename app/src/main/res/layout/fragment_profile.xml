@@ -113,12 +113,12 @@
                 android:text="@string/title_settings"
                 android:textColor="@color/black"
                 android:textAllCaps="false"
-                android:fontFamily="@font/quicksand"
+                android:fontFamily="@font/quicksand_bold"
                 android:background="@color/transparent_light"
+                android:layout_margin="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+                app:layout_constraintStart_toStartOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

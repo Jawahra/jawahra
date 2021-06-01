@@ -32,11 +32,11 @@
                 android:src="@drawable/placeholder_image"
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax"/>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/image_shadow"
-                />
+                android:background="@drawable/image_shadow" />
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/place_details_toolbar"
@@ -44,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark"
-                app:menu="@menu/place_details_toolbar_menu"
+                app:menu="@menu/favorite_menu"
                 app:layout_collapseMode="pin" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>

@@ -133,6 +133,7 @@ public class PlaceDetailsFragment extends Fragment {
         });
 
         setHasOptionsMenu(true);
+
         //set up tablayout
         Toolbar toolbar = root.findViewById(R.id.place_details_toolbar);
         initToolBar(toolbar);
@@ -180,13 +181,12 @@ public class PlaceDetailsFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.place_details_toolbar_menu,menu);
+        inflater.inflate(R.menu.favorite_menu,menu);
         super.onCreateOptionsMenu(menu,inflater);
     }
 
     private CollectionReference detailsRef, faqsRef;
-    public String desc, hist, string_website, string_attire;;
-    private String string_prices, string_activities, string_availability;
+    private String desc, hist, string_website, string_attire, string_prices, string_activities, string_availability, mediaRef;
     public List<String> array_activities, array_prices, array_availability;
 
     @Override
@@ -203,17 +203,10 @@ public class PlaceDetailsFragment extends Fragment {
     public void SaveFavorite(){
         Log.d("SAVE_FAV", "SaveFavorite: CALLED");
         AsyncTask.execute(() -> {
-            Log.d("SAVE_FAV", "SaveFavorite: RUNNING, DESC: " + desc);
-            Log.d("SAVE_FAV", "SaveFavorite: RUNNING, HIST" + hist );
-            Log.d("SAVE_FAV", "SaveFavorite: RUNNING, ACTIVITIES: " + string_activities);
-            Log.d("SAVE_FAV", "SaveFavorite: RUNNING, AVAILABILITY: " + string_availability);
-            Log.d("SAVE_FAV", "SaveFavorite: RUNNING, PRICES: " + string_prices);
-
-            Favorite favorite = new Favorite(placeTitle,emirateName,desc,hist,string_website,string_attire,string_availability,string_prices,string_activities);
-            Log.d("SAVE_FAV", "SaveFavorite: " + favorite.toString());
-            Log.d("SAVE_FAV", "SaveFavorite: " + favorite.getId() + favorite.getTitle() + favorite.getEmirate() + favorite.getDescription() + favorite.getHistory() + favorite.getActivities() + favorite.getAttire() + favorite.getWebsite() + favorite.getAvailability() + favorite.getPrices());
+            Favorite favorite = new Favorite(placeTitle,emirateName,desc,hist,string_website,string_attire,string_availability,string_prices,string_activities, mediaRef);
             FavoriteDatabase.getInstance(getContext()).favoriteDao().insert(favorite);
             Log.d("SAVE_FAV", "SaveFavorite: RUNNING");
+
         });
         Log.d("SAVE_FAV", "SaveFavorite: END");
     }
@@ -230,13 +223,9 @@ public class PlaceDetailsFragment extends Fragment {
                         PlaceDetailsModel placeDetailsModel = snapshots.toObject(PlaceDetailsModel.class);
                         desc = placeDetailsModel.getDesc();
                         hist = placeDetailsModel.getHistory();
-
-                        Log.d("SAVE_FAV", "FavoriteGetData: detailsRef RUNNING");
-                        Log.d("SAVE_FAV", "FavoriteGetData: detailsRef RUNNING, DESC: " + desc);
-                        Log.d("SAVE_FAV", "FavoriteGetData: detailsRef RUNNING, HIST" + hist );
+                        mediaRef = placeDetailsModel.getMedia();
                     }
                     Log.d("SAVE_FAV", "FavoriteGetData: detailsRef DONE");
-
                 })
                 .addOnFailureListener(e -> Log.d("CHECK_ID", "Document does not Exist" ));
 
@@ -251,11 +240,6 @@ public class PlaceDetailsFragment extends Fragment {
                         array_activities = faqsModel.getActivities();
                         array_availability = faqsModel.getAvailability();
                         array_prices = faqsModel.getPrices();
-
-                        Log.d("faqs", "ATTIRE: " + string_attire);
-                        Log.d("faqs", "WEBSITE: " + string_website);
-                        Log.d("faqs", "ARRAY_PRICES" + array_prices);
-                        Log.d("faqs", "ARRAY SIZE: " + array_prices.size());
 
                         if(array_prices != null){
                             for (int i = 0; i < array_prices.size(); i++) {
@@ -289,9 +273,6 @@ public class PlaceDetailsFragment extends Fragment {
                                 string_activities += "\n";
                             }
                         }
-                        Log.d("SAVE_FAV", "FavoriteGetData: faqsRef RUNNING, ACTIVITIES: " + string_activities);
-                        Log.d("SAVE_FAV", "FavoriteGetData: faqsRef RUNNING, AVAILABILITY: " + string_availability);
-                        Log.d("SAVE_FAV", "FavoriteGetData: faqsRef RUNNING, PRICES: " + string_prices);
                     }
                     Log.d("SAVE_FAV", "FavoriteGetData: faqsRef DONE");
                 })
