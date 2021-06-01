@@ -25,6 +25,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.jawahra.MainActivity;
 import com.example.jawahra.R;
@@ -42,6 +43,8 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.util.Map;
 
 public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
@@ -98,12 +101,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
                 PlaceDetailsFragment placeDetailsFragment = new PlaceDetailsFragment();
                 placeDetailsFragment.setArguments(bundle);
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_places,placeDetailsFragment);
-                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                NavHostFragment.findNavController(MapsFragment.this).navigate(R.id.action_mapsFragment_to_placeDetailsFragment,bundle);
             }
         });
 

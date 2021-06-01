@@ -29,6 +29,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.example.jawahra.MainActivity;
 import com.example.jawahra.R;
 import com.example.jawahra.adapters.Favorite;
 import com.example.jawahra.adapters.FavoriteDatabase;
@@ -117,12 +118,16 @@ public class PlaceDetailsFragment extends Fragment {
 
                 MapsFragment mapsFragment = new MapsFragment();
                 mapsFragment.setArguments(bundle);
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_places,mapsFragment);
-                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                NavHostFragment.findNavController(PlaceDetailsFragment.this).navigate(R.id.action_placeDetailsFragment_to_mapsFragment,bundle);
+
+//                MapsFragment mapsFragment = new MapsFragment();
+//                mapsFragment.setArguments(bundle);
+//                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                fragmentTransaction.replace(R.id.fragment_places,mapsFragment);
+//                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+//                fragmentTransaction.addToBackStack(null);
+//                fragmentTransaction.commit();
 
             }
         });
