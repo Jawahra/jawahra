@@ -1,6 +1,7 @@
 package com.example.jawahra;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -16,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.bumptech.glide.Glide;
 import com.example.jawahra.models.UserModel;
@@ -98,6 +100,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        // Gradient animation for background
+        ConstraintLayout constraintLayout = findViewById(R.id.layout_log_in);
+        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(2000);
+        animationDrawable.setExitFadeDuration(4000);
+        animationDrawable.start();
 
         // User input
         inputEmail = findViewById(R.id.input_email);
@@ -354,8 +363,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             userDocRef.set(userProfile, SetOptions.merge());
             Log.d("CHECK_USER_LOGIN", "with online sign in, user: "+ userID);
 
-            // Redirect to homepage
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            // Redirect to covid protocol activity
+            startActivity(new Intent(LoginActivity.this, CovidProtocolActivity.class));
 
         }
     }
