@@ -90,20 +90,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
         // Toolbar
         Toolbar toolbar = view.findViewById(R.id.toolbar);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Bundle bundle = new Bundle();
-                bundle.putString("emirateId", emirateId);
-                bundle.putString("placeId", placeId);
-                bundle.putString("placeName", String.valueOf(placeTitle));
-
-                PlaceDetailsFragment placeDetailsFragment = new PlaceDetailsFragment();
-                placeDetailsFragment.setArguments(bundle);
-                NavHostFragment.findNavController(MapsFragment.this).navigate(R.id.action_mapsFragment_to_placeDetailsFragment,bundle);
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> NavHostFragment.findNavController(MapsFragment.this).popBackStack());
 
         return view;
     }
