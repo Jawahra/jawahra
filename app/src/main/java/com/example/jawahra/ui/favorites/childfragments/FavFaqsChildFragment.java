@@ -1,7 +1,7 @@
 package com.example.jawahra.ui.favorites.childfragments;
 
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +39,7 @@ public class FavFaqsChildFragment extends Fragment {
             //update RecyclerView
             currentFavorite = favorites;
         });
-//
+
         faqsWebsite = root.findViewById(R.id.faqs_website);
         faqsActivities = root.findViewById(R.id.faqs_activities);
         faqsAttire = root.findViewById(R.id.faqs_attire);
@@ -47,13 +47,17 @@ public class FavFaqsChildFragment extends Fragment {
         faqsPrices = root.findViewById(R.id.faqs_prices);
 
         if (currentFavorite.isEmpty()){
-            Log.d("check_fav", "onViewCreated: currentFavorites is empty");
+            new Handler().postDelayed(this::setText,3000);
         }
         else{
-            Log.d("check_fav", "onViewCreated: currentFavorites is initiated");
             setText();
         }
 
+//        if (currentFavorite == null){
+//            new Handler().postDelayed(this::setText,3000);
+//        }else{
+//            setText();
+//        }
         return root;
     }
 

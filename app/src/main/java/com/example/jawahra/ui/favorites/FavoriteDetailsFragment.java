@@ -4,14 +4,9 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.res.ResourcesCompat;
@@ -32,8 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class FavoriteDetailsFragment extends Fragment {
-    private ImageView imageView;
+public class FavoriteDetailsFragment extends Fragment{
     private FavoriteViewModel favoriteViewModel;
     private List<Favorite> currentFavorite = new ArrayList<>();
     public static int position;
@@ -65,8 +59,6 @@ public class FavoriteDetailsFragment extends Fragment {
 
         Log.d("SAVE_FAV", "onCreateView: IS THIS BITCH WORKING");
 
-        setHasOptionsMenu(true);
-        imageView = root.findViewById(R.id.place_details_img);
         Toolbar toolbar = root.findViewById(R.id.place_details_toolbar);
         initToolBar(toolbar);
         SetTabLayoutAnim();
@@ -102,19 +94,5 @@ public class FavoriteDetailsFragment extends Fragment {
         collapsingToolbar.setTitle(title);
     }
 
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.delete_menu,menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.action_delete){
-            Log.d("DELETE_FAV", "onOptionsItemSelected: Favorites deleted");
-            favoriteViewModel.delete(currentFavorite.get(0));
-            NavHostFragment.findNavController(this).popBackStack();
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

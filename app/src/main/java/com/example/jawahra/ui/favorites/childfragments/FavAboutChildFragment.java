@@ -17,13 +17,12 @@ import com.example.jawahra.adapters.Favorite;
 import com.example.jawahra.adapters.FavoriteViewModel;
 import com.example.jawahra.ui.favorites.FavoriteDetailsFragment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FavAboutChildFragment extends Fragment {
 
     private FavoriteViewModel favoriteViewModel;
-    private List<Favorite> currentFavorite = new ArrayList<>();
+    private List<Favorite> currentFavorite;
     private int position;
 
     private TextView placeDesc, placeHist;
@@ -33,6 +32,7 @@ public class FavAboutChildFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_about_child, container, false);
+
         position = FavoriteDetailsFragment.position;
         favoriteViewModel = new ViewModelProvider(this).get(FavoriteViewModel.class);
         favoriteViewModel.getCurrentFavorite(position).observe(getViewLifecycleOwner(), favorites -> {
@@ -40,8 +40,13 @@ public class FavAboutChildFragment extends Fragment {
             currentFavorite = favorites;
         });
 
-        if (!currentFavorite.isEmpty()){
+        placeDesc = root.findViewById(R.id.about_desc);
+        placeHist = root.findViewById(R.id.about_history);
+
+        if (currentFavorite == null){
             new Handler().postDelayed(this::setText,1500);
+        }else{
+            setText();
         }
 
         return root;
@@ -62,8 +67,6 @@ public class FavAboutChildFragment extends Fragment {
 //    }
 
     public void setText(){
-        placeDesc = root.findViewById(R.id.about_desc);
-        placeHist = root.findViewById(R.id.about_history);
         placeDesc.setText(currentFavorite.get(0).getDescription());
         placeHist.setText(currentFavorite.get(0).getHistory());
     }

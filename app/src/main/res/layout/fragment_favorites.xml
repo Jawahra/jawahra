@@ -16,6 +16,7 @@
         android:layout_height="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.Light"
         android:background="@color/white_light"
+        app:menu="@menu/favorite_info_menu"
         app:title="Favorites"/>
 
     <androidx.recyclerview.widget.RecyclerView
