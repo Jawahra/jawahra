@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.jawahra.ui.favorites.childfragments.FavAboutChildFragment;
 import com.example.jawahra.ui.favorites.childfragments.FavFaqsChildFragment;
+import com.example.jawahra.ui.favorites.childfragments.FavGalleryChildFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,12 +28,12 @@ public class FavDetailsPagerAdapter extends FragmentStatePagerAdapter {
         switch (position){
             case 0:
                 return new FavAboutChildFragment();
+//            case 1:
+//                return new FavFaqsChildFragment();
             case 1:
-                return new FavFaqsChildFragment();
-            /*case 1:
-                return new GalleryChildFragment();
+                return new FavGalleryChildFragment();
             case 2:
-                return new FavFaqsChildFragment();*/
+                return new FavFaqsChildFragment();
             default:
                 return new FavAboutChildFragment();
         }
@@ -40,7 +41,7 @@ public class FavDetailsPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 
     @Nullable
@@ -51,15 +52,15 @@ public class FavDetailsPagerAdapter extends FragmentStatePagerAdapter {
             case 0:
                 title = "About";
                 break;
+//            case 1:
+//                title = "FAQs";
+//                break;
             case 1:
-                title = "FAQs";
-                break;
-            /*case 1:
                 title = "Images";
                 break;
             case 2:
                 title = "FAQs";
-                break;*/
+                break;
         }
         return title;
     }

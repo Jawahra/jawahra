@@ -11,7 +11,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="100dp"
         android:background="@drawable/gradient_background">
         <TextView
             android:id="@+id/fav_emirate"
@@ -21,7 +21,7 @@
             android:text="@string/subtitle_emirates"
             android:textColor="@color/black"
             android:textSize="15sp"
-            android:layout_above="@+id/list_place"
+            android:layout_above="@+id/fav_place"
             android:layout_marginStart="15dp"/>
 
         <TextView

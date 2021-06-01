@@ -6,17 +6,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jawahra.R;
 import com.example.jawahra.adapters.FavoriteAdapter;
 import com.example.jawahra.adapters.FavoriteViewModel;
+import com.google.android.material.snackbar.Snackbar;
 
 public class FavoritesFragment extends Fragment implements FavoriteAdapter.OnListItemClick {
 
@@ -35,6 +38,9 @@ public class FavoritesFragment extends Fragment implements FavoriteAdapter.OnLis
 
         Toolbar toolbar = root.findViewById(R.id.favorites_toolbar);
         ((AppCompatActivity) requireContext()).setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(view1 -> {
+            NavHostFragment.findNavController(this).popBackStack();
+        });
 
         RecyclerView recyclerView = root.findViewById(R.id.list_favorites);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -52,6 +58,20 @@ public class FavoritesFragment extends Fragment implements FavoriteAdapter.OnLis
             //update RecyclerView
             adapter.setFavorites(favorites);
         });
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
+                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                favoriteViewModel.delete(adapter.getFavoriteAt(viewHolder.getAdapterPosition()));
+                Snackbar.make(root,"Deleted from Favorites", Snackbar.LENGTH_LONG).show();
+            }
+        }).attachToRecyclerView(recyclerView);
 
         return root;
     }

@@ -51,6 +51,10 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
         notifyDataSetChanged();
     }
 
+    public Favorite getFavoriteAt(int position){
+        return  favorites.get(position);
+    }
+
     class FavoriteHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private TextView textViewName;
         private TextView textViewEmirate;

@@ -1,10 +1,14 @@
 package com.example.jawahra.ui.visit.childfragments;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,6 +32,7 @@ public class GalleryChildFragment extends Fragment {
     public StorageReference mediaFile;
     public String ref;
     private RecyclerView galleryRecycler;
+    private TextView layoutDisconnected;
     /*private ScrollGalleryView galleryView;
     private List<String> mediaString;
     String media;*/
@@ -44,9 +49,36 @@ public class GalleryChildFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_gallery_child, container, false);
 
+        layoutDisconnected = root.findViewById(R.id.layout_gallery_disconnected);
         galleryRecycler = root.findViewById(R.id.gallery_recycler);
 //        galleryRecycler.setHasFixedSize(true);
         galleryRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        checkInternet();
+        return root;
+    }
+
+    private void checkInternet(){
+        ConnectivityManager cm =
+                (ConnectivityManager) requireContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnected();
+
+        if (isConnected){
+            galleryRecycler.setVisibility(View.VISIBLE);
+            layoutDisconnected.setVisibility(View.INVISIBLE);
+            showGallery();
+            Log.d("CHECK_WIFI", "checkInternet: CONNECTED");
+        }else{
+            layoutDisconnected.setVisibility(View.VISIBLE);
+            galleryRecycler.setVisibility(View.INVISIBLE);
+            Log.d("CHECK_WIFI", "checkInternet: DISCONNECTED");
+        }
+    }
+
+    private void showGallery(){
+        Log.d("CHECK_WIFI", "showGallery: called");
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
         mediaRef = PlaceDetailsFragment.placeRef.collection("details");
@@ -73,13 +105,13 @@ public class GalleryChildFragment extends Fragment {
                                                 galleryUrl.setGalleryUrl(String.valueOf(uri));
                                                 mediaUrls.add(galleryUrl);
                                                 galleryRecycler.setAdapter(galleryAdapter);
-                                            }).addOnFailureListener(e -> Log.d("MYGALLERY", "Document does not Exist" ));
+                                            }).addOnFailureListener(e -> Log.d("firebase_query", "GalleryChildFragment: Document does not Exist" ));
                                         }
-                                    }).addOnFailureListener(e -> Log.d("CHECK_ID", "Document does not Exist" ));
+                                    }).addOnFailureListener(e -> Log.d("firebase_query", "GalleryChildFragment: Document does not Exist" ));
                         }
                     }
                 })
-                .addOnFailureListener(e -> Log.d("CHECK_ID", "Document does not Exist" ));
-        return root;
+                .addOnFailureListener(e -> Log.d("firebase_query", "GalleryChildFragment: Document does not Exist" ));
+
     }
 }
