@@ -17,26 +17,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"
-            app:srcCompat="@drawable/placeholder_blank_image" />
-
         <TextView
             android:id="@+id/welcome_back_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/imageView"
             android:layout_centerHorizontal="true"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
             android:text="@string/title_welcome_message"
-            android:textSize="30sp"
+            android:textSize="36sp"
             android:fontFamily="@font/playfair_display_bold"
             android:textColor="@color/black"/>
     </RelativeLayout>
@@ -88,7 +79,7 @@
             android:paddingHorizontal="10dp"
             android:text="or sign in with"
             android:textColor="@color/white"
-            android:fontFamily="@font/quicksand"/>
+            android:fontFamily="@font/karla"/>
 
         <View
             android:id="@+id/view2"
@@ -118,20 +109,37 @@
         app:layout_constraintTop_toBottomOf="@+id/online_login"
         app:layout_constraintVertical_bias="0.0">
 
+        <TextView
+            android:id="@+id/email_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="@string/title_email"
+            android:textSize="16sp"
+            android:fontFamily="@font/karla"/>
+
         <EditText
             android:id="@+id/input_email"
             style="@style/sign_up_input"
+            android:layout_below="@+id/email_title"
             android:ems="10"
-            android:hint="@string/title_email"
             android:inputType="textEmailAddress"/>
+
+        <TextView
+            android:id="@+id/password_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_below="@id/input_email"
+            android:text="@string/title_pw"
+            android:textSize="16sp"
+            android:fontFamily="@font/karla"/>
 
         <EditText
             android:id="@+id/input_password"
             style="@style/sign_up_input"
-            android:layout_below="@id/input_email"
-            android:layout_marginTop="10dp"
+            android:layout_below="@id/password_title"
             android:ems="10"
-            android:hint="@string/title_pw"
             android:inputType="textPassword"/>
     </RelativeLayout>
 
