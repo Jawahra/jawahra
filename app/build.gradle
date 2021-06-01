@@ -75,6 +75,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:17.0.1'
     implementation 'com.google.android.gms:play-services-location:18.0.0'
 
+
+
     implementation 'com.google.firebase:firebase-firestore:23.0.0'
     implementation platform('com.google.firebase:firebase-bom:27.0.0')
     implementation 'com.firebaseui:firebase-ui-firestore:7.1.1'
