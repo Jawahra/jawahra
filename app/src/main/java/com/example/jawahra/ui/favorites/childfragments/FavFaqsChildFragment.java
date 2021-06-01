@@ -1,7 +1,6 @@
 package com.example.jawahra.ui.favorites.childfragments;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,7 +48,6 @@ public class FavFaqsChildFragment extends Fragment {
 
         if (currentFavorite.isEmpty()){
             Log.d("check_fav", "onViewCreated: currentFavorites is empty");
-            new Handler().postDelayed(this::setText,1500);
         }
         else{
             Log.d("check_fav", "onViewCreated: currentFavorites is initiated");

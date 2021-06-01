@@ -2,7 +2,6 @@ package com.example.jawahra.ui.favorites.childfragments;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,27 +39,31 @@ public class FavAboutChildFragment extends Fragment {
             //update RecyclerView
             currentFavorite = favorites;
         });
+
+        if (!currentFavorite.isEmpty()){
+            new Handler().postDelayed(this::setText,1500);
+        }
+
         return root;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        placeDesc = root.findViewById(R.id.about_desc);
-        placeHist = root.findViewById(R.id.about_history);
-
-        if (currentFavorite.isEmpty()){
-            Log.d("check_fav", "onViewCreated: currentFavorites is empty");
-            new Handler().postDelayed(this::setText,1500);
-        }
-        else{
-            Log.d("check_fav", "onViewCreated: currentFavorites is initiated");
-            setText();
-        }
-    }
+//    @Override
+//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+//        super.onViewCreated(view, savedInstanceState);
+//
+//        if (currentFavorite.isEmpty()){
+//            Log.d("check_fav", "onViewCreated: currentFavorites is empty");
+//            new Handler().postDelayed(this::setText,1500);
+//        }
+//        else{
+//            Log.d("check_fav", "onViewCreated: currentFavorites is initiated");
+//            setText();
+//        }
+//    }
 
     public void setText(){
+        placeDesc = root.findViewById(R.id.about_desc);
+        placeHist = root.findViewById(R.id.about_history);
         placeDesc.setText(currentFavorite.get(0).getDescription());
         placeHist.setText(currentFavorite.get(0).getHistory());
     }

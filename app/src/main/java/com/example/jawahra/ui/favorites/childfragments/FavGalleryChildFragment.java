@@ -58,7 +58,9 @@ public class FavGalleryChildFragment extends Fragment {
             currentFavorite = favorites;
         });
 
-        new Handler().postDelayed(this::checkInternet,1500);
+        if (!currentFavorite.isEmpty()){
+            new Handler().postDelayed(this::checkInternet,1500);
+        }
 
         return root;
     }

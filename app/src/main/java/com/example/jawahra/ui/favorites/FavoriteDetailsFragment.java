@@ -110,13 +110,11 @@ public class FavoriteDetailsFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        if(item.getItemId() == R.id.action_delete){
-//            onStop();
-//            favoriteViewModel.delete(currentFavorite.get(0));
-//            onDestroy();
-//            NavHostFragment.findNavController(this).popBackStack();
-//            onDestroy();
-//        }
+        if(item.getItemId() == R.id.action_delete){
+            Log.d("DELETE_FAV", "onOptionsItemSelected: Favorites deleted");
+            favoriteViewModel.delete(currentFavorite.get(0));
+            NavHostFragment.findNavController(this).popBackStack();
+        }
         return super.onOptionsItemSelected(item);
     }
 }
