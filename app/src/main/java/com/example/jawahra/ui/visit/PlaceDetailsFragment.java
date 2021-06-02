@@ -193,17 +193,12 @@ public class PlaceDetailsFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_favorite) {
             FavoriteGetData();
-            new Handler().postDelayed(this::SaveFavorite, 2500);
+            new Handler().postDelayed(this::SaveFavorite, 1000);
             Snackbar.make(root,"Added to Favorites", Snackbar.LENGTH_LONG).show();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
-
-    private CollectionReference detailsRef, faqsRef;
-    private String desc, hist, string_website, string_attire, string_prices, string_activities, string_availability, mediaRef;
-    public List<String> array_activities, array_prices, array_availability;
-
 
     public void SaveFavorite(){
         Log.d("SAVE_FAV", "SaveFavorite: CALLED");
