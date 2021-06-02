@@ -15,7 +15,7 @@ public class FavoriteInfoDialog extends AppCompatDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("About Favorites")
-                .setMessage("All your favorites are saved on this section so you can access them offline! \nTo delete unwanted favorites: swipe left or right.")
+                .setMessage("All your favorites are saved on this section so you can access them offline! \nSwipe left or right to delete unwanted favourites.")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
