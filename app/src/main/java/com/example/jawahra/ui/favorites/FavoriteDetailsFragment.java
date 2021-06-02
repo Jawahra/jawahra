@@ -50,14 +50,13 @@ public class FavoriteDetailsFragment extends Fragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_favorites_details, container, false);
-
         favoriteViewModel = new ViewModelProvider(this).get(FavoriteViewModel.class);
         favoriteViewModel.getCurrentFavorite(position).observe(getViewLifecycleOwner(), favorites -> {
             //update RecyclerView
             currentFavorite = favorites;
         });
 
-        Log.d("SAVE_FAV", "onCreateView: IS THIS BITCH WORKING");
+      Log.d("SAVE_FAV", "onCreateView: IS THIS BITCH WORKING");
 
         Toolbar toolbar = root.findViewById(R.id.place_details_toolbar);
         initToolBar(toolbar);
@@ -76,6 +75,25 @@ public class FavoriteDetailsFragment extends Fragment{
 //        checkInternet();
         return root;
     }
+
+//    private void checkInternet(){
+//        ConnectivityManager cm =
+//                (ConnectivityManager) requireContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+//
+//        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+//        boolean isConnected = activeNetwork != null && activeNetwork.isConnected();
+//
+//        if (isConnected){
+//            showGallery();
+//            Log.d("CHECK_WIFI", "checkInternet: CONNECTED");
+//        }else{
+//            Log.d("CHECK_WIFI", "checkInternet: DISCONNECTED");
+//        }
+//    }
+//
+//    private void showGallery(){
+//        Log.d("CHECK_WIFI", "showGallery: called");
+//    }
 
     private void initToolBar(Toolbar toolbar){
         ((AppCompatActivity) requireContext()).setSupportActionBar(toolbar);

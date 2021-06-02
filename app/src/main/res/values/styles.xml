@@ -25,7 +25,7 @@
         <item name="android:background">@color/transparent_light</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textStyle">bold</item>
-        <item name="fontFamily">@font/quicksand</item>
+        <item name="fontFamily">@font/karla</item>
     </style>
 
     <!--  USER INPUT  -->
@@ -37,7 +37,7 @@
         <item name="android:layout_marginBottom">10dp</item>
         <item name="android:textColorHint">@color/gray_dark</item>
         <item name="android:textColor">@color/black</item>
-        <item name="fontFamily">@font/quicksand</item>
+        <item name="fontFamily">@font/karla</item>
     </style>
 
     <style name="home_feature_banner">

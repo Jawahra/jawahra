@@ -39,9 +39,7 @@ public class FavGalleryChildFragment extends Fragment {
     private TextView layoutDisconnected;
 
     private int position;
-//    private List<Favorite> currentFavorite = new ArrayList<>();
     private List<Favorite> currentFavorite;
-
     private FavoriteViewModel favoriteViewModel;
 
     @Nullable
