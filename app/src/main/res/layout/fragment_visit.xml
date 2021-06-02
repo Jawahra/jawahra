@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
-            android:background="@color/white_light"
+            android:background="@color/gray_light"
             android:theme="@style/ThemeOverlay.AppCompat.Light"
             app:title="@string/subtitle_emirates"
             app:expandedTitleGravity="center"
@@ -39,30 +39,7 @@
         android:id="@+id/list_emirates"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/gray_light"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
-   <!-- <TextView
-        android:id="@+id/title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/playfair_display_bold"
-        android:text="@string/subtitle_emirates"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="#000000"
-        android:textSize="40sp"
-        android:padding="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list_emirates"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title" />-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

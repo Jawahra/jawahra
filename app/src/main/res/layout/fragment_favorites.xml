@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.Light"
-        android:background="@color/white_light"
+        android:background="@color/gray_light"
         app:menu="@menu/favorite_info_menu"
         app:title="Favorites"/>
 
@@ -23,6 +23,7 @@
         android:id="@+id/list_favorites"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/gray_light"
         tools:listitem="@layout/list_item_favorite"/>
 
 </LinearLayout>

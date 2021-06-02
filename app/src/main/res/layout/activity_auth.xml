@@ -157,14 +157,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/input_sign_up">
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_signup"
             android:layout_marginTop="0dp"
             android:text="@string/title_sign_up"
-            android:layout_marginBottom="10dp"
             style="@style/btn_login_signup" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_existing_user"
             android:layout_below="@id/btn_signup"
             android:text="@string/title_existing_user"

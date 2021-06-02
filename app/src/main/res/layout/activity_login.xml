@@ -45,18 +45,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcome_user">
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_google_login"
             style="@style/btn_login_signup"
-            android:layout_marginBottom="10dp"
-            android:drawableStart="@drawable/googleg_standard_color_18"
+            android:drawableLeft="@drawable/googleg_standard_color_18"
             android:text="@string/title_google_login" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_fb_login"
             style="@style/btn_login_signup"
             android:layout_below="@id/btn_google_login"
-            android:drawableStart="@drawable/com_facebook_button_icon"
+            android:drawableLeft="@drawable/com_facebook_button_icon"
             android:text="@string/title_fb_login" />
 
     </RelativeLayout>
@@ -116,6 +115,7 @@
             android:layout_marginBottom="5dp"
             android:text="@string/title_email"
             android:textSize="16sp"
+            android:textColor="@color/white"
             android:fontFamily="@font/karla"/>
 
         <EditText
@@ -133,6 +133,7 @@
             android:layout_below="@id/input_email"
             android:text="@string/title_pw"
             android:textSize="16sp"
+            android:textColor="@color/white"
             android:fontFamily="@font/karla"/>
 
         <EditText
@@ -153,13 +154,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/input_user_login">
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_login"
             style="@style/btn_login_signup"
-            android:layout_marginBottom="10dp"
             android:text="@string/title_log_in" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_new_acc"
             style="@style/btn_login_signup"
             android:layout_below="@id/btn_login"
@@ -172,11 +172,11 @@
             android:layout_below="@id/btn_new_acc"
             android:layout_centerHorizontal="true"
             android:focusable="true"
-            android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:padding="10dp"
             android:text="Continue as Guest"
             android:textStyle="bold"
+            android:textColor="@color/gray_light"
             android:fontFamily="@font/quicksand"
             android:textAlignment="center" />
     </RelativeLayout>

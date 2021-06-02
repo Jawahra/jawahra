@@ -5,6 +5,7 @@
     android:id="@+id/fragment_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray_light"
     tools:context=".ui.profile.ProfileFragment">
 
     <FrameLayout
@@ -29,6 +30,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:elevation="5dp"
                 android:background="@drawable/profile_gradient_background">
 
                 <ImageView
@@ -82,6 +84,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:elevation="4dp"
                     app:cardCornerRadius="10dp">
 

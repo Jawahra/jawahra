@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".ui.visit.PlacesFragment"
+    android:background="@color/gray_bg"
     android:id="@+id/fragment_places">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -19,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
-            android:background="@color/white_light"
+            android:background="@color/gray_light"
             android:theme="@style/ThemeOverlay.AppCompat.Light"
             app:title="@string/emirate"
             app:expandedTitleGravity="center"
@@ -53,6 +54,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginHorizontal="10dp"
+        android:background="@color/gray_light"
+
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
     <!--<androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

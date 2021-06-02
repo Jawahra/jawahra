@@ -72,28 +72,8 @@ public class FavoriteDetailsFragment extends Fragment{
             NavHostFragment.findNavController(this).popBackStack();
         });
 
-//        checkInternet();
         return root;
     }
-
-//    private void checkInternet(){
-//        ConnectivityManager cm =
-//                (ConnectivityManager) requireContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-//
-//        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-//        boolean isConnected = activeNetwork != null && activeNetwork.isConnected();
-//
-//        if (isConnected){
-//            showGallery();
-//            Log.d("CHECK_WIFI", "checkInternet: CONNECTED");
-//        }else{
-//            Log.d("CHECK_WIFI", "checkInternet: DISCONNECTED");
-//        }
-//    }
-//
-//    private void showGallery(){
-//        Log.d("CHECK_WIFI", "showGallery: called");
-//    }
 
     private void initToolBar(Toolbar toolbar){
         ((AppCompatActivity) requireContext()).setSupportActionBar(toolbar);

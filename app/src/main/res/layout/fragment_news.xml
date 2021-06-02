@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.news.NewsFragment"
     android:background="@color/gray_light"
+
     android:id="@+id/fragment_news"
     >
 
