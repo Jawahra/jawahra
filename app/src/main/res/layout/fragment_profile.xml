@@ -80,12 +80,11 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/profile_fav"
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
-                    android:clickable="true"
-                    android:foreground="?android:attr/selectableItemBackground"
                     android:elevation="4dp"
                     app:cardCornerRadius="10dp">
 
@@ -124,10 +123,20 @@
                 </androidx.cardview.widget.CardView>
 
                 <Button
+                    android:id="@+id/btn_about"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/profile_fav"
+                    android:backgroundTint="@color/gray"
+                    android:text="About Us"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/quicksand_bold"/>
+
+                <Button
                     android:id="@+id/btn_setting"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
+                    android:layout_below="@+id/btn_about"
                     android:layout_centerHorizontal="true"
                     android:backgroundTint="@color/gray"
                     android:fontFamily="@font/quicksand_bold"
