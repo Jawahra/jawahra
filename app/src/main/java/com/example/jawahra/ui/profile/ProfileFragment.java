@@ -1,9 +1,12 @@
 package com.example.jawahra.ui.profile;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -71,7 +74,7 @@ public class ProfileFragment extends Fragment {
     // Cards and buttons
     private CardView cardFavorites;
     private TextView btnGuestLogin;
-    private Button btnSetting;
+    private Button btnAbout, btnSetting;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -123,6 +126,14 @@ public class ProfileFragment extends Fragment {
             renderScreen();
 
         });
+        
+        btnAbout = profile.findViewById(R.id.btn_about);
+        btnAbout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAboutDialog();
+            }
+        });
 
         btnSetting = profile.findViewById(R.id.btn_setting);
         btnSetting.setOnClickListener(new View.OnClickListener() {
@@ -133,6 +144,15 @@ public class ProfileFragment extends Fragment {
         });
 
         updateUI(usernameText, emailText, profileImg);
+    }
+
+    private void showAboutDialog() {
+        Dialog dialog = new Dialog(getActivity());
+        dialog.setContentView(R.layout.dialog_about);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        dialog.show();
+        dialog.setCanceledOnTouchOutside(true);
     }
 
     private void showSettingDialog() {
