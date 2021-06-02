@@ -145,6 +145,7 @@ public class HomeFragment extends Fragment {
             if (task.isSuccessful()) {
                 DocumentSnapshot doc = task.getResult();
                 if (doc.exists()){
+                    String fbEmirate = doc.getString("emirate");
                     String fbEmirateId = doc.getString("emirateId");
                     String fbPlaceId = doc.getString("placeId");
                     String fbTitle = doc.getString("name");
@@ -173,6 +174,7 @@ public class HomeFragment extends Fragment {
 //                    Open Place Details Fragment and pass relevant values
                     btnLearnMore.setOnClickListener(v -> {
                         Bundle bundle = new Bundle();
+                        bundle.putString("emirateName", fbEmirate);
                         bundle.putString("emirateId", fbEmirateId);
                         bundle.putString("placeId", fbPlaceId);
                         bundle.putString("placeName",fbTitle);

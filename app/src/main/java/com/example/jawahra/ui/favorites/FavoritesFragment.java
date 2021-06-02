@@ -3,6 +3,9 @@ package com.example.jawahra.ui.favorites;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -24,6 +27,7 @@ import com.google.android.material.snackbar.Snackbar;
 public class FavoritesFragment extends Fragment implements FavoriteAdapter.OnListItemClick {
 
     private FavoriteViewModel favoriteViewModel;
+    private View root;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,7 +38,8 @@ public class FavoritesFragment extends Fragment implements FavoriteAdapter.OnLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_favorites, container, false);
+        root = inflater.inflate(R.layout.fragment_favorites, container, false);
+        setHasOptionsMenu(true);
 
         Toolbar toolbar = root.findViewById(R.id.favorites_toolbar);
         ((AppCompatActivity) requireContext()).setSupportActionBar(toolbar);
@@ -84,5 +89,25 @@ public class FavoritesFragment extends Fragment implements FavoriteAdapter.OnLis
         bundle.putString("title",title);
         Log.d("CHECK_POSITION", "OnItemClick: CHECK POSITION favfrag" + position);
         NavHostFragment.findNavController(this).navigate(R.id.action_favoritesFragment_to_favoriteDetailsFragment,bundle);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.favorite_info_menu,menu);
+        super.onCreateOptionsMenu(menu,inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_favorite) {
+            openDialog();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void openDialog(){
+        FavoriteInfoDialog favoriteInfoDialog = new FavoriteInfoDialog();
+        favoriteInfoDialog.show(getChildFragmentManager(), "Favorites Information");
     }
 }

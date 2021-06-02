@@ -80,6 +80,7 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.Slider
                 @Override
                 public void onClick(View v) {
                     Bundle bundle = new Bundle();
+                    bundle.putString("emirateName", listDiscover.getEmirate());
                     bundle.putString("emirateId", listDiscover.getEmirateId());
                     bundle.putString("placeId", listDiscover.getPlaceId());
                     bundle.putString("placeName",listDiscover.getName());

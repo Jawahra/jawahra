@@ -39,6 +39,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
@@ -157,6 +158,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.guest_login:
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                Toast.makeText(LoginActivity.this, "You have logged in as Guest!", Toast.LENGTH_SHORT).show();
+
                 break;
             case R.id.btn_login:
                 loginUser();

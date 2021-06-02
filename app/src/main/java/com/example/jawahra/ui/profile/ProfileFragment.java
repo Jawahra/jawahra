@@ -161,7 +161,7 @@ public class ProfileFragment extends Fragment {
         bottomSheetDialog.setContentView(R.layout.bottom_sheet_settings);
 
         LinearLayout optionEditImage = bottomSheetDialog.findViewById(R.id.option_edit_image);
-        LinearLayout optionInstructions = bottomSheetDialog.findViewById(R.id.option_instruct);
+        LinearLayout optionPolicy = bottomSheetDialog.findViewById(R.id.option_policy);
         LinearLayout optionLogOut = bottomSheetDialog.findViewById(R.id.option_logout);
 
         optionEditImage.setOnClickListener(v -> {
@@ -172,8 +172,12 @@ public class ProfileFragment extends Fragment {
             bottomSheetDialog.dismiss();
         });
 
-        optionInstructions.setOnClickListener(v -> {
-            Toast.makeText(getContext(), "Instructions", Toast.LENGTH_SHORT).show();
+        optionPolicy.setOnClickListener(v -> {
+            String url= "https://www.privacypolicies.com/live/ac732c0c-667c-4319-a338-a5c321dc66b9";
+            Uri webpage = Uri.parse(url);
+            Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+            startActivity(intent);
+
             bottomSheetDialog.dismiss();
         });
 

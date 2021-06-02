@@ -123,7 +123,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                app:cornerRadius="10dp"
                 android:textSize="16sp"
                 android:fontFamily="@font/quicksand_bold"
                 android:text="@string/mark_event_to_calendar" />

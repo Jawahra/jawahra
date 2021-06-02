@@ -104,7 +104,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="15dp"
-        app:cornerRadius="10dp"
         android:drawableLeft="@drawable/ic_covid_19"
         android:drawableRight="@drawable/ic_covid_19"
         android:drawableTint="@color/blue_dark"

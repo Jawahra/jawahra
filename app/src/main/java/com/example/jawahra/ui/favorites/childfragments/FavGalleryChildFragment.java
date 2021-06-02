@@ -39,7 +39,7 @@ public class FavGalleryChildFragment extends Fragment {
     private TextView layoutDisconnected;
 
     private int position;
-    private List<Favorite> currentFavorite = new ArrayList<>();
+    private List<Favorite> currentFavorite;
     private FavoriteViewModel favoriteViewModel;
 
     @Nullable
@@ -48,7 +48,6 @@ public class FavGalleryChildFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_gallery_child, container, false);
         layoutDisconnected = root.findViewById(R.id.layout_gallery_disconnected);
         galleryRecycler = root.findViewById(R.id.gallery_recycler);
-
         galleryRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
 
         position = FavoriteDetailsFragment.position;
@@ -58,7 +57,11 @@ public class FavGalleryChildFragment extends Fragment {
             currentFavorite = favorites;
         });
 
-        new Handler().postDelayed(this::checkInternet,1500);
+        if (currentFavorite == null){
+            new Handler().postDelayed(this::checkInternet,1500);
+        }else{
+            checkInternet();
+        }
 
         return root;
     }

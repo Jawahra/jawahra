@@ -193,7 +193,7 @@ public class PlaceDetailsFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_favorite) {
             FavoriteGetData();
-            new Handler().postDelayed(this::SaveFavorite, 5000);
+            new Handler().postDelayed(this::SaveFavorite, 1000);
             Snackbar.make(root,"Added to Favorites", Snackbar.LENGTH_LONG).show();
             return true;
         }

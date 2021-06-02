@@ -40,7 +40,7 @@ android:id="@+id/fragment_favorites_details">
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:theme="@style/ThemeOverlay.AppCompat.Dark"
-            app:menu="@menu/delete_menu"
+
             app:layout_collapseMode="pin" />
 
     </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -50,6 +50,7 @@ android:id="@+id/fragment_favorites_details">
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_gravity="bottom"
+        android:background="@color/gray_light"
         app:tabBackground="@android:color/transparent">
     </com.google.android.material.tabs.TabLayout>
 </com.google.android.material.appbar.AppBarLayout>
@@ -58,6 +59,7 @@ android:id="@+id/fragment_favorites_details">
     android:id="@+id/view_pager"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray_light"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 <com.google.android.material.floatingactionbutton.FloatingActionButton
