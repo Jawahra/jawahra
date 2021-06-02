@@ -20,17 +20,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.example.jawahra.MainActivity;
 import com.example.jawahra.R;
 import com.example.jawahra.adapters.Favorite;
 import com.example.jawahra.adapters.FavoriteDatabase;
 import com.example.jawahra.adapters.SectionPagerAdapter;
+import com.example.jawahra.ui.MapsFragment;
 import com.example.jawahra.models.FaqsModel;
 import com.example.jawahra.models.PlaceDetailsModel;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -103,6 +107,31 @@ public class PlaceDetailsFragment extends Fragment {
                     }
                 });
 
+        locationButton = root.findViewById(R.id.location_button);
+        locationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("emirateId", emirateId);
+                bundle.putString("placeId", placeId);
+                bundle.putString("placeName", String.valueOf(placeTitle));
+
+                MapsFragment mapsFragment = new MapsFragment();
+                mapsFragment.setArguments(bundle);
+                NavHostFragment.findNavController(PlaceDetailsFragment.this).navigate(R.id.action_placeDetailsFragment_to_mapsFragment,bundle);
+
+//                MapsFragment mapsFragment = new MapsFragment();
+//                mapsFragment.setArguments(bundle);
+//                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                fragmentTransaction.replace(R.id.fragment_places,mapsFragment);
+//                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+//                fragmentTransaction.addToBackStack(null);
+//                fragmentTransaction.commit();
+
+            }
+        });
+
         setHasOptionsMenu(true);
 
         //set up tablayout
@@ -140,7 +169,6 @@ public class PlaceDetailsFragment extends Fragment {
         collapsingToolbar.setExpandedTitleTextAppearance(R.style.ExpandedAppBar);
         collapsingToolbar.setTitle(placeTitle);
     }
-
     @Override
     public void onStop() {
         super.onStop();
@@ -250,7 +278,6 @@ public class PlaceDetailsFragment extends Fragment {
                     Log.d("SAVE_FAV", "FavoriteGetData: faqsRef DONE");
                 })
                 .addOnFailureListener(e -> Log.d("CHECK_ID", "Document does not Exist"));
-
         Log.d("SAVE_FAV", "FavoriteGetData: DONE");
     }
 }
