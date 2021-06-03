@@ -80,12 +80,12 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/profile_fav"
-
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
                     android:elevation="4dp"
+                    android:foreground="?android:attr/selectableItemBackground"
                     app:cardCornerRadius="10dp">
 
                     <LinearLayout
