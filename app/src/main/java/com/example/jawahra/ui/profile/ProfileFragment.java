@@ -27,6 +27,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.bumptech.glide.Glide;
 import com.example.jawahra.LoginActivity;
+import com.example.jawahra.MainAuth;
 import com.example.jawahra.R;
 import com.example.jawahra.models.UserModel;
 import com.facebook.login.LoginManager;

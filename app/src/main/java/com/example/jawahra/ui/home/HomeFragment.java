@@ -27,6 +27,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.example.jawahra.CovidProtocolActivity;
 import com.example.jawahra.R;
 import com.example.jawahra.adapters.DiscoverAdapter;
 import com.example.jawahra.models.DiscoverModel;
@@ -103,12 +104,11 @@ public class HomeFragment extends Fragment {
         }
 
 //        Open Covid Protocols Activity when button is pressed
-//        btnCovidProtocols.setOnClickListener(v -> startActivity(new Intent(getActivity(), CovidProtocolActivity.class)));
+        btnCovidProtocols.setOnClickListener(v -> startActivity(new Intent(getActivity(), CovidProtocolActivity.class)));
 
         getFeaturedBanner();
         setDiscoverPager();
     }
-
 //    Initialise settings, add infinite scroll and animations for Discover Cards
     private void setDiscoverPager() {
 //        Initialise view pager settings

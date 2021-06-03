@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/onbIntroLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@color/white"
+    tools:context=".OnboardingIntro">
+
+    <ImageView
+        android:id="@+id/onbLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_centerInParent="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/logo_trans_noname"/>
+
+    <TextView
+        android:id="@+id/onbAppName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textSize="36sp"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:fontFamily="@font/playfair_display_sc_bold"
+        android:layout_centerHorizontal="true"
+        android:padding="10dp"
+        android:layout_below="@+id/onbLogo"/>
+
+    <Button
+        android:id="@+id/onbIntroBtn"
+        android:text="@string/onbIntro"
+        android:textSize="24sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/quicksand_bold"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

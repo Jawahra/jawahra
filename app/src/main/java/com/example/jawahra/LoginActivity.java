@@ -1,6 +1,7 @@
 package com.example.jawahra;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -16,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.bumptech.glide.Glide;
 import com.example.jawahra.models.UserModel;
@@ -99,6 +101,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // Gradient animation for background
+        ConstraintLayout constraintLayout = findViewById(R.id.layout_log_in);
+        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(2000);
+        animationDrawable.setExitFadeDuration(4000);
+        animationDrawable.start();
+
         // User input
         inputEmail = findViewById(R.id.input_email);
         inputPassword = findViewById(R.id.input_password);
@@ -157,9 +166,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(new Intent(LoginActivity.this, AuthActivity.class));
                 break;
             case R.id.guest_login:
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                startActivity(new Intent(LoginActivity.this, CovidProtocolActivity.class));
                 Toast.makeText(LoginActivity.this, "You have logged in as Guest!", Toast.LENGTH_SHORT).show();
-
                 break;
             case R.id.btn_login:
                 loginUser();
@@ -344,8 +352,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             Toast.makeText(this, "Signed in!", Toast.LENGTH_SHORT).show();
 
-            // Redirect to homepage
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            // Redirect to covid protocol activity
+            startActivity(new Intent(LoginActivity.this, CovidProtocolActivity.class));
 
         }
     }

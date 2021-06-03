@@ -87,6 +87,8 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 
+    // Onboarding Screen
+    implementation 'com.codemybrainsout.onboarding:onboarder:1.0.4'
     def lifecycle_version = "2.3.1"
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
@@ -102,5 +104,4 @@ dependencies {
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
 
     implementation "androidx.viewpager2:viewpager2:1.0.0"
-
 }
