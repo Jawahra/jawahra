@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -39,7 +40,8 @@ public class MainAuth extends AppCompatActivity {
         guestBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainAuth.this, MainActivity.class));
+                startActivity(new Intent(MainAuth.this, CovidProtocolActivity.class));
+                Toast.makeText(MainAuth.this, "Logged in as guest!", Toast.LENGTH_SHORT).show();
             }
         });
     }
