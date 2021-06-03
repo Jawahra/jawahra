@@ -82,7 +82,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private EditText inputEmail, inputPassword;
     private AppCompatButton btnLogin, btnNewAcc;
-    private TextView guestLogin;
     private boolean isOnlineLogin;
 
     private CallbackManager callbackManager;
@@ -119,11 +118,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // Sign Up Button
         btnNewAcc = findViewById(R.id.btn_new_acc);
         btnNewAcc.setOnClickListener(this);
-
-
-        // Guest Login
-        guestLogin = findViewById(R.id.guest_login);
-        guestLogin.setOnClickListener(this);
 
         // Sign in with Google
         btnGoogleLogin = findViewById(R.id.btn_google_login);
@@ -164,10 +158,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch (v.getId()){
             case R.id.btn_new_acc:
                 startActivity(new Intent(LoginActivity.this, AuthActivity.class));
-                break;
-            case R.id.guest_login:
-                startActivity(new Intent(LoginActivity.this, CovidProtocolActivity.class));
-                Toast.makeText(LoginActivity.this, "You have logged in as Guest!", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn_login:
                 loginUser();

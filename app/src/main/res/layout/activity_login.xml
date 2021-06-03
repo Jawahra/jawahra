@@ -165,21 +165,6 @@
             style="@style/btn_login_signup"
             android:layout_below="@id/btn_login"
             android:text="@string/title_new_user" />
-
-        <TextView
-            android:id="@+id/guest_login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/btn_new_acc"
-            android:layout_centerHorizontal="true"
-            android:focusable="true"
-            android:clickable="true"
-            android:padding="10dp"
-            android:text="Continue as Guest"
-            android:textStyle="bold"
-            android:textColor="@color/gray_light"
-            android:fontFamily="@font/quicksand"
-            android:textAlignment="center" />
     </RelativeLayout>
 
 
