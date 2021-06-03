@@ -122,7 +122,7 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
@@ -135,12 +135,8 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
                             userProfile.put("email", email);
                             userProfile.put("imageUrl", null);
 
-                            userDocRef.set(userProfile).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d("CHECK_USER", "onSuccess: user profile is created for "+ userID);
-                                }
-                            });
+                            userDocRef.set(userProfile).addOnSuccessListener(aVoid ->
+                                    Log.d("CHECK_USER", "onSuccess: user profile is created for "+ userID));
 
                             // Redirect to Protocols
                             startActivity(new Intent(AuthActivity.this, CovidProtocolActivity.class));

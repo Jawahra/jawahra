@@ -41,6 +41,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
@@ -82,16 +83,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText inputEmail, inputPassword;
     private AppCompatButton btnLogin, btnNewAcc;
     private TextView guestLogin;
+    private boolean isOnlineLogin;
 
     private CallbackManager callbackManager;
     private AppCompatButton btnFbLogin;
 
     private static final String TAG = "FacebookAuthentication";
     private static final String EMAIL = "email";
-    private AccessTokenTracker accessTokenTracker;
 
     private AppCompatButton btnGoogleLogin;
-
     private GoogleSignInClient gsi;
     private int RC_SIGN_IN = 1;
 
@@ -147,15 +147,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btnFbLogin.setOnClickListener(this);
 
         callbackManager = CallbackManager.Factory.create();
-
-        accessTokenTracker = new AccessTokenTracker() {
-            @Override
-            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
-                if (currentAccessToken == null){
-                    mAuth.signOut();
-                }
-            }
-        };
     }
 
     @Override
@@ -164,7 +155,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         // Check if user is signed in (non-null) and update UI accordingly.
         if(currentUser != null) {
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
             updateUI(currentUser);
         }
     }
@@ -177,6 +167,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.guest_login:
                 startActivity(new Intent(LoginActivity.this, CovidProtocolActivity.class));
+                Toast.makeText(LoginActivity.this, "You have logged in as Guest!", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn_login:
                 loginUser();
@@ -195,14 +186,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
 
                     @Override
-                    public void onCancel() {
-                        Log.d(TAG, "onCancel");
-                    }
+                    public void onCancel() { Log.d(TAG, "onCancel"); }
 
                     @Override
-                    public void onError(FacebookException error) {
-                        Log.d(TAG, "onError");
-                    }
+                    public void onError(FacebookException error) { Log.d(TAG, "onError"); }
                 });
                 break;
         }
@@ -231,65 +218,45 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
 
         mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            // Go to homepage
-                            startActivity(new Intent(LoginActivity.this, CovidProtocolActivity.class));
+                .addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
 
-                            userID = mAuth.getCurrentUser().getUid();
-                            userDocRef = fStore.collection("users").document(userID);
-                            userDocRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                                @Override
-                                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                                    UserModel userModel = value.toObject(UserModel.class);
-                                    String username = userModel.username;
-                                    String email = userModel.email;
-                                    String imageUrl = userModel.imageUrl;
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        userID = user.getUid();
 
-                                    Map<String, Object> userProfile = new HashMap<>();
-                                    userProfile.put("username", username);
-                                    userProfile.put("email", email);
-                                    userProfile.put("imageUrl", imageUrl);
+                        userDocRef = fStore.collection("users").document(userID);
+                        userDocRef.addSnapshotListener((value, error) -> updateUI(user));
 
-                                    userDocRef.set(userProfile);
-                                }
-                            });
-
-                            Toast.makeText(LoginActivity.this, "Signed in!", Toast.LENGTH_SHORT).show();
-                            Log.d("CHECK_USER_LOGIN", "with custom email and password, user: "+ userID);
-
-                        } else {
-                            // Display text
-                            Toast.makeText(LoginActivity.this, "Failed to login! Check your credentials.", Toast.LENGTH_SHORT).show();
-                        }
+                    } else {
+                        // Display text
+                        Toast.makeText(LoginActivity.this, "Failed to login! Check your credentials.", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == RC_SIGN_IN){
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleSignInResult(task);
+            try {
+                // Google Sign In was successful, authenticate with Firebase
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
+                FirebaseGoogleAuth(account);
+            } catch (ApiException e) {
+                // Google Sign In failed, update UI appropriately
+                Log.w(TAG, "Google sign in failed", e);
+                FirebaseGoogleAuth(null);
+            }
+        } else { //If not request code is RC_SIGN_IN it must be facebook
+
+            // Pass the activity result back to the Facebook SDK
+            callbackManager.onActivityResult(requestCode, resultCode, data);
         }
 
-    }
-
-    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
-        try {
-            GoogleSignInAccount acc = completedTask.getResult(ApiException.class);
-            Toast.makeText(this, "Signed in!", Toast.LENGTH_LONG).show();
-            FirebaseGoogleAuth(acc);
-        } catch (ApiException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Failed to login!", Toast.LENGTH_LONG).show();
-            FirebaseGoogleAuth(null);
-        }
     }
 
     private void FirebaseGoogleAuth(GoogleSignInAccount acc) {
@@ -298,12 +265,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mAuth.signInWithCredential(authCredential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-
+                if (task.isSuccessful()) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "signInWithCredential:success");
                     FirebaseUser user = mAuth.getCurrentUser();
+                    isOnlineLogin = true;
                     updateUI(user);
-
                 } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "signInWithCredential:failure", task.getException());
                     Toast.makeText(LoginActivity.this, "Failed to login!", Toast.LENGTH_LONG).show();
                     updateUI(null);
                 }
@@ -312,56 +282,75 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void handleFacebookToken(AccessToken token) {
-        Log.d(TAG, "handleFacebookToken" + token);
+        Log.d(TAG, "handleFacebookToken:" + token);
 
-        AuthCredential authCredential = FacebookAuthProvider.getCredential(token.getToken());
-        mAuth.signInWithCredential(authCredential)
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()){
-
-                            Toast.makeText(LoginActivity.this, "Signed in!", Toast.LENGTH_LONG).show();
-
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            isOnlineLogin = true;
                             updateUI(user);
-
                         } else {
-                            Toast.makeText(LoginActivity.this, "Failed to login!", Toast.LENGTH_LONG).show();
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
-
                     }
                 });
     }
 
     private void updateUI(FirebaseUser user) {
 
-
         if (user != null) {
-            // Get display name and email of the account
-            String username = user.getDisplayName();
-            String email = user.getEmail();
-
-            Map<String, Object> userProfile = new HashMap<>();
-            userProfile.put("username", username);
-            userProfile.put("email", email);
 
             userID = mAuth.getCurrentUser().getUid();
             userDocRef = fStore.collection("users").document(userID);
+            Map<String, Object> userProfile = new HashMap<>();
 
-            userDocRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                @Override
-                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+            if(isOnlineLogin) {
+
+                // Get display name and email of the account
+                String username = user.getDisplayName();
+                String email = user.getEmail();
+
+                userProfile.put("username", username);
+                userProfile.put("email", email);
+
+                userDocRef.addSnapshotListener((value, error) -> {
                     UserModel userModel = value.toObject(UserModel.class);
                     String imageUrl = userModel.imageUrl;
 
-                    userProfile.put("imageUrl", imageUrl);
-                }
-            });
+                    if (imageUrl != null) {
+                        userProfile.put("imageUrl", imageUrl);
+                    }
+                });
 
-            userDocRef.set(userProfile, SetOptions.merge());
-            Log.d("CHECK_USER_LOGIN", "with online sign in, user: "+ userID);
+                userDocRef.set(userProfile, SetOptions.merge());
+
+            } else {
+
+                userDocRef.addSnapshotListener((value, error) -> {
+                    UserModel userModel = value.toObject(UserModel.class);
+                    String username = userModel.username;
+                    String email = userModel.email;
+                    String imageUrl = userModel.imageUrl;
+
+                    userProfile.put("username", username);
+                    userProfile.put("email", email);
+                    userProfile.put("imageUrl", imageUrl);
+
+                    userDocRef.set(userProfile, SetOptions.merge());
+                });
+            }
+
+            Toast.makeText(this, "Signed in!", Toast.LENGTH_SHORT).show();
 
             // Redirect to covid protocol activity
             startActivity(new Intent(LoginActivity.this, CovidProtocolActivity.class));

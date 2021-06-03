@@ -18,26 +18,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"
-            app:srcCompat="@drawable/com_facebook_profile_picture_blank_square" />
-
         <TextView
             android:id="@+id/welcome_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/imageView"
             android:layout_centerHorizontal="true"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
             android:text="@string/title_welcome_message"
-            android:textSize="30sp"
+            android:textSize="36sp"
             android:fontFamily="@font/playfair_display_bold"
             android:textStyle="bold"
             android:textColor="@color/black"/>
@@ -60,7 +51,8 @@
             android:layout_centerHorizontal="true"
             android:paddingHorizontal="10dp"
             android:text="sign up with"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:fontFamily="@font/karla"/>
 
         <View
             android:id="@+id/view2"
@@ -89,37 +81,69 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sign_in_with">
 
+        <TextView
+            android:id="@+id/username_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp"
+            android:text="@string/title_user_name"
+            android:fontFamily="@font/karla"/>
+
         <EditText
             android:id="@+id/input_username"
             style="@style/sign_up_input"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="0dp"
+            android:layout_below="@id/username_title"
             android:ems="10"
-            android:hint="@string/title_user_name"
             android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/email_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/input_username"
+            android:layout_marginBottom="5dp"
+            android:text="@string/title_email"
+            android:fontFamily="@font/karla"/>
 
         <EditText
             android:id="@+id/input_email"
             style="@style/sign_up_input"
-            android:layout_below="@id/input_username"
+            android:layout_below="@id/email_title"
             android:ems="10"
-            android:hint="@string/title_email"
             android:inputType="textEmailAddress" />
+
+        <TextView
+            android:id="@+id/password_title_signup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/input_email"
+            android:layout_marginBottom="5dp"
+            android:text="@string/title_pw"
+            android:fontFamily="@font/karla"/>
 
         <EditText
             android:id="@+id/input_password"
             style="@style/sign_up_input"
-            android:layout_below="@id/input_email"
+            android:layout_below="@id/password_title_signup"
             android:ems="10"
-            android:hint="@string/title_pw"
             android:inputType="textPassword" />
+
+        <TextView
+            android:id="@+id/confirm_password_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/input_password"
+            android:layout_marginBottom="5dp"
+            android:text="@string/title_user_name"
+            android:fontFamily="@font/karla"/>
 
         <EditText
             android:id="@+id/input_confirm_password"
             style="@style/sign_up_input"
-            android:layout_below="@id/input_password"
+            android:layout_below="@id/confirm_password_title"
             android:ems="10"
-            android:hint="@string/title_confirm_pw"
             android:inputType="textPassword" />
 
     </RelativeLayout>
@@ -134,14 +158,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/input_sign_up">
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_signup"
             android:layout_marginTop="0dp"
             android:text="@string/title_sign_up"
-            android:layout_marginBottom="10dp"
             style="@style/btn_login_signup" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_existing_user"
             android:layout_below="@id/btn_signup"
             android:text="@string/title_existing_user"

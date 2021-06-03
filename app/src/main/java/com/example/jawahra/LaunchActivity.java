@@ -12,7 +12,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LaunchActivity extends AppCompatActivity {
     /*VARIABLES*/
-    private static int LAUNCH_SCREEN = 5000;
+    private static int LAUNCH_SCREEN = 2500;
     private SharedPreferences spObj;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 

@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="center">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="4dp"
+        app:cardCornerRadius="20dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp">
+
+            <RelativeLayout
+                android:id="@+id/about_app"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/about_team">
+
+                <ImageView
+                    android:id="@+id/about_app_logo"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_alignParentTop="true"
+                    android:src="@drawable/logo_jawahra"/>
+
+                <TextView
+                    android:id="@+id/about_app_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:layout_toRightOf="@id/about_app_logo"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/app_name"
+                    android:textSize="45sp"
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:fontFamily="@font/playfair_display" />
+
+                <TextView
+                    android:id="@+id/about_app_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/about_app_logo"
+                    android:layout_marginVertical="10dp"
+                    android:justificationMode="inter_word"
+                    android:text="@string/app_desc"
+                    android:fontFamily="@font/karla"
+                    android:textColor="@color/black"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/about_team"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/about_app">
+
+                <TextView
+                    android:id="@+id/about_team_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:text="Meet the team!"
+                    android:textSize="25sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/playfair_display"/>
+
+                <RelativeLayout
+                    android:id="@+id/team_manager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_below="@id/about_team_title">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/team_img_manager"
+                        app:shapeAppearanceOverlay="@style/circleImageView"
+                        style="@style/about_us_image"
+                        android:src="@drawable/role_img_proj_manager"/>
+
+                    <TextView
+                        android:id="@+id/team_name_manager"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/team_img_manager"
+                        android:text="@string/name_proj_man"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/karla"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/team_img_manager"
+                        android:layout_below="@id/team_name_manager"
+                        android:text="@string/role_proj_man"
+                        android:textColor="#555555"
+                        android:fontFamily="@font/karla"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/team_arch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_below="@id/team_manager">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/team_img_arch"
+                        style="@style/about_us_image"
+                        app:shapeAppearanceOverlay="@style/circleImageView"
+                        android:src="@drawable/role_img_software_arch"/>
+
+                    <TextView
+                        android:id="@+id/team_name_arch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/team_img_arch"
+                        android:text="@string/name_software_arch"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/karla"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/team_img_arch"
+                        android:layout_below="@id/team_name_arch"
+                        android:text="@string/role_software_arch"
+                        android:textColor="#555555"
+                        android:fontFamily="@font/karla"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/team_developer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_below="@id/team_arch">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/team_img_dev"
+                        app:shapeAppearanceOverlay="@style/circleImageView"
+                        style="@style/about_us_image"
+                        android:src="@drawable/role_img_dev"/>
+
+                    <TextView
+                        android:id="@+id/team_name_dev"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/team_img_dev"
+                        android:text="@string/name_dev"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/karla"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/team_img_dev"
+                        android:layout_below="@id/team_name_dev"
+                        android:text="@string/role_dev"
+                        android:textColor="#555555"
+                        android:fontFamily="@font/karla"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/team_designer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_below="@id/team_developer">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/team_img_designer"
+                        app:shapeAppearanceOverlay="@style/circleImageView"
+                        style="@style/about_us_image"
+                        android:src="@drawable/role_img_designer"/>
+
+                    <TextView
+                        android:id="@+id/team_name_designer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/team_img_designer"
+                        android:text="@string/name_exp_design"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/karla"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/team_img_designer"
+                        android:layout_below="@id/team_name_designer"
+                        android:text="@string/role_exp_design"
+                        android:textColor="#555555"
+                        android:fontFamily="@font/karla"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/team_tester"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_below="@id/team_designer">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/team_img_test"
+                        app:shapeAppearanceOverlay="@style/circleImageView"
+                        style="@style/about_us_image"
+                        android:src="@drawable/role_img_tester"/>
+
+                    <TextView
+                        android:id="@+id/team_name_test"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/team_img_test"
+                        android:text="@string/name_qa_test"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/karla"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/team_img_test"
+                        android:layout_below="@id/team_name_test"
+                        android:text="@string/role_qa_test"
+                        android:textColor="#555555"
+                        android:fontFamily="@font/karla"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/team_tester">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/team_img_analyst"
+                        app:shapeAppearanceOverlay="@style/circleImageView"
+                        style="@style/about_us_image"
+                        android:src="@drawable/role_img_analyst"/>
+
+                    <TextView
+                        android:id="@+id/team_name_analyst"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/team_img_analyst"
+                        android:text="@string/name_bus_analyst"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/karla"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/team_img_analyst"
+                        android:layout_below="@id/team_name_analyst"
+                        android:text="@string/role_bus_analyst"
+                        android:textColor="#555555"
+                        android:fontFamily="@font/karla"/>
+                </RelativeLayout>
+            </RelativeLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

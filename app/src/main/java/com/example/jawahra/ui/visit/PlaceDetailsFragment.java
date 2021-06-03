@@ -2,13 +2,17 @@ package com.example.jawahra.ui.visit;
 
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,39 +22,42 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.example.jawahra.MainActivity;
 import com.example.jawahra.R;
+import com.example.jawahra.adapters.Favorite;
+import com.example.jawahra.adapters.FavoriteDatabase;
 import com.example.jawahra.adapters.SectionPagerAdapter;
+import com.example.jawahra.ui.MapsFragment;
+import com.example.jawahra.models.FaqsModel;
+import com.example.jawahra.models.PlaceDetailsModel;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.util.List;
 import java.util.Objects;
 
 public class PlaceDetailsFragment extends Fragment {
 
-    //database
-    private FirebaseFirestore firebaseFirestore;
     public static DocumentReference placeRef;
-    private CollectionReference detailsRef, imagesRef, faqsRef;
 
     private View root;
-    private ViewPager viewPager;
-    private TabLayout tabLayout;
-    private SectionPagerAdapter sectionPagerAdapter;
-    private FragmentManager fragmentManager;
     private FloatingActionButton locationButton;
 
-    private TextView placeName, placeLocation;
     private ImageView imageView;
-    public String emirateId, placeId, placeTitle, placeImg, detailsId, imagesId;
+    private String emirateId, placeId, placeTitle, placeImg, emirateName;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,23 +67,21 @@ public class PlaceDetailsFragment extends Fragment {
         Bundle bundle = getArguments();
         if(bundle != null){
             emirateId = bundle.getString("emirateId");
+            emirateName = bundle.getString("emirateName");
             placeId = bundle.getString("placeId");
             placeTitle = bundle.getString("placeName");
             placeImg = bundle.getString("placeImg");
         }
-
-        Log.d("ABTCHILD", "PlaceDetails onCreate: emiratesId" + emirateId);
-        Log.d("ABTCHILD", "PlaceDetails onCreate: placeId" + placeId);
+        Log.d("ABTCHILD", "PlaceDetails onCreate: emiratesId, " + emirateId);
+        Log.d("ABTCHILD", "PlaceDetails onCreate: placeId, " + placeId);
         //QUERY
-        firebaseFirestore = FirebaseFirestore.getInstance();
+        //database
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         placeRef = firebaseFirestore.collection("emirates")
                 .document(emirateId)
                 .collection("places")
                 .document(placeId);
 
-        detailsRef = placeRef.collection("details");
-        imagesRef = placeRef.collection("images");
-        faqsRef = placeRef.collection("faqs");
     }
 
     @Override
@@ -84,23 +89,12 @@ public class PlaceDetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_place_details, container, false);
-        if (container != null) {
-            container.removeAllViews();
-        }
 
-        //set up tablayout
-        initToolBar();
-        SetTabLayoutAnim();
-        viewPager = root.findViewById(R.id.view_pager);
-        tabLayout = root.findViewById(R.id.tab_layout);
-        sectionPagerAdapter = new SectionPagerAdapter(((AppCompatActivity) requireContext()).getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        viewPager.setAdapter(sectionPagerAdapter);
-        tabLayout.setupWithViewPager(viewPager);
-
-        //replace imageview with conresponding image
+        //replace imageview with corresponding image
         imageView = root.findViewById(R.id.place_details_img);
         Glide.with(requireActivity())
                 .load(placeImg)
+                .thumbnail(0.25f)
                 .into(new CustomTarget<Drawable>() {
                     @Override
                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
@@ -113,14 +107,53 @@ public class PlaceDetailsFragment extends Fragment {
                     }
                 });
 
+        locationButton = root.findViewById(R.id.location_button);
+        locationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("emirateId", emirateId);
+                bundle.putString("placeId", placeId);
+                bundle.putString("placeName", String.valueOf(placeTitle));
+
+                MapsFragment mapsFragment = new MapsFragment();
+                mapsFragment.setArguments(bundle);
+                NavHostFragment.findNavController(PlaceDetailsFragment.this).navigate(R.id.action_placeDetailsFragment_to_mapsFragment,bundle);
+
+//                MapsFragment mapsFragment = new MapsFragment();
+//                mapsFragment.setArguments(bundle);
+//                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                fragmentTransaction.replace(R.id.fragment_places,mapsFragment);
+//                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+//                fragmentTransaction.addToBackStack(null);
+//                fragmentTransaction.commit();
+
+            }
+        });
+
+        setHasOptionsMenu(true);
+
+        //set up tablayout
+        Toolbar toolbar = root.findViewById(R.id.place_details_toolbar);
+        initToolBar(toolbar);
+        SetTabLayoutAnim();
+        ViewPager viewPager = root.findViewById(R.id.view_pager);
+        TabLayout tabLayout = root.findViewById(R.id.tab_layout);
+        SectionPagerAdapter sectionPagerAdapter = new SectionPagerAdapter(((AppCompatActivity) requireContext()).getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        viewPager.setAdapter(sectionPagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
+
+        toolbar.setNavigationOnClickListener(view1 -> {
+            NavHostFragment.findNavController(this).popBackStack();
+        });
 //        GetValues();
+
         return root;
     }
 
 
-
-    private void initToolBar(){
-        Toolbar toolbar = root.findViewById(R.id.place_details_toolbar);
+    private void initToolBar(Toolbar toolbar){
         ((AppCompatActivity) requireContext()).setSupportActionBar(toolbar);
 
         if(((AppCompatActivity) requireContext()).getSupportActionBar() != null){
@@ -135,27 +168,7 @@ public class PlaceDetailsFragment extends Fragment {
         collapsingToolbar.setCollapsedTitleTypeface(fontPlayFairBold);
         collapsingToolbar.setExpandedTitleTextAppearance(R.style.ExpandedAppBar);
         collapsingToolbar.setTitle(placeTitle);
-
     }
-
-    /*public void GetValues(){
-        detailsRef.get()
-            .addOnSuccessListener(snapshot -> {
-
-                for (QueryDocumentSnapshot snapshots : snapshot){
-                    PlaceDetailsModel placeDetailsModel = snapshots.toObject(PlaceDetailsModel.class);
-                    String desc = placeDetailsModel.getDesc();
-                    String history = placeDetailsModel.getHistory();
-                    String map = placeDetailsModel.getMap();
-
-//                    placeDesc.setText(desc);
-//                    placeHistory.setText(history);
-//                    placeLocation.setText(map);
-                }
-            })
-            .addOnFailureListener(e -> Log.d("CHECK_ID", "Document does not Exist" ));
-    }*/
-
     @Override
     public void onStop() {
         super.onStop();
@@ -165,71 +178,105 @@ public class PlaceDetailsFragment extends Fragment {
     public void onStart() {
         super.onStart();
     }
-}
 
-
-    /*@Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        setUpViewPager(viewPager);
-        tabLayout.setupWithViewPager(viewPager);
-
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.favorite_menu,menu);
+        super.onCreateOptionsMenu(menu,inflater);
     }
 
-    private void setUpViewPager(ViewPager viewPager) {
-        SectionPagerAdapter adapter = new SectionPagerAdapter(getChildFragmentManager(),2);
+    private CollectionReference detailsRef, faqsRef;
+    private String desc, hist, string_website, string_attire, string_prices, string_activities, string_availability, mediaRef;
+    public List<String> array_activities, array_prices, array_availability;
 
-        adapter.addFragment(new ImagesChildFragment(), "Images");
-        adapter.addFragment(new FaqsChildFragment(), "FAQS");
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_favorite) {
+            FavoriteGetData();
+            new Handler().postDelayed(this::SaveFavorite, 1000);
+            Snackbar.make(root,"Added to Favorites", Snackbar.LENGTH_LONG).show();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
-        viewPager.setAdapter(adapter);
-    }*/
+    public void SaveFavorite(){
+        Log.d("SAVE_FAV", "SaveFavorite: CALLED");
+        AsyncTask.execute(() -> {
+            Favorite favorite = new Favorite(placeTitle,emirateName,desc,hist,string_website,string_attire,string_availability,string_prices,string_activities, mediaRef);
+            FavoriteDatabase.getInstance(getContext()).favoriteDao().insert(favorite);
+            Log.d("SAVE_FAV", "SaveFavorite: RUNNING");
 
+        });
+        Log.d("SAVE_FAV", "SaveFavorite: END");
+    }
 
-        /*locationButton = root.findViewById(R.id.location_button);
-        locationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
+    public void FavoriteGetData(){
+        Log.d("SAVE_FAV", "FavoriteGetData: CALLED");
+        detailsRef = placeRef.collection("details");
+        faqsRef = placeRef.collection("faqs");
 
-//set views
-//        placeName = root.findViewById(R.id.place_name);
-//        placeDesc = root.findViewById(R.id.place_desc);
-//        placeHistory = root.findViewById(R.id.place_history);
-//        placeLocation = root.findViewById(R.id.place_location);
+        detailsRef.get()
+                .addOnSuccessListener(snapshot -> {
+                    Log.d("SAVE_FAV", "FavoriteGetData: detailsRef CALLED");
+                    for (QueryDocumentSnapshot snapshots : snapshot){
+                        PlaceDetailsModel placeDetailsModel = snapshots.toObject(PlaceDetailsModel.class);
+                        desc = placeDetailsModel.getDesc();
+                        hist = placeDetailsModel.getHistory();
+                        mediaRef = placeDetailsModel.getMedia();
+                    }
+                    Log.d("SAVE_FAV", "FavoriteGetData: detailsRef DONE");
+                })
+                .addOnFailureListener(e -> Log.d("CHECK_ID", "Document does not Exist" ));
 
-        /*collapsingToolbar = root.findViewById(R.id.place_details_collapsing_toolbar);
-//       Bring to previous fragment when back button is pressed
-        Toolbar toolbar = root.findViewById(R.id.place_details_toolbar);
-        toolbar.setNavigationOnClickListener(view1 -> {
-            PlacesFragment placesFragment = new PlacesFragment();
-            fragmentManager = getParentFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_place_details, placesFragment);
-            fragmentTransaction.show(placesFragment);
-            fragmentTransaction.commit();
+        faqsRef.get()
+                .addOnSuccessListener(snapshot -> {
+                    Log.d("SAVE_FAV", "FavoriteGetData: faqsRef CALLED");
+                    for (QueryDocumentSnapshot snapshots : snapshot) {
+                        Log.d("SAVE_FAV", "FavoriteGetData: faqsRef RUNNING");
+                        FaqsModel faqsModel = snapshots.toObject(FaqsModel.class);
+                        string_attire = faqsModel.getAttire();
+                        string_website = faqsModel.getWebsite();
+                        array_activities = faqsModel.getActivities();
+                        array_availability = faqsModel.getAvailability();
+                        array_prices = faqsModel.getPrices();
 
-//            Make Appbar disappear when going to previous fragment
-            AppBarLayout appBarLayout = requireView().findViewById(R.id.place_details_app_bar);
-            appBarLayout.setVisibility(View.GONE);
-        });*/
+                        if(array_prices != null){
+                            for (int i = 0; i < array_prices.size(); i++) {
+                                if (i == 0){
+                                    string_prices = array_prices.get(i);
+                                }else {
+                                    string_prices += array_prices.get(i);
+                                }
+                                string_prices += "\n";
+                            }
+                        }
+
+                        if (array_availability != null){
+                            for (int i = 0; i < array_availability.size(); i++){
+                                if (i == 0){
+                                    string_availability = array_availability.get(i);
+                                }else{
+                                    string_availability += array_availability.get(i);
+                                }
+                                string_availability += "\n";
+                            }
+                        }
+
+                        if (array_activities != null) {
+                            for (int i = 0; i < array_activities.size(); i++) {
+                                if (i == 0) {
+                                    string_activities = "\u2022 " + array_activities.get(i);
+                                }else{
+                                    string_activities += "\u2022 " + array_activities.get(i);
+                                }
+                                string_activities += "\n";
+                            }
+                        }
+                    }
+                    Log.d("SAVE_FAV", "FavoriteGetData: faqsRef DONE");
+                })
+                .addOnFailureListener(e -> Log.d("CHECK_ID", "Document does not Exist"));
+        Log.d("SAVE_FAV", "FavoriteGetData: DONE");
+    }
+}

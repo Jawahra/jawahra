@@ -16,14 +16,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.jawahra.R;
-import com.example.jawahra.ui.news.NewsFragment;
-import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -64,7 +62,7 @@ public class UPDetailsFragment extends Fragment {
 //       Bring to previous fragment when back button is pressed
         Toolbar toolbar = requireView().findViewById(R.id.up_details_toolbar);
         toolbar.setNavigationOnClickListener(view1 -> {
-            NewsFragment newsFragment = new NewsFragment();
+            /*NewsFragment newsFragment = new NewsFragment();
             fragmentManager = getParentFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragment_up_details, newsFragment);
@@ -73,8 +71,8 @@ public class UPDetailsFragment extends Fragment {
 
 //            Make Appbar disappear when going to previous fragment
             AppBarLayout appBarLayout = requireView().findViewById(R.id.up_details_app_bar);
-            appBarLayout.setVisibility(View.GONE);
-
+            appBarLayout.setVisibility(View.GONE);*/
+            NavHostFragment.findNavController(this).popBackStack();
         });
 
 

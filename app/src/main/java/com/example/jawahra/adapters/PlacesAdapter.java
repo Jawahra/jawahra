@@ -32,7 +32,7 @@ public class PlacesAdapter  extends FirestoreRecyclerAdapter<PlacesModel, Places
     @Override
     protected void onBindViewHolder(@NonNull PlacesViewHolder holder, int position, @NonNull PlacesModel model) {
         holder.listName.setText(model.getName());
-        Glide.with(context).load(model.getCoverImg()).into(holder.cardImage);
+        Glide.with(context).load(model.getCoverImg()).thumbnail(0.25f).into(holder.cardImage);
     }
 
     @NonNull

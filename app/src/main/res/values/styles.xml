@@ -7,42 +7,27 @@
         <item name="cornerSize">50%</item>
     </style>
 
-    <style name="user_card">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_margin">15dp</item>
-        <item name="android:layout_weight">1</item>
-        <item name="cardCornerRadius">10dp</item>
+    <style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetDialogStyle</item>
     </style>
 
-    <style name="user_card_text">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">10dp</item>
-        <item name="android:paddingTop">80dp</item>
-        <item name="android:textSize">24sp</item>
+    <style name="BottomSheetDialogStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@color/transparent</item>
+
+
     </style>
 
     <!--  BUTTONS  -->
-    <style name="btn_text">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">?android:attr/selectableItemBackground</item>
-        <item name="android:textAllCaps">false</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/black</item>
-        <item name="android:textAlignment">center</item>
-        <item name="android:padding">20dp</item>
-        <item name="android:clickable">true</item>
-        <item name="android:focusable">true</item>
-    </style>
-
     <style name="btn_login_signup">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:paddingHorizontal">10dp</item>
-        <item name="android:background">@color/transparent_light</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:backgroundTint">@color/transparent_light</item>
+        <item name="android:outlineSpotShadowColor">@color/transparent_light</item>
+        <item name="android:textColor">#444</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="fontFamily">@font/karla</item>
     </style>
 
     <!--  USER INPUT  -->
@@ -52,6 +37,30 @@
         <item name="android:background">@drawable/input_custom</item>
         <item name="android:padding">12dp</item>
         <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:textColorHint">@color/gray_dark</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="fontFamily">@font/karla</item>
+    </style>
+
+    <style name="home_feature_banner">
+        <item name="android:fontFamily">@font/playfair_display_bold</item>
+        <item name="android:textSize">50sp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+    </style>
+
+    <!--  ABOUT US   -->
+    <style name="about_us_image">
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="circleImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
     </style>
 
 </resources>
