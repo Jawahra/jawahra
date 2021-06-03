@@ -31,7 +31,7 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_alignParentTop="true"
-                    android:src="@drawable/logo_jawahra"/>
+                    android:src="@drawable/logo_jawahra_cropped"/>
 
                 <TextView
                     android:id="@+id/about_app_title"
