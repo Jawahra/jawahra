@@ -11,7 +11,13 @@ buildscript {
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
 
+        // Check that you have the Google Services Gradle plugin v4.3.2 or later
+        // (if not, add it).
         classpath 'com.google.gms:google-services:4.3.8'
+
+        // Add the Crashlytics Gradle plugin (be sure to add version
+        // 2.0.0 or later if you built your app with Android Studio 4.1).
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.7.0'
     }
 }
 

@@ -41,10 +41,14 @@ public class CovidProtocolActivity extends AppCompatActivity {
         understandBtn = findViewById(R.id.covProtoBtn);
 
         /*Animate Gradient Background*/
+
+       /*
         animationDrawable = (AnimationDrawable) linearLayout.getBackground();
         animationDrawable.setEnterFadeDuration(4000);
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
+
+        */
 
         /*Button*/
         understandBtn.setOnClickListener(new View.OnClickListener() {
