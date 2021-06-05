@@ -85,9 +85,8 @@ public class DiscoverAdapterAPI28 extends PagerAdapter {
             }
         });
 
-
         //Add view to container
-        container.addView(view, 0);
+        container.addView(view);
         return view;
     }
 

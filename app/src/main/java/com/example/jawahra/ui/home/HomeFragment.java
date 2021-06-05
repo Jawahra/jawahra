@@ -130,31 +130,6 @@ public class HomeFragment extends Fragment {
 //            setDiscoverPagerAPI28();
 //        }
 
-        discoverViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-                if (state == ViewPager.SCROLL_STATE_IDLE) {
-                    int curr = discoverViewPager.getCurrentItem();
-                    int lastReal = discoverViewPager.getAdapter().getCount() - 2;
-                    if (curr == 0) {
-                        discoverViewPager.setCurrentItem(lastReal, false);
-                    } else if (curr > lastReal) {
-                        discoverViewPager.setCurrentItem(1, false);
-                    }
-                }
-
-            }
-        });
     }
 
     private void setDiscoverPagerAPI28() {
@@ -164,6 +139,7 @@ public class HomeFragment extends Fragment {
         //set adapter to view pager
         discoverViewPager.setAdapter(discoverAdapter);
         discoverViewPager.setPageMargin(50);
+        discoverViewPager.setPageTransformer(false, new ZoomInTransformer());
         automateViewPagerSwiping();
     }
 

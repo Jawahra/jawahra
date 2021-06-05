@@ -25,4 +25,5 @@ public class OnboardingIntro extends AppCompatActivity {
                 startActivity(new Intent(OnboardingIntro.this, OnboardingScreen.class));
             }
         });
+    }
 }
