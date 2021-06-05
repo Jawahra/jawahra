@@ -6,6 +6,7 @@
         android:radius="10dp"
         />
     <gradient
+        android:gradientRadius="250dp"
         android:angle="90"
         android:centerX="300%"
         android:startColor="#00000000"
