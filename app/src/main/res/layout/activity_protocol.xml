@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     android:id="@+id/covGradLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,7 +7,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:background="@drawable/gradient_main">
+    android:background="@drawable/gradient_main"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/covProtoTitle"
@@ -18,41 +19,43 @@
         android:textColor="@color/black"
         android:textAlignment="center"
         android:fontFamily="@font/playfair_display_sc_bold"
-        android:padding="20dp"
-        android:layout_marginTop="60dp"/>
+        android:paddingHorizontal="20dp"
+        android:layout_marginTop="20dp"/>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/protocols_covid"
-        android:foregroundGravity="center"
-        android:layout_centerInParent="true"
-        android:overScrollMode="never"
-        android:clipToPadding="false"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="400dp"
+        android:layout_centerInParent="true"
+        android:clipToPadding="false"
+        android:foregroundGravity="center"
+        android:overScrollMode="never"
+        tools:layout_editor_absoluteX="31dp"
+        tools:layout_editor_absoluteY="181dp"/>
+
+
+    <Button
+        android:id="@+id/covProtoBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/quicksand"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:text="@string/covBtn"
+        android:textColor="@color/black" />
 
     <TextView
         android:id="@+id/covProtoDesc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/covProtoBtn"
+        android:fontFamily="@font/quicksand"
+        android:padding="20dp"
         android:text="@string/covDesc"
-        android:textSize="18sp"
-        android:textColor="@color/black"
         android:textAlignment="center"
-        android:fontFamily="@font/quicksand"
-        android:padding="20dp" />
-
-    <Button
-        android:id="@+id/covProtoBtn"
-        android:text="@string/covBtn"
         android:textColor="@color/black"
-        android:fontFamily="@font/quicksand"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="60dp"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:textSize="18sp" />
 
-</RelativeLayout>
+</LinearLayout>
