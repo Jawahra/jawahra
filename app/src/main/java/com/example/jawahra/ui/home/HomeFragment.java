@@ -143,16 +143,21 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onPageScrollStateChanged(int state) {
+                if (state == ViewPager.SCROLL_STATE_IDLE) {
+                    int curr = discoverViewPager.getCurrentItem();
+                    int lastReal = discoverViewPager.getAdapter().getCount() - 2;
+                    if (curr == 0) {
+                        discoverViewPager.setCurrentItem(lastReal, false);
+                    } else if (curr > lastReal) {
+                        discoverViewPager.setCurrentItem(1, false);
+                    }
+                }
 
             }
         });
     }
 
     private void setDiscoverPagerAPI28() {
-        ConstraintLayout layoutDiscoverViewPager;
-
-
-
         //setup adapter
         discoverAdapter = new DiscoverAdapterAPI28(getContext(), listDiscover, this);
 
@@ -162,13 +167,24 @@ public class HomeFragment extends Fragment {
         automateViewPagerSwiping();
     }
 
+    public class ZoomInTransformer implements ViewPager.PageTransformer {
+
+        public static final float MAX_ROTATION = 90.0f;
+
+        @Override
+        public void transformPage( View page, float pos ) {
+            float r = 1 - Math.abs(pos);
+            page.setScaleY(0.85f + r*0.15f);
+        }
+    }
+
     private void automateViewPagerSwiping() {
-        final long DELAY_MS = 500;//delay in milliseconds before task is to be executed
-        final long PERIOD_MS = 3000; // time in milliseconds between successive task executions.
+        final long DELAY_MS = 1000;//delay in milliseconds before task is to be executed
+        final long PERIOD_MS = 2000; // time in milliseconds between successive task executions.
         final Handler handler = new Handler();
         final Runnable update = new Runnable() {
             public void run() {
-                if (discoverViewPager.getCurrentItem() == discoverAdapter.getCount() - 1) { //adapter is your custom ViewPager's adapter
+                if (discoverViewPager.getCurrentItem() == discoverAdapter.getCount() - 1) {
                     discoverViewPager.setCurrentItem(0);
                 }
                 else {
