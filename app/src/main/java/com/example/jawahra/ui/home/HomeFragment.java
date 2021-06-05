@@ -2,8 +2,10 @@ package com.example.jawahra.ui.home;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,15 +13,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavHost;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
@@ -29,7 +31,8 @@ import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.jawahra.CovidProtocolActivity;
 import com.example.jawahra.R;
-import com.example.jawahra.adapters.DiscoverAdapter;
+import com.example.jawahra.adapters.DiscoverAdapterAPI28;
+import com.example.jawahra.adapters.DiscoverAdapterAPI29;
 import com.example.jawahra.models.DiscoverModel;
 import com.example.jawahra.ui.visit.PlaceDetailsFragment;
 import com.google.firebase.firestore.DocumentReference;
@@ -45,18 +48,27 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class HomeFragment extends Fragment {
 
+    ConstraintLayout constraintLayoutHome;
     Button btnLearnMore;
     Button btnCovidProtocols;
     RelativeLayout rlFbImg;
     TextView tvFbTitle;
 
+
+
     // Variables for Discover Cards
-    ViewPager2 discoverViewPager;
+    ViewPager2 discoverViewPager2;
+    ViewPager discoverViewPager;
     Handler discoverHandler = new Handler();
     List<DiscoverModel> listDiscover = new ArrayList<>();
+    private DiscoverAdapterAPI28 discoverAdapter;
+
+
     List<String> listDiscUrl = new ArrayList<>(),
             listDiscTitle = new ArrayList<>(),
             listDiscEmirate = new ArrayList<>(),
@@ -96,10 +108,12 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 //        Create hooks for variables
         if(getView() != null) {
+            constraintLayoutHome = requireView().findViewById(R.id.fragment_home);
             btnLearnMore = requireView().findViewById(R.id.featured_banner_learn_more);
             tvFbTitle = requireView().findViewById(R.id.featured_banner_title);
             rlFbImg = requireView().findViewById(R.id.home_featured_img);
             btnCovidProtocols = requireView().findViewById(R.id.btn_covid_protocols);
+            discoverViewPager2 = requireView().findViewById(R.id.discover_view_pager_2);
             discoverViewPager = requireView().findViewById(R.id.discover_view_pager);
         }
 
@@ -107,16 +121,80 @@ public class HomeFragment extends Fragment {
         btnCovidProtocols.setOnClickListener(v -> startActivity(new Intent(getActivity(), CovidProtocolActivity.class)));
 
         getFeaturedBanner();
-        setDiscoverPager();
+
+        setDiscoverPagerAPI28();
+
+//        if (Build.VERSION.SDK_INT > 28){
+//            setDiscoverPagerAPI29();
+//        } else{
+//            setDiscoverPagerAPI28();
+//        }
+
+        discoverViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
-//    Initialise settings, add infinite scroll and animations for Discover Cards
-    private void setDiscoverPager() {
+
+    private void setDiscoverPagerAPI28() {
+        ConstraintLayout layoutDiscoverViewPager;
+
+
+
+        //setup adapter
+        discoverAdapter = new DiscoverAdapterAPI28(getContext(), listDiscover, this);
+
+        //set adapter to view pager
+        discoverViewPager.setAdapter(discoverAdapter);
+        discoverViewPager.setPageMargin(50);
+        automateViewPagerSwiping();
+    }
+
+    private void automateViewPagerSwiping() {
+        final long DELAY_MS = 500;//delay in milliseconds before task is to be executed
+        final long PERIOD_MS = 3000; // time in milliseconds between successive task executions.
+        final Handler handler = new Handler();
+        final Runnable update = new Runnable() {
+            public void run() {
+                if (discoverViewPager.getCurrentItem() == discoverAdapter.getCount() - 1) { //adapter is your custom ViewPager's adapter
+                    discoverViewPager.setCurrentItem(0);
+                }
+                else {
+                    discoverViewPager.setCurrentItem(discoverViewPager.getCurrentItem() + 1, true);
+                }
+            }
+        };
+
+        Timer timer = new Timer(); // This will create a new Thread
+        timer.schedule(new TimerTask() { // task to be scheduled
+            @Override
+            public void run() {
+                handler.post(update);
+            }
+        }, DELAY_MS, PERIOD_MS);
+    }
+
+
+    //    Initialise settings, add infinite scroll and animations for Discover Cards
+    private void setDiscoverPagerAPI29() {
 //        Initialise view pager settings
-        discoverViewPager.setAdapter(new DiscoverAdapter(getContext(), this, listDiscover, discoverViewPager));
-        discoverViewPager.setClipToPadding(false);
-        discoverViewPager.setClipChildren(false);
-        discoverViewPager.setOffscreenPageLimit(3);
-        discoverViewPager.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
+        discoverViewPager2.setAdapter(new DiscoverAdapterAPI29(getContext(), this, listDiscover, discoverViewPager2));
+        discoverViewPager2.setClipToPadding(false);
+        discoverViewPager2.setClipChildren(false);
+        discoverViewPager2.setOffscreenPageLimit(3);
+        discoverViewPager2.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
 
 //        Size of each card
         CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
@@ -126,8 +204,8 @@ public class HomeFragment extends Fragment {
             page.setScaleY(0.85f + r*0.15f);
         });
 //        Auto-scroll card views
-        discoverViewPager.setPageTransformer(compositePageTransformer);
-        discoverViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+        discoverViewPager2.setPageTransformer(compositePageTransformer);
+        discoverViewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
@@ -196,7 +274,6 @@ public class HomeFragment extends Fragment {
 
 
     }
-
     public String loadJSONFromAsset() {
         String json;
         try {
@@ -212,11 +289,10 @@ public class HomeFragment extends Fragment {
         }
         return json;
     }
-
     private final Runnable discoverRunnable = new Runnable() {
         @Override
         public void run() {
-            discoverViewPager.setCurrentItem(discoverViewPager.getCurrentItem() + 1);
+            discoverViewPager2.setCurrentItem(discoverViewPager2.getCurrentItem() + 1);
         }
     };
 }

@@ -10,9 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
@@ -25,14 +22,14 @@ import com.example.jawahra.ui.visit.PlaceDetailsFragment;
 
 import java.util.List;
 
-public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.SliderViewHolder>{
+public class DiscoverAdapterAPI29 extends RecyclerView.Adapter<DiscoverAdapterAPI29.SliderViewHolder>{
 
     private Context context;
     private List<DiscoverModel> listDiscover;
     private ViewPager2 viewPager2;
     private HomeFragment homeFragment;
 
-    public DiscoverAdapter(Context context, HomeFragment homeFragment, List<DiscoverModel> listDiscover, ViewPager2 viewPager2) {
+    public DiscoverAdapterAPI29(Context context, HomeFragment homeFragment, List<DiscoverModel> listDiscover, ViewPager2 viewPager2) {
         this.context = context;
         this.homeFragment = homeFragment;
         this.listDiscover = listDiscover;

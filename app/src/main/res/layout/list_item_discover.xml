@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="300dp"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="15dp"
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
     android:id="@+id/discover_card">
-
-
 
     <RelativeLayout
         android:id="@+id/discover_relative_layout"
