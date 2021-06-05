@@ -17,136 +17,142 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <!-- Profile: LOGGED IN -->
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_logged_in"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <RelativeLayout
-                android:id="@+id/profile_user"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="50dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:elevation="5dp"
-                android:background="@drawable/profile_gradient_background">
-
-                <ImageView
-                    android:id="@+id/profile_img"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_centerHorizontal="true"
-                    android:contentDescription="@string/title_profile"
-                    android:src="@drawable/placeholder_blank_image" />
-
-                <TextView
-                    android:id="@+id/profile_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/profile_img"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="15dp"
-                    android:fontFamily="@font/playfair_display"
-                    android:text="@string/title_user_name"
-                    android:textColor="@color/black"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/profile_email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/profile_name"
-                    android:layout_centerHorizontal="true"
-                    android:fontFamily="@font/quicksand"
-                    android:text="@string/title_email"
-                    android:textColor="@color/black" />
-            </RelativeLayout>
-
-
-            <RelativeLayout
-                android:id="@+id/profile_content"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profile_user">
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/profile_fav"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_logged_in"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:elevation="4dp"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    app:cardCornerRadius="10dp">
+                    android:layout_height="match_parent">
 
-                    <LinearLayout
+                    <RelativeLayout
+                        android:id="@+id/profile_user"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="20dp"
-                            android:background="@color/blue">
-                            <TextView
-                                android:id="@+id/fav_title"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textAlignment="center"
-                                android:textColor="@color/white"
-                                android:fontFamily="@font/quicksand_bold"
-                                android:textAllCaps="true"
-                                android:letterSpacing="0.3"
-                                android:text="@string/title_favorites"
-                                android:textSize="24sp" />
-                        </LinearLayout>
+                        android:padding="50dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:elevation="5dp"
+                        android:background="@drawable/profile_gradient_background">
 
                         <ImageView
+                            android:id="@+id/profile_img"
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
+                            android:layout_centerHorizontal="true"
+                            android:contentDescription="@string/title_profile"
+                            android:src="@drawable/placeholder_blank_image" />
+
+                        <TextView
+                            android:id="@+id/profile_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/profile_img"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="15dp"
+                            android:fontFamily="@font/playfair_display"
+                            android:text="@string/title_user_name"
+                            android:textColor="@color/black"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/profile_email"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/profile_name"
+                            android:layout_centerHorizontal="true"
+                            android:fontFamily="@font/quicksand"
+                            android:text="@string/title_email"
+                            android:textColor="@color/black" />
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:id="@+id/profile_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="20dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/profile_user">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/profile_fav"
                             android:layout_width="match_parent"
-                            android:layout_height="200dp"
-                            android:src="@drawable/user_favorites"
-                            android:adjustViewBounds="true"
-                            android:background="@color/blue"/>
-                    </LinearLayout>
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:elevation="4dp"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            app:cardCornerRadius="10dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingTop="20dp"
+                                    android:background="@color/blue">
+                                    <TextView
+                                        android:id="@+id/fav_title"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:textAlignment="center"
+                                        android:textColor="@color/white"
+                                        android:fontFamily="@font/quicksand_bold"
+                                        android:textAllCaps="true"
+                                        android:letterSpacing="0.3"
+                                        android:text="@string/title_favorites"
+                                        android:textSize="24sp" />
+                                </LinearLayout>
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="200dp"
+                                    android:src="@drawable/user_favorites"
+                                    android:adjustViewBounds="true"
+                                    android:background="@color/blue"/>
+                            </LinearLayout>
 
 
-                </androidx.cardview.widget.CardView>
+                        </androidx.cardview.widget.CardView>
 
-                <Button
-                    android:id="@+id/btn_about"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/profile_fav"
-                    android:backgroundTint="@color/gray"
-                    android:text="About Us"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/quicksand_bold"/>
+                        <Button
+                            android:id="@+id/btn_about"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/profile_fav"
+                            android:backgroundTint="@color/gray"
+                            android:text="About Us"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/quicksand_bold"/>
 
-                <Button
-                    android:id="@+id/btn_setting"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/btn_about"
-                    android:layout_centerHorizontal="true"
-                    android:backgroundTint="@color/gray"
-                    android:fontFamily="@font/quicksand_bold"
-                    android:text="@string/title_settings"
-                    android:textAllCaps="true"
-                    android:textColor="@color/black"/>
+                        <Button
+                            android:id="@+id/btn_setting"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/btn_about"
+                            android:layout_centerHorizontal="true"
+                            android:backgroundTint="@color/gray"
+                            android:fontFamily="@font/quicksand_bold"
+                            android:text="@string/title_settings"
+                            android:textAllCaps="true"
+                            android:textColor="@color/black"/>
 
-            </RelativeLayout>
+                    </RelativeLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
 
         <!-- Profile: AS GUEST -->
         <androidx.constraintlayout.widget.ConstraintLayout
