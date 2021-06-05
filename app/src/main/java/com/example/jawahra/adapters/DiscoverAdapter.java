@@ -42,7 +42,7 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.Slider
     @NonNull
     @Override
     public SliderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new SliderViewHolder(LayoutInflater.from((context)).inflate(R.layout.list_item_discover, parent, false));
+        return new SliderViewHolder(LayoutInflater.from((parent.getContext())).inflate(R.layout.list_item_discover, parent, false));
     }
 
     @Override
