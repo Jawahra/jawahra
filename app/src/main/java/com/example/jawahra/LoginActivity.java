@@ -230,17 +230,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                // Google Sign In was successful, authenticate with Firebase
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
-                FirebaseGoogleAuth(account);
-            } catch (ApiException e) {
-                // Google Sign In failed, update UI appropriately
-                Log.w(TAG, "Google sign in failed", e);
-                FirebaseGoogleAuth(null);
+
+            if(resultCode == RESULT_OK) {
+                Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+                try {
+                    // Google Sign In was successful, authenticate with Firebase
+                    GoogleSignInAccount account = task.getResult(ApiException.class);
+                    Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
+                    FirebaseGoogleAuth(account);
+                } catch (ApiException e) {
+                    // Google Sign In failed, update UI appropriately
+                    Log.w(TAG, "Google sign in failed", e);
+                    FirebaseGoogleAuth(null);
+                }
             }
+
+            // If the user cancels out of the dialog
+            if (resultCode == RESULT_CANCELED) {
+                setResult(RESULT_CANCELED, data);
+                finish();
+            }
+
         } else { //If not request code is RC_SIGN_IN it must be facebook
 
             // Pass the activity result back to the Facebook SDK
