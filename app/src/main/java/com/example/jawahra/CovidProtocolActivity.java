@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.jawahra.adapters.CovidAdapter;
@@ -26,7 +27,7 @@ public class CovidProtocolActivity extends AppCompatActivity {
     Button understandBtn;
 
     /*For Animated Gradient Background*/
-    RelativeLayout relativeLayout;
+    ConstraintLayout constraintLayout;
     AnimationDrawable animationDrawable;
 
     @Override
@@ -39,11 +40,11 @@ public class CovidProtocolActivity extends AppCompatActivity {
 
         /*Init Variables*/
         covProtocols = findViewById(R.id.protocols_covid);
-        relativeLayout = findViewById(R.id.covGradLayout);
+        constraintLayout = findViewById(R.id.covGradLayout);
         understandBtn = findViewById(R.id.covProtoBtn);
 
         /*Animate Gradient Background*/
-        animationDrawable = (AnimationDrawable) relativeLayout.getBackground();
+        animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
         animationDrawable.setEnterFadeDuration(4000);
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
