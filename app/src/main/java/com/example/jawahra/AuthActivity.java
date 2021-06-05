@@ -3,6 +3,7 @@ package com.example.jawahra;
 
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -70,7 +71,14 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(AuthActivity.this, LoginActivity.class));
                 break;
             case R.id.btn_signup:
-                registerUser();
+                WifiManager wifiManager = (WifiManager) getSystemService(WIFI_SERVICE);
+
+                // If wifi is enabled
+                if (wifiManager.isWifiEnabled())
+                    registerUser();
+                else
+                    Toast.makeText(this, "Turn on WIFI to sign up", Toast.LENGTH_SHORT).show();
+
                 break;
         }
     }

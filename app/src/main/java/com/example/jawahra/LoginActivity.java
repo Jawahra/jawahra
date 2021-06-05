@@ -2,6 +2,7 @@ package com.example.jawahra;
 
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -155,33 +156,49 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.btn_new_acc:
-                startActivity(new Intent(LoginActivity.this, AuthActivity.class));
-                break;
-            case R.id.btn_login:
-                loginUser();
-                break;
-            case R.id.btn_google_login:
-                Intent i = gsi.getSignInIntent();
-                startActivityForResult(i, RC_SIGN_IN);
-                break;
-            case R.id.btn_fb_login:
-                LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList(EMAIL));
-                LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-                    @Override
-                    public void onSuccess(LoginResult loginResult) {
-                        Log.d(TAG, "onSuccess" + loginResult);
-                        handleFacebookToken(loginResult.getAccessToken());
-                    }
+        WifiManager wifiManager = (WifiManager) getSystemService(WIFI_SERVICE);
 
-                    @Override
-                    public void onCancel() { Log.d(TAG, "onCancel"); }
+        // If wifi is enabled
+        if (wifiManager.isWifiEnabled()) {
+            switch (v.getId()){
+                case R.id.btn_new_acc:
+                    startActivity(new Intent(LoginActivity.this, AuthActivity.class));
+                    break;
+                case R.id.btn_login:
+                    loginUser();
+                    break;
+                case R.id.btn_google_login:
+                    Intent i = gsi.getSignInIntent();
+                    startActivityForResult(i, RC_SIGN_IN);
+                    break;
+                case R.id.btn_fb_login:
+                    LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList(EMAIL));
+                    LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+                        @Override
+                        public void onSuccess(LoginResult loginResult) {
+                            Log.d(TAG, "onSuccess" + loginResult);
+                            handleFacebookToken(loginResult.getAccessToken());
+                        }
 
-                    @Override
-                    public void onError(FacebookException error) { Log.d(TAG, "onError"); }
-                });
-                break;
+                        @Override
+                        public void onCancel() { Log.d(TAG, "onCancel"); }
+
+                        @Override
+                        public void onError(FacebookException error) { Log.d(TAG, "onError"); }
+                    });
+                    break;
+            }
+        } else { // If wifi is not enabled
+            switch (v.getId()) {
+                case R.id.btn_new_acc:
+                    Toast.makeText(this, "Turn WIFI on to sign up.", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.btn_login:
+                case R.id.btn_google_login:
+                case R.id.btn_fb_login:{
+                    Toast.makeText(this, "Turn WIFI on to login.", Toast.LENGTH_SHORT).show();
+                }
+            }
         }
     }
 
