@@ -29,28 +29,30 @@ public class LaunchActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                spObj = new SharedPreferences(LaunchActivity.this);
-                if(spObj.getApp_runFirst().equals("FIRST"))
-                {
-                    // If this is the user's first time launching the application
-                    startActivity(new Intent(LaunchActivity.this, OnboardingIntro.class));
-                    finish();
-
-                    // Sets status to not their first time anymore
-                    spObj.setApp_runFirst("NO");
-                }
-                else
-                {
-                    //If they are a returning user
-                    if (user != null) {
-                        // If the user has an account and is already signed in
-                        startActivity(new Intent(LaunchActivity.this, MainActivity.class));
-                    } else {
-                        // If the user has no account or not signed in
-                        startActivity(new Intent(LaunchActivity.this, MainAuth.class));
-                    }
-                    finish();
-                }
+                startActivity(new Intent(LaunchActivity.this, OnboardingIntro.class));
+                finish();
+//                spObj = new SharedPreferences(LaunchActivity.this);
+//                if(spObj.getApp_runFirst().equals("FIRST"))
+//                {
+//                    // If this is the user's first time launching the application
+//                    startActivity(new Intent(LaunchActivity.this, OnboardingIntro.class));
+//                    finish();
+//
+//                    // Sets status to not their first time anymore
+//                    spObj.setApp_runFirst("NO");
+//                }
+//                else
+//                {
+//                    //If they are a returning user
+//                    if (user != null) {
+//                        // If the user has an account and is already signed in
+//                        startActivity(new Intent(LaunchActivity.this, MainActivity.class));
+//                    } else {
+//                        // If the user has no account or not signed in
+//                        startActivity(new Intent(LaunchActivity.this, MainAuth.class));
+//                    }
+//                    finish();
+//                }
             }
         }, LAUNCH_SCREEN);
     }

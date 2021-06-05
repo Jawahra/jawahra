@@ -5,14 +5,12 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Adapter;
 import android.widget.Button;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.viewpager.widget.ViewPager;
 
 import com.example.jawahra.adapters.CovidAdapter;
 import com.example.jawahra.models.CovidModel;
@@ -45,9 +43,8 @@ public class CovidProtocolActivity extends AppCompatActivity {
 
         /*Animate Gradient Background*/
         animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(4000);
-        animationDrawable.setExitFadeDuration(4000);
-        animationDrawable.start();
+
+        */
 
         /*Button*/
         understandBtn.setOnClickListener(new View.OnClickListener() {
