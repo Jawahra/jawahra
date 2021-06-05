@@ -108,8 +108,8 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                // Redirect to Login Activity
-                startActivity(new Intent(getActivity(), LoginActivity.class));
+                // Redirect to MainAuth
+                startActivity(new Intent(getActivity(), MainAuth.class));
             }
         });
     }
@@ -199,8 +199,8 @@ public class ProfileFragment extends Fragment {
             gsi.signOut(); // Log out from Google
             LoginManager.getInstance().logOut(); // Log out from Facebook
 
-            // Redirect to Login Activity
-            startActivity(new Intent(getActivity(), LoginActivity.class));
+            // Redirect to MainAuth
+            startActivity(new Intent(getActivity(), MainAuth.class));
             bottomSheetDialog.dismiss();
         });
 
