@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.jawahra.adapters.CovidAdapter;
 import com.example.jawahra.models.CovidModel;
@@ -43,8 +44,6 @@ public class CovidProtocolActivity extends AppCompatActivity {
 
         /*Animate Gradient Background*/
         animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-
-        */
 
         /*Button*/
         understandBtn.setOnClickListener(new View.OnClickListener() {
