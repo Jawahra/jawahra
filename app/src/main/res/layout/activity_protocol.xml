@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/covGradLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -10,52 +10,112 @@
     android:background="@drawable/gradient_main"
     android:orientation="vertical">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineBottomTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.20" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTopTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="0dp"
+        app:layout_constraintGuide_percent="0.05" />
+
     <TextView
         android:id="@+id/covProtoTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/covProto"
-        android:textSize="42sp"
-        android:textColor="@color/black"
-        android:textAlignment="center"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:fontFamily="@font/playfair_display_sc_bold"
-        android:paddingHorizontal="20dp"
-        android:layout_marginTop="20dp"/>
+        android:text="@string/covProto"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:layout_margin="5dp"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="20sp"
+        android:autoSizeMaxTextSize="42sp"
+        android:autoSizeStepGranularity="2sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guidelineTopTitle"
+        app:layout_constraintBottom_toBottomOf="@id/guidelineBottomTitle"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineBottomPager"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.80" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTopPager"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="0dp"
+        app:layout_constraintGuide_percent="0.20" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/protocols_covid"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_centerInParent="true"
         android:clipToPadding="false"
         android:foregroundGravity="center"
         android:overScrollMode="never"
-        tools:layout_editor_absoluteX="31dp"
-        tools:layout_editor_absoluteY="181dp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guidelineTopPager"
+        app:layout_constraintBottom_toBottomOf="@id/guidelineBottomPager"/>
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineBottomDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.90" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTopDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="0dp"
+        app:layout_constraintGuide_percent="0.80" />
+
+    <TextView
+        android:id="@+id/covProtoDesc"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="@string/covDesc"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:fontFamily="@font/quicksand"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="10sp"
+        android:autoSizeMaxTextSize="18sp"
+        android:autoSizeStepGranularity="2sp"
+        android:layout_margin="10dp"
+        app:layout_constraintTop_toTopOf="@id/guidelineTopDesc"
+        app:layout_constraintBottom_toBottomOf="@id/guidelineBottomDesc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <Button
         android:id="@+id/covProtoBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:fontFamily="@font/quicksand"
         android:paddingLeft="30dp"
         android:paddingRight="30dp"
         android:text="@string/covBtn"
-        android:textColor="@color/black" />
-
-    <TextView
-        android:id="@+id/covProtoDesc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/covProtoBtn"
-        android:fontFamily="@font/quicksand"
-        android:padding="20dp"
-        android:text="@string/covDesc"
-        android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="18sp" />
+        app:layout_constraintTop_toBottomOf="@id/covProtoDesc"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -8,46 +8,114 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:cardCornerRadius="15dp"
-        android:layout_margin="10dp">
+        android:layout_margin="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="match_parent"
             android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineTopImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="0dp"
+                app:layout_constraintGuide_percent="0" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineBottomImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="0dp"
+                app:layout_constraintGuide_percent="0.45" />
+
             <ImageView
                 android:id="@+id/covidImage"
                 android:src="@drawable/covid_distance"
                 android:scaleType="centerCrop"
-                android:layout_width="match_parent"
-                android:layout_height="225dp"/>
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@id/guidelineBottomImage"
+                app:layout_constraintTop_toTopOf="@id/guidelineTopImage"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineBottomCovidTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="0dp"
+                app:layout_constraintGuide_percent="0.60" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineTopCovidTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="0dp"
+                app:layout_constraintGuide_percent="0.45" />
 
             <TextView
                 android:id="@+id/covidTitle"
                 android:text="Title"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="center"
                 android:fontFamily="@font/playfair_display_sc_bold"
                 android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textAlignment="center"
                 android:padding="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="12sp"
+                android:autoSizeMaxTextSize="20sp"
+                android:autoSizeStepGranularity="2sp"
+                app:layout_constraintTop_toTopOf="@id/guidelineTopCovidTitle"
+                app:layout_constraintBottom_toBottomOf="@id/guidelineBottomCovidTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineTopCovidDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="0dp"
+                app:layout_constraintGuide_percent="0.60" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineBottomCovidDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="0dp"
+                app:layout_constraintGuide_percent="1" />
 
             <TextView
                 android:id="@+id/covidDescription"
                 android:text="Description"
                 android:fontFamily="@font/quicksand"
                 android:textColor="@color/black"
-                android:textSize="16sp"
                 android:paddingHorizontal="10dp"
                 android:layout_marginStart="8dp"
-                android:maxLines="4"
-                android:ellipsize="end"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="8sp"
+                android:autoSizeMaxTextSize="16sp"
+                android:autoSizeStepGranularity="2sp"
+                app:layout_constraintTop_toTopOf="@id/guidelineTopCovidDesc"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
-</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/mainAuthLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -16,7 +16,12 @@
         android:layout_height="200dp"
         android:layout_centerInParent="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/logo_jawahra"/>
+        android:src="@drawable/logo_jawahra"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".3" />
 
     <TextView
         android:id="@+id/authAppName"
@@ -27,16 +32,18 @@
         android:textColor="@color/black"
         android:textAlignment="center"
         android:fontFamily="@font/playfair_display_sc_bold"
-        android:layout_centerHorizontal="true"
         android:padding="10dp"
-        android:layout_below="@+id/authLogo"/>
+        android:layout_below="@+id/authLogo"
+        app:layout_constraintTop_toBottomOf="@id/authLogo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/authAppName"
-        android:orientation="vertical"
-        android:gravity="center">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/authAppName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <Button
             android:id="@+id/authLogBtn"
@@ -44,9 +51,10 @@
             android:textSize="24sp"
             android:textColor="@color/white"
             android:fontFamily="@font/quicksand_bold"
+            android:layout_centerHorizontal="true"
             android:layout_margin="5dp"
             android:layout_width="200dp"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/authSignBtn"
@@ -54,9 +62,11 @@
             android:textSize="24sp"
             android:textColor="@color/white"
             android:fontFamily="@font/quicksand_bold"
+            android:layout_centerHorizontal="true"
             android:layout_margin="5dp"
             android:layout_width="200dp"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_below="@id/authLogBtn"/>
 
         <Button
             android:id="@+id/authGuestBtn"
@@ -65,9 +75,51 @@
             android:textColor="@color/black"
             android:fontFamily="@font/quicksand"
             android:background="@android:color/transparent"
+            android:layout_centerHorizontal="true"
             android:layout_margin="5dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_below="@id/authSignBtn"/>
 
-</RelativeLayout>
+    </RelativeLayout>
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/authAppName"-->
+<!--        android:orientation="vertical"-->
+<!--        android:gravity="center">-->
+
+<!--        <Button-->
+<!--            android:id="@+id/authLogBtn"-->
+<!--            android:text="@string/title_log_in"-->
+<!--            android:textSize="24sp"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:fontFamily="@font/quicksand_bold"-->
+<!--            android:layout_margin="5dp"-->
+<!--            android:layout_width="200dp"-->
+<!--            android:layout_height="wrap_content" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/authSignBtn"-->
+<!--            android:text="@string/title_sign_up"-->
+<!--            android:textSize="24sp"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:fontFamily="@font/quicksand_bold"-->
+<!--            android:layout_margin="5dp"-->
+<!--            android:layout_width="200dp"-->
+<!--            android:layout_height="wrap_content"/>-->
+
+<!--        <Button-->
+<!--            android:id="@+id/authGuestBtn"-->
+<!--            android:text="@string/title_guest"-->
+<!--            android:textSize="18sp"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:fontFamily="@font/quicksand"-->
+<!--            android:background="@android:color/transparent"-->
+<!--            android:layout_margin="5dp"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"/>-->
+<!--    </LinearLayout>-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>
