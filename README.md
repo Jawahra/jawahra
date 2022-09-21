@@ -9,5 +9,6 @@ A mobile application that helps you find out everything you need to know about t
 - Allelee Flores - QA Tester / Developer
 - Shayne Fajardo - UX Designer / Researcher
 - Kimberly Diaz - Business Analyst / Researcher
+- Akilah Lapure - Developer
 
 **This is a Creative Industries Project for Year 2 - Creative Computing Students in Bath Spa University RAK**
